@@ -7,14 +7,14 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public class MagicStick : Item
     {
         public Material Normal;
         public Material Used;
         public MeshRenderer MeshRenderer;
-        
+
         public enum StickState
         {
             Close,

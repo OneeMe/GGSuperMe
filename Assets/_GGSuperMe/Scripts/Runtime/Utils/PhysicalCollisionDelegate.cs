@@ -7,9 +7,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Utils
+namespace GGSuperMe.Runtime.Utils
 {
-    public class PhysicalCollisionDelegate: MonoBehaviour
+    public class PhysicalCollisionDelegate : MonoBehaviour
     {
         public delegate void CollisionDelegateHandler(Collision collision);
         public event CollisionDelegateHandler OnCollisionEnterEvent;
@@ -20,7 +20,7 @@ namespace PicoMRDemo.Runtime.Utils
         public event TriggerDelegateHandler OnTriggerEnterEvent;
         public event TriggerDelegateHandler OnTriggerStayEvent;
         public event TriggerDelegateHandler OnTriggerExitEvent;
-        
+
         private void OnCollisionEnter(Collision collision)
         {
             OnCollisionEnterEvent?.Invoke(collision);
@@ -50,7 +50,7 @@ namespace PicoMRDemo.Runtime.Utils
         {
             OnTriggerExitEvent?.Invoke(other, this);
         }
-        
+
         public void AddCollisionEvent(CollisionDelegateHandler enter = null, CollisionDelegateHandler stay = null, CollisionDelegateHandler exit = null)
         {
             OnCollisionEnterEvent += enter;

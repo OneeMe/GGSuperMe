@@ -7,21 +7,21 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using FSM;
-using PicoMRDemo.Runtime.Entity;
+using GGSuperMe.Runtime.Entity;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
-    
-    public class Item :MonoBehaviour, IItem
+
+    public class Item : MonoBehaviour, IItem
     {
         public GameObject GameObject => gameObject;
         public IEntity Entity { get; set; }
         public IEntityManager EntityManager { get; set; }
         public ItemState ItemState => StateMachine.ActiveState.name;
         public ulong Id { get; set; }
-        
+
         protected XRSimpleInteractable simpleInteractable;
         protected XRGrabInteractable grabInteractable;
         protected StateMachine<ItemState> StateMachine;
@@ -32,7 +32,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
         protected virtual void Awake()
         {
             simpleInteractable = GetComponentInChildren<XRSimpleInteractable>();
-            if(simpleInteractable == null)
+            if (simpleInteractable == null)
                 grabInteractable = GetComponentInChildren<XRGrabInteractable>();
             StateMachine = new StateMachine<ItemState>();
             if (this.GetComponent<Rigidbody>())
@@ -51,11 +51,11 @@ namespace PicoMRDemo.Runtime.Runtime.Item
         {
             UnregisterEvent();
         }
-        
+
         protected virtual void InitStateMachine()
         {
-            
-            StateMachine.AddState(ItemState.Normal, new State<ItemState>(onEnter:state =>
+
+            StateMachine.AddState(ItemState.Normal, new State<ItemState>(onEnter: state =>
             {
                 if (this.GetComponent<Rigidbody>())
                 {
@@ -78,12 +78,13 @@ namespace PicoMRDemo.Runtime.Runtime.Item
             {
                 simpleInteractable.selectExited.AddListener(OnHasSelected);
                 simpleInteractable.selectEntered.AddListener(OnSelectedEnter);
-            }else if (grabInteractable != null)
+            }
+            else if (grabInteractable != null)
             {
                 grabInteractable.selectEntered.AddListener(OnSelectedEnter);
                 grabInteractable.selectExited.AddListener(OnHasSelected);
             }
-            
+
         }
 
         private void UnregisterEvent()
@@ -99,7 +100,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 grabInteractable.selectExited.RemoveListener(OnHasSelected);
             }
         }
-        
+
         private void OnSelectedEnter(SelectEnterEventArgs args)
         {
             if (this.GetComponent<Rigidbody>())

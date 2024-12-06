@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Pico.Platform;
 using Pico.Platform.Models;
-using PicoMRDemo.Runtime.UI;
+using GGSuperMe.Runtime.UI;
 using UnityEngine.UI;
 using Unity.XR.PXR;
 using UnityEngine;
@@ -428,7 +428,7 @@ public class PXR_SharedAnchorManager : MonoBehaviour
             return;
         }
 
-        UserService.GetAccessToken().OnComplete(delegate(Message<string> message)
+        UserService.GetAccessToken().OnComplete(delegate (Message<string> message)
         {
             if (message.IsError)
             {
@@ -471,7 +471,7 @@ public class PXR_SharedAnchorManager : MonoBehaviour
             }
         }
 
-        UserService.GetLoggedInUser().OnComplete(delegate(Message<User> m)
+        UserService.GetLoggedInUser().OnComplete(delegate (Message<User> m)
         {
             if (m.IsError)
             {

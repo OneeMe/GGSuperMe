@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace PicoMRDemo.Runtime.Data.Config
+namespace GGSuperMe.Runtime.Data.Config
 {
     public enum PresetType
     {
@@ -33,16 +33,17 @@ namespace PicoMRDemo.Runtime.Data.Config
         public GameObject blockPreview;
         public GameObject blockPrefab;
         public GameObject AnchorPreviewPrefab;
-        
-        [FormerlySerializedAs("Nian")] [Header("Pet Prefab")] 
+
+        [FormerlySerializedAs("Nian")]
+        [Header("Pet Prefab")]
         public GameObject Robot;
         public GameObject AStar;
-        
+
         [Header("Material")]
         public Material RoomEntityMaterial;
         public Material Mirror;
 
-        [Header("Id2Prefab")] 
+        [Header("Id2Prefab")]
         public List<Id2PrefabData> Id2PrefabDatas;
 
         [Header("Id2Material")]
@@ -51,12 +52,12 @@ namespace PicoMRDemo.Runtime.Data.Config
         [Header("Id2PresetData")]
         public List<Id2PresetData> Id2PresetDatas;
 
-        [Header("Prefab")] 
+        [Header("Prefab")]
         public GameObject Skybox;
-        
-        
+
+
     }
-    
+
     [Serializable]
     public class Id2PrefabData
     {

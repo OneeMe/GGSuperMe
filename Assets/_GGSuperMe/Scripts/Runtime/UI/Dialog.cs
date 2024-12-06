@@ -11,45 +11,45 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
-    public class Dialog : MonoBehaviour ,IDialog
+    public class Dialog : MonoBehaviour, IDialog
     {
         public TMP_Text titleText;
-        
+
         public TMP_Text bodyText;
-        
+
         public TMP_Text firstText;
-        
+
         public TMP_Text secondText;
-        
+
         public Button firstButton;
-        
+
         public Button secondButton;
 
         private string title = null;
 
         private string body = null;
-        
+
         private UnityAction firstButtonAction = null;
 
         private UnityAction secondButtonAction = null;
-        
+
         private bool hasDismissed = false;
-        
-        
+
+
         public IDialog SetTitle(string title)
         {
             this.title = title;
             return this;
         }
-        
+
         public IDialog SetBody(string body)
         {
             this.body = body;
             return this;
         }
-        
+
         public IDialog SetFirstButton(string label, UnityAction action)
         {
             if (label == null) { return this; }
@@ -57,15 +57,15 @@ namespace PicoMRDemo.Runtime.UI
             firstButtonAction = action;
             return this;
         }
-        
-        public IDialog SetSecondButton(string label,UnityAction action)
+
+        public IDialog SetSecondButton(string label, UnityAction action)
         {
             if (label == null) { return this; }
             secondText.text = label;
             secondButtonAction = action;
             return this;
         }
-        
+
         public virtual void Reset()
         {
             title = null;
@@ -76,7 +76,7 @@ namespace PicoMRDemo.Runtime.UI
             secondButton.onClick.RemoveAllListeners();
             hasDismissed = false;
         }
-        
+
         /// <inheritdoc />
         public virtual IDialog Show()
         {
@@ -84,7 +84,7 @@ namespace PicoMRDemo.Runtime.UI
             titleText.text = title;
             bodyText.gameObject.SetActive(body != null);
             bodyText.text = body;
-            
+
             firstButton.onClick.AddListener(firstButtonAction);
             secondButton.onClick.AddListener(secondButtonAction);
             firstButton.gameObject.SetActive(firstButtonAction != null);
@@ -100,7 +100,7 @@ namespace PicoMRDemo.Runtime.UI
         {
             firstButtonAction = null;
             secondButtonAction = null;
-            
+
             if (hasDismissed) { return; }
             hasDismissed = true;
             gameObject.SetActive(false);
@@ -109,5 +109,5 @@ namespace PicoMRDemo.Runtime.UI
         /// <inheritdoc />
         public GameObject VisibleRoot => gameObject;
     }
-    
+
 }

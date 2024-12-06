@@ -8,7 +8,7 @@
 
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Data.Decoration
+namespace GGSuperMe.Runtime.Data.Decoration
 {
     public enum DecorationType
     {
@@ -24,7 +24,7 @@ namespace PicoMRDemo.Runtime.Data.Decoration
         string Title { get; }
         string Description { get; }
         DecorationType Type { get; }
-        
+
         Sprite Sprite { get; }
     }
 }

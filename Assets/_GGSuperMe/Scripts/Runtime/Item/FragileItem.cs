@@ -9,7 +9,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public class FragileItem : Item
     {
@@ -23,9 +23,9 @@ namespace PicoMRDemo.Runtime.Runtime.Item
         public GameObject FractureMesh;
         public GameObject FullGameObject;
         public GameObject FragmentsObject;
-        
+
         private UnfreezeFragment _fracture;
-        
+
         private void Start()
         {
             _fracture = FullGameObject.GetComponent<UnfreezeFragment>();
@@ -42,12 +42,12 @@ namespace PicoMRDemo.Runtime.Runtime.Item
             FullGameObject.SetActive(false);
             FragmentsObject.SetActive(true);
             if (AutoDisappear)
-            {            
+            {
                 StopCoroutine(nameof(Disappear));
                 StartCoroutine(nameof(Disappear));
             }
         }
-        
+
         /// <summary>
         /// 破碎后消失
         /// </summary>
@@ -66,7 +66,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 Destroy(this.gameObject);
             }
         }
-        
+
         void OnCollisionEnter(Collision collision)
         {
             _fracture.TryFractureByCollision(collision);

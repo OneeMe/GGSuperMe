@@ -10,7 +10,7 @@ using Cysharp.Threading.Tasks;
 using Unity.XR.PXR;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Entity
+namespace GGSuperMe.Runtime.Entity
 {
     public interface IEntityManager
     {
@@ -27,7 +27,7 @@ namespace PicoMRDemo.Runtime.Entity
 
         void SetGameEntityRootVisiable(bool isVisible);
         void SetRoomEntityRootVisiable(bool isVisible);
-        
+
         IList<IEntity> GetRoomEntities();
         IList<IEntity> GetGameEntities();
         IList<IEntity> GetRoomEntities(PxrSemanticLabel label);

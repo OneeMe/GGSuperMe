@@ -8,7 +8,7 @@
 using System;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Data.Decoration
+namespace GGSuperMe.Runtime.Data.Decoration
 {
     [Flags]
     public enum ItemType
@@ -23,7 +23,7 @@ namespace PicoMRDemo.Runtime.Data.Decoration
         BallDropRoad = 64,
         PaintBall = 128,
     }
-    
+
     [Serializable]
     public class DecorationData : IDecorationData
     {

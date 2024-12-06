@@ -5,30 +5,30 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
 using System;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Mock;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Runtime.Pet;
-using PicoMRDemo.Runtime.Runtime.PresetDecoration;
-using PicoMRDemo.Runtime.Runtime.SDK;
-using PicoMRDemo.Runtime.Runtime.ShootingGame;
-using PicoMRDemo.Runtime.Runtime.BallDrop;
-using PicoMRDemo.Runtime.Runtime.Theme;
-using PicoMRDemo.Runtime.Service;
-using PicoMRDemo.Runtime.UI;
-using PicoMRDemo.Runtime.Utils;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Mock;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Runtime.Pet;
+using GGSuperMe.Runtime.Runtime.PresetDecoration;
+using GGSuperMe.Runtime.Runtime.SDK;
+using GGSuperMe.Runtime.Runtime.ShootingGame;
+using GGSuperMe.Runtime.Runtime.BallDrop;
+using GGSuperMe.Runtime.Runtime.Theme;
+using GGSuperMe.Runtime.Service;
+using GGSuperMe.Runtime.UI;
+using GGSuperMe.Runtime.Utils;
 using Unity.XR.PXR;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using LocationService = PicoMRDemo.Runtime.Service.LocationService;
+using LocationService = GGSuperMe.Runtime.Service.LocationService;
 
-namespace PicoMRDemo.Runtime.Game
+namespace GGSuperMe.Runtime.Game
 {
     public class App : MonoBehaviour
     {
@@ -37,7 +37,7 @@ namespace PicoMRDemo.Runtime.Game
 
         private LifetimeScope _rootLifetimeScope;
         private IObjectResolver Container => _rootLifetimeScope.Container;
-        
+
         private ulong _onSpatialTrackingStateTask;
 
         public UIContext UIContext;
@@ -75,7 +75,7 @@ namespace PicoMRDemo.Runtime.Game
             spatialMeshManager.SetActive(false);
             UIContext.Instance.ToggleMainMenu();
         }
-        
+
         void OnApplicationPause(bool pause)
         {
             if (!pause)
@@ -87,7 +87,7 @@ namespace PicoMRDemo.Runtime.Game
         private void ConfigureRootAppContext(IContainerBuilder builder)
         {
             Debug.unityLogger.Log(_tag, "Configure App Context...");
-            
+
             builder.RegisterEntryPointExceptionHandler(OnEntryPointException);
 #if UNITY_EDITOR
             builder.Register<IEntityManager, MockEntityManager>(Lifetime.Singleton);
@@ -165,7 +165,7 @@ namespace PicoMRDemo.Runtime.Game
                 Debug.unityLogger.Log(_tag, "Start Load Room Entities");
                 await entityManager.LoadRoomEntities();
                 Debug.unityLogger.Log(_tag, "Load Room Entities Finished");
-                
+
 #if !UNITY_EDITOR
                 var persistentLoader = Container.Resolve<IPersistentLoader>();
                 await persistentLoader.LoadAllData();
@@ -216,7 +216,7 @@ namespace PicoMRDemo.Runtime.Game
                     {
                         uiContext.SetToast(true, ConstantProperty.EnterRoomTip);
                     }
-                    else 
+                    else
                     {
                         uiContext.SetToast(false, ConstantProperty.OutsideRoomTip);
                     }
@@ -229,7 +229,7 @@ namespace PicoMRDemo.Runtime.Game
         {
             return Container.Resolve<IRoomService>();
         }
-        
+
         private async UniTask UpdateAnchorData()
         {
             var entityManager = Container.Resolve<IEntityManager>();
@@ -241,9 +241,9 @@ namespace PicoMRDemo.Runtime.Game
                 await UniTask.Delay(1000);
             }
         }
-        
-        
-        
+
+
+
         private void OnEntryPointException(Exception ex)
         {
             Debug.unityLogger.LogException(ex);

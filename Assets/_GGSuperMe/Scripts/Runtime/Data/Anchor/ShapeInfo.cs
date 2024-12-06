@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Data.Anchor
+namespace GGSuperMe.Runtime.Data.Anchor
 {
     public class SceneBox3DData
     {
@@ -16,17 +16,17 @@ namespace PicoMRDemo.Runtime.Data.Anchor
         public Quaternion Rotation { get; set; }
         public Vector3 Extent { get; set; }
     }
-    
+
     public class SceneBox2DData
     {
         public Vector3 Center { get; set; }
         public Vector3 Extent { get; set; }
     }
-    
-    
+
+
     public class ScenePolygonData
     {
         public IList<Vector3> Vertices { get; set; }
     }
-    
+
 }

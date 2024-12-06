@@ -9,12 +9,12 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.ShootingGame
+namespace GGSuperMe.Runtime.Runtime.ShootingGame
 {
     public interface IBalloon
     {
         IList<Collider> Colliders { get; }
-        
+
         GameObject GameObject { get; }
         Rigidbody RigidBody { get; }
         UniTask Boom();

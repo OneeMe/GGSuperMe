@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Data.Decoration
+namespace GGSuperMe.Runtime.Data.Decoration
 {
 
     [Serializable]
@@ -29,7 +29,7 @@ namespace PicoMRDemo.Runtime.Data.Decoration
         [SerializeField]
         private List<ulong> _idList = new List<ulong>();
 
-        [SerializeField] 
+        [SerializeField]
         private Sprite _sprite;
 
         public ulong ThemeId
@@ -37,7 +37,7 @@ namespace PicoMRDemo.Runtime.Data.Decoration
             get => _themeId;
             set => _themeId = value;
         }
-        
+
         public string Title
         {
             get => _title;

@@ -7,15 +7,15 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Runtime.ShootingGame;
-using PicoMRDemo.Runtime.Runtime.BallDrop;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Runtime.ShootingGame;
+using GGSuperMe.Runtime.Runtime.BallDrop;
+using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using VContainer;
 using UnityEngine.UI;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class MainMenu : MonoBehaviour
     {
@@ -29,7 +29,7 @@ namespace PicoMRDemo.Runtime.UI
         public PaintShootPage PaintShootPage;
         public PetGamePage PetGamePage;
         public DebugMainPage DebugMainPage;
-        
+
         [Header("Activity Buttons")]
         public Toggle HomeButton;
         public Toggle DecorateRoomButton;
@@ -41,7 +41,7 @@ namespace PicoMRDemo.Runtime.UI
         public Toggle PetGameButton;
         public Toggle DebugMainPageButton;
 
-        [Header("Buttons")] 
+        [Header("Buttons")]
         public Button LogWindowButton;
 
         [Inject]
@@ -55,7 +55,7 @@ namespace PicoMRDemo.Runtime.UI
 
         [Inject]
         private IVirtualWorldManager _virtualWorldManager;
-        
+
         [Inject]
         private IBallDropGameManager _ballDropGameManager;
 
@@ -89,7 +89,7 @@ namespace PicoMRDemo.Runtime.UI
 
         private void Start()
         {
-           
+
         }
 
         private void OnEnable()
@@ -119,23 +119,23 @@ namespace PicoMRDemo.Runtime.UI
             DecorateRoomButton.onValueChanged.RemoveListener(OnDecorateRoom);
             HomeButton.onValueChanged.RemoveListener(OnHome);
         }
-        
+
         private void OnHome(bool isOn)
         {
             if (isOn)
             {
                 HomePage.TogglePage();
             }
-            
+
         }
-        
+
         private void OnDecorateRoom(bool isOn)
         {
             if (isOn)
             {
                 DecorateRoomPage.Open();
             }
-            
+
         }
 
         private void OnDoodle(bool isOn)
@@ -145,7 +145,7 @@ namespace PicoMRDemo.Runtime.UI
                 DoodlePage.TogglePage();
             }
         }
-        
+
         private void OnShoot(bool isOn)
         {
             if (isOn)
@@ -153,7 +153,7 @@ namespace PicoMRDemo.Runtime.UI
                 ShootPage.TogglePage();
             }
         }
-        
+
         private void OnVirtualWorld(bool isOn)
         {
             if (isOn)
@@ -161,7 +161,7 @@ namespace PicoMRDemo.Runtime.UI
                 VirtualWorldPage.TogglePage();
             }
         }
-        
+
         private void OnBallDrop(bool isOn)
         {
             if (isOn)
@@ -169,7 +169,7 @@ namespace PicoMRDemo.Runtime.UI
                 BallDropPage.TogglePage();
             }
         }
-        
+
         private void OnPaintShoot(bool isOn)
         {
             if (isOn)
@@ -177,7 +177,7 @@ namespace PicoMRDemo.Runtime.UI
                 PaintShootPage.TogglePage();
             }
         }
-        
+
         private void OnPetGame(bool isOn)
         {
             if (isOn)
@@ -185,7 +185,7 @@ namespace PicoMRDemo.Runtime.UI
                 PetGamePage.TogglePage();
             }
         }
-        
+
 
         private void OnDebugMainPage(bool isOn)
         {
@@ -208,14 +208,14 @@ namespace PicoMRDemo.Runtime.UI
                 //}
                 //else
                 //{
-                    var dis = Vector3.Distance(_cameraPosition, mainCameraPos);
-                    if (dis > 2f)
-                    {
-                        Close();
-                        break;
-                    }
+                var dis = Vector3.Distance(_cameraPosition, mainCameraPos);
+                if (dis > 2f)
+                {
+                    Close();
+                    break;
+                }
                 //}
-                
+
             }
         }
     }

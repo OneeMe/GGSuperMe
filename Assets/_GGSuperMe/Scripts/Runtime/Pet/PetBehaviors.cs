@@ -11,12 +11,12 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Pathfinding;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace PicoMRDemo.Runtime.Runtime.Pet
+namespace GGSuperMe.Runtime.Runtime.Pet
 {
     public enum PetAnimationType
     {
@@ -48,7 +48,7 @@ namespace PicoMRDemo.Runtime.Runtime.Pet
         public Vector3 PatrolTargetPosition { get; set; }
         public ICatchableManager CatchableManager { get; set; }
         public IVirtualWorldManager VirtualWorldManager { get; set; }
-        
+
         public HashSet<GraphNode> OriginWalkableNodes { get; } = new HashSet<GraphNode>();
         public HashSet<GraphNode> ExtendWalkableNodes { get; } = new HashSet<GraphNode>();
 
@@ -148,7 +148,7 @@ namespace PicoMRDemo.Runtime.Runtime.Pet
             {
                 await UniTask.Yield();
             }
-            
+
             destinationSetter.enabled = false;
             ReachedTempTarget?.Invoke(TempTarget);
 
@@ -169,9 +169,9 @@ namespace PicoMRDemo.Runtime.Runtime.Pet
             }
             ReachedVritualWorld?.Invoke();
         }
-        
-        
-        
+
+
+
         public async UniTask TrackRealWorld()
         {
             Agent.enabled = false;
@@ -220,7 +220,7 @@ namespace PicoMRDemo.Runtime.Runtime.Pet
             {
                 await UniTask.Yield();
             }
-            
+
             ReachedPatrolTarget?.Invoke();
         }
         public bool HasTempTarget => TempTarget != null;
@@ -312,13 +312,13 @@ namespace PicoMRDemo.Runtime.Runtime.Pet
             }
             return result;
         }
-        
+
         public void PlayAnimation(PetAnimationType animationType)
         {
             var animId = (int)animationType;
             Animator?.SetInteger("state", animId);
         }
-        
+
         public async UniTask PlayAnimationAwait(PetAnimationType animationType, CancellationToken cancellationToken)
         {
             if (!Animator) return;

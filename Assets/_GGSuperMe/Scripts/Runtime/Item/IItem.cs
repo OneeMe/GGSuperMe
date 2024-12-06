@@ -6,10 +6,10 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using PicoMRDemo.Runtime.Entity;
+using GGSuperMe.Runtime.Entity;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public enum ItemState
     {
@@ -19,16 +19,16 @@ namespace PicoMRDemo.Runtime.Runtime.Item
     public interface IItem
     {
         GameObject GameObject { get; }
-        
+
         IEntity Entity { get; set; }
-        
+
         IEntityManager EntityManager { get; set; }
-        
+
         ItemState ItemState { get; }
-        
+
         ulong Id { get; set; }
 
         void SetInitState(ItemState state);
-        
+
     }
 }

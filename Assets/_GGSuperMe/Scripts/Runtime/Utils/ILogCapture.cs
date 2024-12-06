@@ -10,12 +10,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace PicoMRDemo.Runtime.Utils
+namespace GGSuperMe.Runtime.Utils
 {
     public interface ILogCapture
     {
-         IList<ConsoleListItemData> AllLogsDataList { get; }
-         event Action<int> SetDataCount;
+        IList<ConsoleListItemData> AllLogsDataList { get; }
+        event Action<int> SetDataCount;
     }
 
 
@@ -30,12 +30,12 @@ namespace PicoMRDemo.Runtime.Utils
         {
             Application.logMessageReceivedThreaded += OnLogReceived;
         }
-        
+
         public void LateTick()
         {
             ReceiveToDataList();
         }
-        
+
         private void OnLogReceived(string logMsg, string stackTrace, LogType type)
         {
 
@@ -62,7 +62,7 @@ namespace PicoMRDemo.Runtime.Utils
                 _receivingDataList.Add(item);
             }
         }
-        
+
         private void ReceiveToDataList()
         {
             var addCount = 0;
@@ -75,10 +75,10 @@ namespace PicoMRDemo.Runtime.Utils
                 }
 
                 var targetList = _allLogsDataList;
-                
+
                 // CalcLevelsCounts(out countD, out countI, out countW, out countE);
                 // CommonUtil.LimitFromEnd(ref targetList, ref sourceList, MaxLogsCount);
-                
+
                 targetList.AddRange(sourceList);
                 addCount = sourceList.Count;
                 sourceList.Clear();
@@ -113,9 +113,9 @@ namespace PicoMRDemo.Runtime.Utils
         public string msg;
         public string stack;
         public string tag;
-        
+
         public System.DateTime dateTime;
-        
+
         public float gameTime;
         public int gameFrame;
 

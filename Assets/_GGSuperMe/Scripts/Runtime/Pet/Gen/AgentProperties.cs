@@ -200,47 +200,47 @@ namespace behaviac
 			// behaviac.Agent
 			meta = new AgentMeta(24743406);
 			AgentMeta._AgentMetas_[2436498804] = meta;
-			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { behaviac.Agent.LogMessage(param0); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate (string param0) { behaviac.Agent.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
 			meta.RegisterMethod(505785840, new CMethod_behaviac_Agent_VectorLength());
 			meta.RegisterMethod(502968959, new CMethod_behaviac_Agent_VectorRemove());
 
-			// PicoMRDemo.Runtime.Pet.PetAgent
+			// GGSuperMe.Runtime.Pet.PetAgent
 			meta = new AgentMeta(1258109957);
 			AgentMeta._AgentMetas_[2009524875] = meta;
-			meta.RegisterMethod(4113135372, new CAgentMethod<bool>(delegate(Agent self) { return ((PicoMRDemo.Runtime.Pet.PetAgent)self).CheckCatchBall(); }));
-			meta.RegisterMethod(3314117865, new CAgentMethod<float>(delegate(Agent self) { return ((PicoMRDemo.Runtime.Pet.PetAgent)self).GetRandomValue(); }));
-			meta.RegisterMethod(2184363993, new CAgentMethod<bool>(delegate(Agent self) { return ((PicoMRDemo.Runtime.Pet.PetAgent)self).HasInVirtualWorld(); }));
-			meta.RegisterMethod(3989009733, new CAgentMethod<bool>(delegate(Agent self) { return ((PicoMRDemo.Runtime.Pet.PetAgent)self).IsCatchingBall(); }));
-			meta.RegisterMethod(3886701596, new CAgentMethod<bool>(delegate(Agent self) { return ((PicoMRDemo.Runtime.Pet.PetAgent)self).IsRua(); }));
-			meta.RegisterMethod(3636643904, new CAgentMethod<bool>(delegate(Agent self) { return ((PicoMRDemo.Runtime.Pet.PetAgent)self).IsTouch(); }));
-			meta.RegisterMethod(3247142779, new CAgentMethod<bool>(delegate(Agent self) { return ((PicoMRDemo.Runtime.Pet.PetAgent)self).IsVirtualWorld(); }));
-			meta.RegisterMethod(1528302711, new CAgentMethod<bool>(delegate(Agent self) { return ((PicoMRDemo.Runtime.Pet.PetAgent)self).IsWalkFinish(); }));
-			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { PicoMRDemo.Runtime.Pet.PetAgent.LogMessage(param0); }));
-			meta.RegisterMethod(740963922, new CAgentMethodVoid(delegate(Agent self) { ((PicoMRDemo.Runtime.Pet.PetAgent)self).Patrol(); }));
-			meta.RegisterMethod(3027631725, new CAgentMethodVoid(delegate(Agent self) { ((PicoMRDemo.Runtime.Pet.PetAgent)self).PlayCatchBall(); }));
-			meta.RegisterMethod(1530362739, new CAgentMethodVoid(delegate(Agent self) { ((PicoMRDemo.Runtime.Pet.PetAgent)self).PlayIdle(); }));
-			meta.RegisterMethod(1698367831, new CAgentMethodVoid(delegate(Agent self) { ((PicoMRDemo.Runtime.Pet.PetAgent)self).PlayRua(); }));
-			meta.RegisterMethod(767201068, new CAgentMethodVoid(delegate(Agent self) { ((PicoMRDemo.Runtime.Pet.PetAgent)self).PlayWalk(); }));
+			meta.RegisterMethod(4113135372, new CAgentMethod<bool>(delegate (Agent self) { return ((GGSuperMe.Runtime.Pet.PetAgent)self).CheckCatchBall(); }));
+			meta.RegisterMethod(3314117865, new CAgentMethod<float>(delegate (Agent self) { return ((GGSuperMe.Runtime.Pet.PetAgent)self).GetRandomValue(); }));
+			meta.RegisterMethod(2184363993, new CAgentMethod<bool>(delegate (Agent self) { return ((GGSuperMe.Runtime.Pet.PetAgent)self).HasInVirtualWorld(); }));
+			meta.RegisterMethod(3989009733, new CAgentMethod<bool>(delegate (Agent self) { return ((GGSuperMe.Runtime.Pet.PetAgent)self).IsCatchingBall(); }));
+			meta.RegisterMethod(3886701596, new CAgentMethod<bool>(delegate (Agent self) { return ((GGSuperMe.Runtime.Pet.PetAgent)self).IsRua(); }));
+			meta.RegisterMethod(3636643904, new CAgentMethod<bool>(delegate (Agent self) { return ((GGSuperMe.Runtime.Pet.PetAgent)self).IsTouch(); }));
+			meta.RegisterMethod(3247142779, new CAgentMethod<bool>(delegate (Agent self) { return ((GGSuperMe.Runtime.Pet.PetAgent)self).IsVirtualWorld(); }));
+			meta.RegisterMethod(1528302711, new CAgentMethod<bool>(delegate (Agent self) { return ((GGSuperMe.Runtime.Pet.PetAgent)self).IsWalkFinish(); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate (string param0) { GGSuperMe.Runtime.Pet.PetAgent.LogMessage(param0); }));
+			meta.RegisterMethod(740963922, new CAgentMethodVoid(delegate (Agent self) { ((GGSuperMe.Runtime.Pet.PetAgent)self).Patrol(); }));
+			meta.RegisterMethod(3027631725, new CAgentMethodVoid(delegate (Agent self) { ((GGSuperMe.Runtime.Pet.PetAgent)self).PlayCatchBall(); }));
+			meta.RegisterMethod(1530362739, new CAgentMethodVoid(delegate (Agent self) { ((GGSuperMe.Runtime.Pet.PetAgent)self).PlayIdle(); }));
+			meta.RegisterMethod(1698367831, new CAgentMethodVoid(delegate (Agent self) { ((GGSuperMe.Runtime.Pet.PetAgent)self).PlayRua(); }));
+			meta.RegisterMethod(767201068, new CAgentMethodVoid(delegate (Agent self) { ((GGSuperMe.Runtime.Pet.PetAgent)self).PlayWalk(); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
 			meta.RegisterMethod(505785840, new CMethod_behaviac_Agent_VectorLength());
 			meta.RegisterMethod(502968959, new CMethod_behaviac_Agent_VectorRemove());
-			meta.RegisterMethod(2384217948, new CAgentMethodVoid(delegate(Agent self) { ((PicoMRDemo.Runtime.Pet.PetAgent)self).WalkToRealWorld(); }));
-			meta.RegisterMethod(3052411395, new CAgentMethodVoid(delegate(Agent self) { ((PicoMRDemo.Runtime.Pet.PetAgent)self).WalkToVirtualWorld(); }));
+			meta.RegisterMethod(2384217948, new CAgentMethodVoid(delegate (Agent self) { ((GGSuperMe.Runtime.Pet.PetAgent)self).WalkToRealWorld(); }));
+			meta.RegisterMethod(3052411395, new CAgentMethodVoid(delegate (Agent self) { ((GGSuperMe.Runtime.Pet.PetAgent)self).WalkToVirtualWorld(); }));
 
 			AgentMeta.Register<behaviac.Agent>("behaviac.Agent");
-			AgentMeta.Register<PicoMRDemo.Runtime.Pet.PetAgent>("PicoMRDemo.Runtime.Pet.PetAgent");
+			AgentMeta.Register<GGSuperMe.Runtime.Pet.PetAgent>("GGSuperMe.Runtime.Pet.PetAgent");
 			return true;
 		}
 
 		public override bool UnLoad()
 		{
 			AgentMeta.UnRegister<behaviac.Agent>("behaviac.Agent");
-			AgentMeta.UnRegister<PicoMRDemo.Runtime.Pet.PetAgent>("PicoMRDemo.Runtime.Pet.PetAgent");
+			AgentMeta.UnRegister<GGSuperMe.Runtime.Pet.PetAgent>("GGSuperMe.Runtime.Pet.PetAgent");
 			return true;
 		}
 	}

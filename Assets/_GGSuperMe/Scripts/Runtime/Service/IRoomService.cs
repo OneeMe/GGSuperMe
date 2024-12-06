@@ -10,20 +10,20 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Pathfinding;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Utils;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Runtime.Pet;
-using PicoMRDemo.Runtime.Runtime.PresetDecoration;
-using PicoMRDemo.Runtime.UI;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Utils;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Runtime.Pet;
+using GGSuperMe.Runtime.Runtime.PresetDecoration;
+using GGSuperMe.Runtime.UI;
 using Unity.XR.PXR;
 using UnityEngine;
 using UnityEngine.Rendering;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.Service
+namespace GGSuperMe.Runtime.Service
 {
     public interface IRoomService
     {
@@ -35,7 +35,7 @@ namespace PicoMRDemo.Runtime.Service
         void RefreshRoomEntities();
         void EnterRoom();
         void QuitRoom();
-        
+
         void SwitchTheme(IDecorationData data);
         void SwitchAllTheme(IDecorationData data);
         void ResetPetPosition();
@@ -43,10 +43,10 @@ namespace PicoMRDemo.Runtime.Service
     public class RoomService : IRoomService
     {
         private bool _isAnchorCreate = false;
-        
-        
+
+
         private readonly string TAG = nameof(RoomService);
-        
+
         private IEntityManager _entityManager;
 
         private IResourceLoader _resourceLoader;
@@ -68,9 +68,9 @@ namespace PicoMRDemo.Runtime.Service
         [Inject]
         private IThemeManager _themeManager;
 
-        [Inject] 
+        [Inject]
         private IPersistentLoader _persistentLoader;
-        
+
         [Inject]
         public RoomService(IEntityManager entityManager, IResourceLoader resourceLoader)
         {
@@ -82,12 +82,12 @@ namespace PicoMRDemo.Runtime.Service
         {
             return _isAnchorCreate;
         }
-        
+
         public void SetAnchorCreate(bool isAnchorCreate)
         {
             _isAnchorCreate = isAnchorCreate;
         }
-        
+
         public void ShowRoomEntities()
         {
             var roomEntities = _entityManager.GetRoomEntities();
@@ -176,13 +176,13 @@ namespace PicoMRDemo.Runtime.Service
                     _themeManager.SwitchTheme(decorationData);
                 }
             }
-            
+
 
             if (_astarpathFinder == null)
             {
                 _astarpathFinder = await InitAStar();
             }
-            
+
             ReplaceFloorAndCeilingMeshCollider();
             // set light
             var ceiling = _entityManager.GetRoomEntities(PxrSemanticLabel.Ceiling);
@@ -238,7 +238,7 @@ namespace PicoMRDemo.Runtime.Service
             }
             //CreatRoomPreviewItem();
 
-            
+
             await _entityManager.LoadGameEntities();
         }
 
@@ -282,7 +282,7 @@ namespace PicoMRDemo.Runtime.Service
             foreach (var roomEntity in roomEntities)
             {
                 var label = roomEntity.GetRoomLabel();
-                if (label == PxrSemanticLabel.Ceiling || label == PxrSemanticLabel.Floor )
+                if (label == PxrSemanticLabel.Ceiling || label == PxrSemanticLabel.Floor)
                 {
                     //Debug.unityLogger.Log(TAG, $"begin {label} refresh");
                     var meshCollider = roomEntity.GameObject.GetComponentInChildren<MeshCollider>();
@@ -298,8 +298,8 @@ namespace PicoMRDemo.Runtime.Service
             var anchorObject = entity.GameObject;
             var anchorData = entity.AnchorData;
             var roomEntityMaterial = _resourceLoader.AssetSetting.RoomEntityMaterial;
-            if (anchorData.SceneLabel == PxrSemanticLabel.Table 
-                || anchorData.SceneLabel == PxrSemanticLabel.Sofa 
+            if (anchorData.SceneLabel == PxrSemanticLabel.Table
+                || anchorData.SceneLabel == PxrSemanticLabel.Sofa
                 || anchorData.SceneLabel == PxrSemanticLabel.Chair
                 || anchorData.SceneLabel == PxrSemanticLabel.Human)
             {
@@ -315,7 +315,7 @@ namespace PicoMRDemo.Runtime.Service
                 roomObject.transform.localScale = box3DInfo.Extent;
 
                 var meshRenderer = roomObject.GetComponent<MeshRenderer>();
-                
+
                 meshRenderer.material = roomEntityMaterial;
                 roomObject.layer = 11;
             }
@@ -327,7 +327,7 @@ namespace PicoMRDemo.Runtime.Service
                 var extent = box2DInfo.Extent;
                 //Debug.unityLogger.Log(TAG, $"Plane center: {box2DInfo.Center} extent: {box2DInfo.Extent}");
                 //Debug.unityLogger.Log(TAG, $"Label: {anchorData.SceneLabel} end");
-                
+
                 var wall = MeshGenerator.GenerateQuadMesh(box2DInfo.Center, box2DInfo.Extent, null);
                 wall.transform.parent = anchorObject.transform;
                 wall.transform.localRotation = Quaternion.identity;
@@ -352,7 +352,7 @@ namespace PicoMRDemo.Runtime.Service
             if (anchorData.SceneLabel == PxrSemanticLabel.Ceiling || anchorData.SceneLabel == PxrSemanticLabel.Floor)
             {
                 var planePolygonInfo = entity.AnchorData.ScenePolygonData;
-                
+
                 var roomObject = MeshGenerator.GeneratePolygonMesh(planePolygonInfo.Vertices, null);
                 roomObject.transform.parent = anchorObject.transform;
                 roomObject.transform.localRotation = Quaternion.identity;
@@ -422,7 +422,7 @@ namespace PicoMRDemo.Runtime.Service
             var pathFinder = Object.Instantiate(pathFinderPrefab).GetComponent<AstarPath>();
             return pathFinder;
         }
-        
+
         private Vector3 GetWalkablePosition(AstarPath astarPath)
         {
             List<GraphNode> walkableNodes = new List<GraphNode>();
@@ -441,7 +441,7 @@ namespace PicoMRDemo.Runtime.Service
             }
             return result;
         }
-        
+
         [Inject]
         private IDecorationDataLoader _decorationDataLoader;
         [Inject]
@@ -451,7 +451,7 @@ namespace PicoMRDemo.Runtime.Service
         {
             var tableAreas = new Queue<Vector3>();
             var roomEntities = _entityManager.GetRoomEntities();
-            
+
             foreach (var roomEntity in roomEntities)
             {
                 if (roomEntity.GetRoomLabel() == PxrSemanticLabel.Table)
@@ -464,7 +464,7 @@ namespace PicoMRDemo.Runtime.Service
                         continue;
                     }
 
-                    Vector3 offset = new Vector3(- volumeInfo.Extent.x / 2, - volumeInfo.Extent.y / 2, 0.1f);
+                    Vector3 offset = new Vector3(-volumeInfo.Extent.x / 2, -volumeInfo.Extent.y / 2, 0.1f);
                     int lenghtNum = (int)(volumeInfo.Extent.x / ConstantProperty.SlotSize);
                     int widthNum = (int)(volumeInfo.Extent.y / ConstantProperty.SlotSize);
                     for (int i = 0; i < lenghtNum; i++)
@@ -494,7 +494,7 @@ namespace PicoMRDemo.Runtime.Service
                 if (tableAreas.Count > 0)
                 {
                     var pos = tableAreas.Dequeue();
-                    _itemFactory.CreateItem(resourceID, pos, Quaternion.identity, ItemState.Normal); 
+                    _itemFactory.CreateItem(resourceID, pos, Quaternion.identity, ItemState.Normal);
                 }
                 else
                 {

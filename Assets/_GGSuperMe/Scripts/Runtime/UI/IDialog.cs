@@ -9,27 +9,27 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public interface IDialog
     {
         IDialog SetTitle(string title);
 
-        
+
         IDialog SetBody(string body);
-        
 
-        IDialog SetFirstButton(string label,UnityAction action = null);
 
-       
+        IDialog SetFirstButton(string label, UnityAction action = null);
+
+
         IDialog SetSecondButton(string label, UnityAction action = null);
-        
+
         void Reset();
-        
+
         IDialog Show();
-        
+
         void Dismiss();
-        
+
         GameObject VisibleRoot { get; }
     }
 }

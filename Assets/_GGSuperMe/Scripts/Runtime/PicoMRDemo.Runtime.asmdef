@@ -1,6 +1,6 @@
 {
-    "name": "PicoMRDemo.Runtime",
-    "rootNamespace": "PicoMRDemo.Runtime",
+    "name": "GGSuperMe.Runtime",
+    "rootNamespace": "GGSuperMe.Runtime",
     "references": [
         "Unity.XR.PICO",
         "Unity.XR.Interaction.Toolkit",

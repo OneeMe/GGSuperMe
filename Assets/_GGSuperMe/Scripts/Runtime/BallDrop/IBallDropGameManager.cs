@@ -7,13 +7,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.BallDrop
+namespace GGSuperMe.Runtime.Runtime.BallDrop
 {
     public interface IBallDropGameManager
     {
-        void ClearBalls(); 
-        void ClearBlocks(); 
-        void ClearRoads(); 
+        void ClearBalls();
+        void ClearBlocks();
+        void ClearRoads();
         void ClearAll();
 
         void ShowDemoGameData();

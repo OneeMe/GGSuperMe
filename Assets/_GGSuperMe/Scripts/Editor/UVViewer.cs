@@ -18,7 +18,7 @@ using UnityEngine;
 using UnityEditor;
 
 
-namespace PicoMRDemo.Editor
+namespace GGSuperMe.Editor
 {
     public class UV_SubMesh
     {
@@ -97,7 +97,7 @@ namespace PicoMRDemo.Editor
         void OnEnable()
         {
             titleContent = new GUIContent("UV Viewer");
-            minSize = new Vector2(650,200);
+            minSize = new Vector2(650, 200);
             UpdateMesh();
 
             SceneView.duringSceneGui += OnSceneGUI;
@@ -302,7 +302,7 @@ namespace PicoMRDemo.Editor
 
         void DrawTriangleList()
         {
-            GUILayout.BeginVertical("Window",GUILayout.Width(255));
+            GUILayout.BeginVertical("Window", GUILayout.Width(255));
             m_TriangleListScrollPos = GUILayout.BeginScrollView(m_TriangleListScrollPos);
             if (m_Submesh == null || m_Submesh.m_Indices == null)
             {
@@ -322,7 +322,7 @@ namespace PicoMRDemo.Editor
                 {
                     int off = i * 3;
                     if (i == m_SelectedVertTriangle)
-                        GUI.color = new Color(1f,0.7f,0.7f,1f);
+                        GUI.color = new Color(1f, 0.7f, 0.7f, 1f);
                     if (i == m_SelectedTriangle)
                         GUI.color = Color.red;
                     GUILayout.BeginHorizontal("box", GUILayout.Height(20));
@@ -330,7 +330,7 @@ namespace PicoMRDemo.Editor
                         GUI.color = new Color(1f, 0.5f, 0.5f, 1f);
                     else
                         GUI.color = Color.yellow;
-                    if (GUILayout.Button("T"+i, GUILayout.Width(50)))
+                    if (GUILayout.Button("T" + i, GUILayout.Width(50)))
                     {
                         m_SelectedVertTriangle = i;
                         m_SelectedVertex = -1;
@@ -342,7 +342,7 @@ namespace PicoMRDemo.Editor
                     GUILayout.EndHorizontal();
                     GUI.color = old;
                 }
-                GUILayout.Space((triCount- m_TriList_Last) * 20);
+                GUILayout.Space((triCount - m_TriList_Last) * 20);
             }
             GUILayout.EndScrollView();
             GUILayout.EndVertical();
@@ -435,7 +435,7 @@ namespace PicoMRDemo.Editor
             {
                 if (m_UV[i] == null)
                 {
-                    GUI.color = new Color(1,0.6f,0.6f,0.8f);
+                    GUI.color = new Color(1, 0.6f, 0.6f, 0.8f);
                     GUILayout.Label("No uv" + i, "Button");
                 }
                 else
@@ -493,14 +493,14 @@ namespace PicoMRDemo.Editor
                             m_Texture.filterMode = FilterMode.Point;
                         if (m_ShowWrap)
                         {
-                            
+
                             Rect Rtmp = TexArea;
                             var center = Rtmp.center;
-                            Rtmp.width *= 1+ m_WrapCount*2;
-                            Rtmp.height *= 1+ m_WrapCount*2;
+                            Rtmp.width *= 1 + m_WrapCount * 2;
+                            Rtmp.height *= 1 + m_WrapCount * 2;
                             Rtmp.center = center;
-                            GUI.color = new Color(1, 1, 1, 0.5f*m_BackGroundColor.a);
-                            Graphics.DrawTexture(Rtmp, m_Texture, new Rect(-m_WrapCount, -m_WrapCount, 1+ m_WrapCount*2, 1+ m_WrapCount*2), 0, 0, 0, 0, GUI.color, m_TextureMapAlphaOnly);
+                            GUI.color = new Color(1, 1, 1, 0.5f * m_BackGroundColor.a);
+                            Graphics.DrawTexture(Rtmp, m_Texture, new Rect(-m_WrapCount, -m_WrapCount, 1 + m_WrapCount * 2, 1 + m_WrapCount * 2), 0, 0, 0, 0, GUI.color, m_TextureMapAlphaOnly);
                         }
                         GUI.color = new Color(1, 1, 1, /*0.5f */ m_BackGroundColor.a);
                         Graphics.DrawTexture(TexArea, m_Texture, new Rect(0, 0, 1, 1), 0, 0, 0, 0, GUI.color, m_TextureMapNormal);
@@ -511,7 +511,7 @@ namespace PicoMRDemo.Editor
                 Drawing.BeginGL(new Color(1, 1, 1, 0.2f), GL.LINES);
                 if (m_ShowWrap)
                 {
-                    for (int i = -m_WrapCount; i <= m_WrapCount+1; i++)
+                    for (int i = -m_WrapCount; i <= m_WrapCount + 1; i++)
                     {
                         GL.Vertex(new Vector2(m_Offset.x + m_Width * i, 0));
                         GL.Vertex(new Vector2(m_Offset.x + m_Width * i, 10000));
@@ -592,10 +592,10 @@ namespace PicoMRDemo.Editor
                         GL.End();
                     }
 
-                    if (m_SelectedTriangle >= 0 && m_SelectedTriangle< m_Triangles.Length)
+                    if (m_SelectedTriangle >= 0 && m_SelectedTriangle < m_Triangles.Length)
                     {
                         Drawing.BeginGL(new Color(1, 0, 0, 0.2f), GL.TRIANGLES);
-                        
+
                         var P1 = m_UV[m_CurrentUVSet][m_Triangles[m_SelectedTriangle * 3 + 0]];
                         var P2 = m_UV[m_CurrentUVSet][m_Triangles[m_SelectedTriangle * 3 + 1]];
                         var P3 = m_UV[m_CurrentUVSet][m_Triangles[m_SelectedTriangle * 3 + 2]];
@@ -623,7 +623,7 @@ namespace PicoMRDemo.Editor
 
                     if (m_SelectedVertex >= 0 && m_Submesh != null && m_Submesh.m_Indices != null)
                     {
-                        m_CurrentUVSet = Mathf.Clamp(m_CurrentUVSet, 0, m_UV.Count-1);
+                        m_CurrentUVSet = Mathf.Clamp(m_CurrentUVSet, 0, m_UV.Count - 1);
                         m_SelectedVertex = Mathf.Clamp(m_SelectedVertex, 0, m_Submesh.m_Indices.Length - 1);
                         var P1 = m_UV[m_CurrentUVSet][m_Submesh.m_Indices[m_SelectedVertex]];
                         P1.y = 1.0f - P1.y;
@@ -643,7 +643,7 @@ namespace PicoMRDemo.Editor
                     if (m_SelectedVertTriangle >= 0 && m_Submesh != null && m_Submesh.m_Indices != null)
                     {
                         m_CurrentUVSet = Mathf.Clamp(m_CurrentUVSet, 0, m_UV.Count - 1);
-                        m_SelectedVertTriangle = Mathf.Clamp(m_SelectedVertTriangle, 0, m_Submesh.m_Indices.Length/3 - 1);
+                        m_SelectedVertTriangle = Mathf.Clamp(m_SelectedVertTriangle, 0, m_Submesh.m_Indices.Length / 3 - 1);
                         var P1 = m_UV[m_CurrentUVSet][m_Submesh.m_Indices[m_SelectedVertTriangle * 3 + 0]];
                         var P2 = m_UV[m_CurrentUVSet][m_Submesh.m_Indices[m_SelectedVertTriangle * 3 + 1]];
                         var P3 = m_UV[m_CurrentUVSet][m_Submesh.m_Indices[m_SelectedVertTriangle * 3 + 2]];
@@ -717,14 +717,14 @@ namespace PicoMRDemo.Editor
                     SceneView.RepaintAll();
                 }
             }
-            else if(e.type == EventType.KeyDown)
+            else if (e.type == EventType.KeyDown)
             {
                 if (m_Submesh != null && m_Submesh.m_Indices != null)
                 {
                     if (e.keyCode == KeyCode.UpArrow)
                     {
                         if (m_SelectedVertex >= 0) m_SelectedVertex = Mathf.Clamp(m_SelectedVertex - 3, 0, m_Submesh.m_Indices.Length - 1);
-                        if (m_SelectedVertTriangle>= 0) m_SelectedVertTriangle = Mathf.Clamp(m_SelectedVertTriangle - 1, 0, m_Submesh.m_Indices.Length/3 - 1);
+                        if (m_SelectedVertTriangle >= 0) m_SelectedVertTriangle = Mathf.Clamp(m_SelectedVertTriangle - 1, 0, m_Submesh.m_Indices.Length / 3 - 1);
                     }
                     else if (e.keyCode == KeyCode.DownArrow)
                     {
@@ -858,7 +858,7 @@ namespace PicoMRDemo.Editor
 
                 if (m_SelectedTriangle >= 0)
                 {
-                    m_SelectedTriangle = Mathf.Clamp(m_SelectedTriangle, 0, m_Triangles.Length / 3-1);
+                    m_SelectedTriangle = Mathf.Clamp(m_SelectedTriangle, 0, m_Triangles.Length / 3 - 1);
                     Drawing.BeginGL(new Color(0, 1, 0, 0.9f), GL.TRIANGLES, true);
                     var P1 = M.MultiplyPoint(m_Vertices[m_Triangles[m_SelectedTriangle * 3 + 0]]);
                     var P2 = M.MultiplyPoint(m_Vertices[m_Triangles[m_SelectedTriangle * 3 + 1]]);
@@ -878,7 +878,7 @@ namespace PicoMRDemo.Editor
 
                 if (m_ShowTriangleList && m_SelectedVertTriangle >= 0 && m_Submesh != null && m_Submesh.m_Indices != null)
                 {
-                    int index = m_SelectedVertTriangle*3;
+                    int index = m_SelectedVertTriangle * 3;
                     if (index < m_Submesh.m_Indices.Length)
                     {
                         int i0 = m_Submesh.m_Indices[index + 0];

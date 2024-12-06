@@ -8,13 +8,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Config;
-using PicoMRDemo.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Config;
+using GGSuperMe.Runtime.Data.Decoration;
 using UnityEngine;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.Service
+namespace GGSuperMe.Runtime.Service
 {
     public interface IDecorationDataLoader
     {
@@ -62,7 +62,7 @@ namespace PicoMRDemo.Runtime.Service
                 originDatas = ResourceLoader.ThemeTable.ThemeDatas.Select(x => x as IDecorationData);
             if (type == DecorationType.DropBallItem)
                 originDatas = ResourceLoader.BallDropItemTable.ItemDatas.Select(x => x as IDecorationData);
-            
+
             foreach (var originData in originDatas)
             {
                 result.Add(originData);
@@ -92,7 +92,7 @@ namespace PicoMRDemo.Runtime.Service
             return assetConfig;
         }
     }
-    
+
     public class MaterialLoader : IMaterialLoader
     {
         [Inject]

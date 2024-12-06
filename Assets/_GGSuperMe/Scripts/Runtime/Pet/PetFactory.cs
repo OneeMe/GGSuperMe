@@ -5,14 +5,14 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Pet;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Pet;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.Runtime.Pet
+namespace GGSuperMe.Runtime.Runtime.Pet
 {
     public class PetFactory : IPetFactory
     {
@@ -24,7 +24,7 @@ namespace PicoMRDemo.Runtime.Runtime.Pet
 
         [Inject]
         public IVirtualWorldManager VirtualWorldManager;
-        
+
         public GameObject CreatePet(Vector3 position, Quaternion rotation)
         {
             var prefab = ResourceLoader.AssetSetting.Robot;

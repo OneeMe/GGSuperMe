@@ -8,17 +8,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Honeti;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class DoodlePage : MonoBehaviour
     {
@@ -28,15 +28,15 @@ namespace PicoMRDemo.Runtime.UI
 
         [Inject]
         public IDecorationDataLoader DecorationDataLoader;
-        
+
         public void TogglePage()
         {
             if (OpenToggle.isOn) return;
-            
+
             ClearPage();
             OpenToggle.isOn = true;
         }
-        
+
         private void OnEnable()
         {
             RegisterEvent();
@@ -47,8 +47,8 @@ namespace PicoMRDemo.Runtime.UI
         {
             UnregisterEvent();
         }
-        
-        
+
+
         private void RegisterEvent()
         {
             PenButton.onClick.AddListener(OnPenButton);
@@ -58,7 +58,7 @@ namespace PicoMRDemo.Runtime.UI
         {
             PenButton.onClick.RemoveListener(OnPenButton);
         }
-        
+
         private void OnPenButton()
         {
             var decorationDatas = DecorationDataLoader.LoadData(DecorationType.Item);
@@ -71,7 +71,7 @@ namespace PicoMRDemo.Runtime.UI
                     {
                         doodleDatas.Add(data);
                     }
-                    
+
                 }
             }
             ClearPage();
@@ -84,14 +84,14 @@ namespace PicoMRDemo.Runtime.UI
         public Transform Root;
         public GameObject Prefab;
         public Transform Pool;
-     
-        [Inject] 
+
+        [Inject]
         private IItemFactory _itemFactory;
 
         [Inject]
         private IResourceLoader _resourceLoader;
 
-       
+
         public IList<Button> ShowButtons => _showButtons;
 
         private Queue<Button> _buttonPool = new Queue<Button>();
@@ -118,20 +118,20 @@ namespace PicoMRDemo.Runtime.UI
                     texts[0].text = I18N.instance.getValue(decorationData.Title);
                     texts[1].text = I18N.instance.getValue(decorationData.Description);
                 }
-                
+
                 Image showImage = button.transform.GetComponentsInChildren<Image>()
                     .First(x => x.gameObject.name == "ShowImage");
                 if (showImage != null)
                 {
                     showImage.sprite = decorationData.Sprite;
                 }
-                
+
                 button.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener((arg =>
                 {
                     bool isLeftController = ControllerManager.Instance.LeftControllerRoot == arg.interactor.gameObject;
                     if (ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
                     {
-                        
+
                     }
                     else
                     {
@@ -153,13 +153,13 @@ namespace PicoMRDemo.Runtime.UI
                                     penItem.UnregisterControllerEvent();
                                     ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.Normal);
                                     GameObject.Destroy(penItem.GameObject);
-                                },null,null);
+                                }, null, null);
                             ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.Doodle);
-                            ControllerManager.Instance.SetControllerShow(isLeftController, false,false);
+                            ControllerManager.Instance.SetControllerShow(isLeftController, false, false);
                         }
                     }
-                    
-                } ));
+
+                }));
 
                 button.transform.SetParent(Root, false);
                 button.gameObject.SetActive(true);
@@ -180,6 +180,6 @@ namespace PicoMRDemo.Runtime.UI
         }
 
         #endregion
-       
+
     }
 }

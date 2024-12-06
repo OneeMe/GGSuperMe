@@ -9,10 +9,10 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Runtime.Item;
 
-namespace PicoMRDemo.Runtime.Data
+namespace GGSuperMe.Runtime.Data
 {
     [Serializable]
     public class UUID2ItemId

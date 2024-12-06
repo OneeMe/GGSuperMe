@@ -7,11 +7,11 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections.Generic;
-using PicoMRDemo.Runtime.Data.Anchor;
+using GGSuperMe.Runtime.Data.Anchor;
 using Unity.XR.PXR;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Mock
+namespace GGSuperMe.Runtime.Mock
 {
     public class MockAnchorData : IAnchorData
     {

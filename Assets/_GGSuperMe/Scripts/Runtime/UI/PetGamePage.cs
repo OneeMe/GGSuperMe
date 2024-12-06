@@ -6,35 +6,35 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 using System.Linq;
 using Honeti;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Config;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Config;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Runtime.Item;
 using TMPro;
 using UnityEngine.Serialization;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class PetGamePage : MonoBehaviour
     {
-        
+
         [FormerlySerializedAs("DecorationButton")] public Button decorationButton;
 
         [FormerlySerializedAs("OpenToggle")] public Toggle openToggle;
-        
+
         public Button resetButton;
-        
+
         [Inject]
         public IDecorationDataLoader DecorationDataLoader;
 
-        [Inject] 
+        [Inject]
         public IRoomService RoomService;
 
         public void TogglePage()
@@ -74,19 +74,19 @@ namespace PicoMRDemo.Runtime.UI
             ClearPage();
             ShowPage(decorationDatas);
         }
-        
+
         private void OnResetButton()
         {
             RoomService.ResetPetPosition();
         }
-        
+
         #region Page Item逻辑
 
         public Transform Root;
         public GameObject Prefab;
         public Transform Pool;
-     
-        [Inject] 
+
+        [Inject]
         private IItemFactory _itemFactory;
 
         [Inject]
@@ -94,15 +94,15 @@ namespace PicoMRDemo.Runtime.UI
 
         [Inject]
         private IEntityManager _entityManager;
-        
+
         [Inject]
         private IRoomService _roomService;
-       
+
         public IList<Button> ShowButtons => _showButtons;
 
         private Queue<Button> _buttonPool = new Queue<Button>();
         private IList<Button> _showButtons = new List<Button>();
-        
+
         private IAssetConfig _assetConfig;
         public void ShowPage(IList<IDecorationData> data)
         {
@@ -139,7 +139,7 @@ namespace PicoMRDemo.Runtime.UI
                 {
                     showImage.sprite = decorationData.Sprite;
                 }
-                
+
                 button.onClick.AddListener(async () =>
                 {
                     if (decorationData.Type == DecorationType.Item)
@@ -158,7 +158,7 @@ namespace PicoMRDemo.Runtime.UI
                         }
                     }
                 });
-                
+
                 button.transform.SetParent(Root, false);
                 button.gameObject.SetActive(true);
                 _showButtons.Add(button);

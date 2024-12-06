@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.ShootingGame
+namespace GGSuperMe.Runtime.Runtime.ShootingGame
 {
     public interface IBalloonInteractionManager
     {

@@ -6,12 +6,12 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using PicoMRDemo.Runtime.Game;
-using PicoMRDemo.Runtime.Utils;
+using GGSuperMe.Runtime.Game;
+using GGSuperMe.Runtime.Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace PicoMRDemo.Runtime.Runtime.ShootingGame
+namespace GGSuperMe.Runtime.Runtime.ShootingGame
 {
     public class PaintBall : MonoBehaviour
     {
@@ -20,9 +20,9 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
         public GameObject GameObject => gameObject;
 
         [FormerlySerializedAs("HitEffect")] public ParticleSystem hitEffect;
-        
+
         public Color ballColor;
-        
+
         private Rigidbody RigidBody
         {
             get
@@ -40,7 +40,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
             get => lifeTime;
             set => lifeTime = value;
         }
-        
+
         private PhysicalCollisionDelegate _physicalCollisionDelegate;
 
         private PhysicalCollisionDelegate PhysicalCollisionDelegate
@@ -54,10 +54,11 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
                 return _physicalCollisionDelegate;
             }
         }
-        
+
         private Rigidbody _rigidBody;
 
-        [FormerlySerializedAs("_lifeTime")] [SerializeField]
+        [FormerlySerializedAs("_lifeTime")]
+        [SerializeField]
         private float lifeTime = 10;
 
         private void OnEnable()
@@ -73,7 +74,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
         private void PlayHit(Collision collision)
         {
             ContactPoint contact = collision.contacts[0];
-            var hitEffectPrefab = UnityEngine.Object.Instantiate(hitEffect,contact.point,collision.transform.rotation);
+            var hitEffectPrefab = UnityEngine.Object.Instantiate(hitEffect, contact.point, collision.transform.rotation);
             hitEffectPrefab.transform.LookAt(GameObject.transform.position - contact.normal);
             hitEffectPrefab.transform.Translate(Vector3.back * 0.001f);
             hitEffectPrefab.Play();
@@ -96,13 +97,13 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
                 LifeTime -= Time.deltaTime;
             }
         }
-        
+
         private void OnCollisionEnterEvent(Collision collision)
         {
-            if (collision.gameObject.layer == 7||
-                collision.gameObject.layer == 8||
-                collision.gameObject.layer == 9||
-                collision.gameObject.layer == 10|
+            if (collision.gameObject.layer == 7 ||
+                collision.gameObject.layer == 8 ||
+                collision.gameObject.layer == 9 ||
+                collision.gameObject.layer == 10 |
                 App.Instance.spatialMeshManager.activeSelf)
             {
                 PlayHit(collision);
@@ -115,7 +116,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
 
         private void OnCollisionExitEvent(Collision collision)
         {
-            
+
         }
     }
 }

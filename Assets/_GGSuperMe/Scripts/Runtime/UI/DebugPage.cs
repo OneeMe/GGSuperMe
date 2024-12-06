@@ -8,20 +8,20 @@
 using System;
 using System.Collections.Generic;
 using Honeti;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Config;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Config;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Service;
 using TMPro;
 using UnityEngine;
 using VContainer;
 using UnityEngine.UI;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class DebugPage : MonoBehaviour
     {
-        
+
         public Transform Root;
         public GameObject Prefab;
         public Transform Pool;
@@ -67,12 +67,12 @@ namespace PicoMRDemo.Runtime.UI
                     texts[0].text = command.Title;
                     texts[1].text = command.Des;
                 }
-                
+
                 button.onClick.AddListener(() =>
                 {
                     command.Action.Invoke();
                 });
-                
+
                 button.transform.SetParent(Root, false);
                 button.gameObject.SetActive(true);
                 _showButtons.Add(button);

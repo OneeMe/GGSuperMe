@@ -9,7 +9,7 @@ using System.Linq;
 using UnityEngine;
 using LightType = UnityEngine.LightType;
 
-namespace PicoMRDemo.Runtime.Service
+namespace GGSuperMe.Runtime.Service
 {
     public class LightManager : ILightManager
     {

@@ -1,8 +1,8 @@
 {
-    "name": "PicoMRDemo.Editor",
-    "rootNamespace": "PicoMRDemo.Editor",
+    "name": "GGSuperMe.Editor",
+    "rootNamespace": "GGSuperMe.Editor",
     "references": [
-        "PicoMRDemo.Runtime"
+        "GGSuperMe.Runtime"
     ],
     "includePlatforms": [
         "Editor"

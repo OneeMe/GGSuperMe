@@ -10,17 +10,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Runtime.SDK;
-using PicoMRDemo.Runtime.Data.Anchor;
-using PicoMRDemo.Runtime.Game;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Runtime.SDK;
+using GGSuperMe.Runtime.Data.Anchor;
+using GGSuperMe.Runtime.Game;
 using Unity.XR.PXR;
 using UnityEngine;
 using VContainer;
 using Object = UnityEngine.Object;
 
-namespace PicoMRDemo.Runtime.Entity
+namespace GGSuperMe.Runtime.Entity
 {
     public class EntityManager : IEntityManager
     {
@@ -37,7 +37,7 @@ namespace PicoMRDemo.Runtime.Entity
 
         private readonly GameObject _roomEntityRoot;
         private readonly GameObject _gameEntityRoot;
-        
+
         [Inject]
         private IMRSDKManager _mrsdkManager;
 
@@ -46,7 +46,7 @@ namespace PicoMRDemo.Runtime.Entity
 
         [Inject]
         private IItemFactory _itemFactory;
-        
+
         EntityManager()
         {
             _roomEntityRoot = new GameObject("RoomEntities");
@@ -54,14 +54,14 @@ namespace PicoMRDemo.Runtime.Entity
         }
 
         public async UniTask LoadRoomEntities()
-        {   
+        {
             Debug.unityLogger.Log(TAG, "Begin Load Room Anchors");
             await ClearRoomEntities();
             PXR_Manager.SceneAnchorDataUpdated += DoSceneAnchorDataUpdated;
             var anchors = await _mrsdkManager.LoadRoomAnchors();
             Debug.unityLogger.Log(TAG, $"Load Room Anchors Finished, total anchors: {anchors.Count}");
-            
-            
+
+
             foreach (var anchor in anchors)
             {
                 //Debug.unityLogger.Log(TAG, $"Load Room Anchor Key: {anchor.Handle}, Guid: {anchor.Uuid} SceneLabel: {anchor.SceneLabel}");
@@ -95,7 +95,7 @@ namespace PicoMRDemo.Runtime.Entity
         public async UniTask LoadGameEntities()
         {
             Debug.unityLogger.Log(TAG, "Begin Load Game Anchors");
-            PXR_Manager.SpatialAnchorDataUpdated  += DoSpatialAnchorDataUpdated;
+            PXR_Manager.SpatialAnchorDataUpdated += DoSpatialAnchorDataUpdated;
             var anchors = await _mrsdkManager.LoadGameAnchors();
             Debug.unityLogger.Log(TAG, $"Load Game Anchors Finished, total anchors: {anchors.Count}");
             _gameEntities.Clear();
@@ -138,11 +138,11 @@ namespace PicoMRDemo.Runtime.Entity
                 dataList.Add(data);
             }
             _persistentLoader.StageAllItemData(dataList);
-            Debug.unityLogger.Log(TAG, $"Start Save Game Anchors "+ dataList.Count);
+            Debug.unityLogger.Log(TAG, $"Start Save Game Anchors " + dataList.Count);
             await _mrsdkManager.SaveGameAnchorsToLocal(_gameEntities.Select(x => x.AnchorData).ToList());
             Debug.unityLogger.Log(TAG, $"Finished Save Game Anchors");
         }
-        
+
         public async UniTask ClearGameEntities()
         {
             await ClearGameEntitiesAnchor();
@@ -151,9 +151,9 @@ namespace PicoMRDemo.Runtime.Entity
                 Object.Destroy(gameEntity.GameObject);
             }
             _gameEntities.Clear();
-           _persistentLoader.ClearAllItemData();
+            _persistentLoader.ClearAllItemData();
         }
-        
+
         public async UniTask ClearRoomEntities()
         {
             foreach (var roomEntity in _allRoomEntities)
@@ -169,7 +169,7 @@ namespace PicoMRDemo.Runtime.Entity
         {
             await _mrsdkManager.DeleteAllAnchors();
         }
-        
+
 
         private async UniTask<IEntity> CreateEntity(GameObject gameObject)
         {
@@ -237,7 +237,7 @@ namespace PicoMRDemo.Runtime.Entity
                 }
             }
         }
-        
+
         public async UniTask CheckSpatialAnchorUpdate()
         {
             if (_needUpdateGameEntities)
@@ -281,12 +281,12 @@ namespace PicoMRDemo.Runtime.Entity
             Debug.unityLogger.Log($"Set DoSpatialAnchorDataUpdated");
             _needUpdateGameEntities = true;
         }
-        
+
         public Transform GetRoomEntityRoot()
         {
             return _roomEntityRoot.transform;
         }
-        
+
         public Transform GetGameEntityRoot()
         {
             return _gameEntityRoot.transform;
@@ -296,14 +296,14 @@ namespace PicoMRDemo.Runtime.Entity
         {
             _gameEntityRoot.SetActive(isVisible);
         }
-        
+
         public void SetRoomEntityRootVisiable(bool isVisible)
         {
             _roomEntityRoot.SetActive(isVisible);
         }
-        
+
         private void UpdateRoomEntities(IList<IAnchorData> anchors)
-        {   
+        {
             Debug.unityLogger.Log($"Start UpdateRoomEntities");
             var allRoomEntities = _allRoomEntities.ToArray();
             foreach (var anchor in anchors)
@@ -311,7 +311,7 @@ namespace PicoMRDemo.Runtime.Entity
                 if (allRoomEntities.FirstOrDefault(x => (x.AnchorData == anchor)) == null)
                 {
                     //Debug.unityLogger.Log(TAG, $"Update Room Anchor Key: {anchor.Handle}, Guid: {anchor.Uuid}");
-                
+
                     GameObject gameObject = new GameObject($"RoomEntity: {anchor.Handle}");
                     var transform = gameObject.transform;
                     transform.SetParent(_roomEntityRoot.transform);
@@ -340,7 +340,7 @@ namespace PicoMRDemo.Runtime.Entity
             }
         }
         private void UpdateGameEntities(IList<IAnchorData> anchors)
-        {   
+        {
             Debug.unityLogger.Log($"Start UpdateRoomEntities");
             var gameEntities = _gameEntities.ToArray();
             foreach (var anchor in anchors)

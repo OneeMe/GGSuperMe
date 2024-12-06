@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Utils
+namespace GGSuperMe.Runtime.Utils
 {
     public static class ConstantProperty
     {
@@ -20,12 +20,12 @@ namespace PicoMRDemo.Runtime.Utils
         /// 用于提示，当玩家在房间外时候的提示
         /// </summary>
         public const string OutsideRoomTip = "^OUTSIDE_TIP";
-        
+
         /// <summary>
         /// 用于提示，当玩家在房间外时候的提示
         /// </summary>
         public const string EnterRoomTip = "^ENTERROOM_TIP";
-        
+
         /// <summary>
         /// 基础色：红，橙，黄，绿，青，蓝，紫，灰，粉，黑，白，棕, 消除
         /// </summary>
@@ -34,14 +34,14 @@ namespace PicoMRDemo.Runtime.Utils
             Color.red,
             new Color32(255, 128,0,255),
             new Color32(255, 255,0,255),
-            Color.green, 
+            Color.green,
             Color.cyan,
             Color.blue,
             new Color32(128, 0,255,255),
             Color.grey,
             new Color32(255, 192,203,255),
             Color.black,
-            Color.white,     
+            Color.white,
             new Color32(166, 125,61,255),
         };
     }

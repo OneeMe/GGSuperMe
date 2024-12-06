@@ -8,11 +8,11 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Utils;
+using GGSuperMe.Runtime.Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace PicoMRDemo.Runtime.Runtime.ShootingGame
+namespace GGSuperMe.Runtime.Runtime.ShootingGame
 {
     public class Bullet : MonoBehaviour, IBullet
     {
@@ -39,7 +39,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
             get => lifeTime;
             set => lifeTime = value;
         }
-        
+
         private PhysicalCollisionDelegate _physicalCollisionDelegate;
 
         private PhysicalCollisionDelegate PhysicalCollisionDelegate
@@ -53,12 +53,13 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
                 return _physicalCollisionDelegate;
             }
         }
-        
+
         private Rigidbody _rigidBody;
 
         private readonly HashSet<IBalloon> _enterBalloons = new HashSet<IBalloon>();
-        
-        [FormerlySerializedAs("_lifeTime")] [SerializeField]
+
+        [FormerlySerializedAs("_lifeTime")]
+        [SerializeField]
         private float lifeTime = 10;
 
         private void OnEnable()
@@ -104,7 +105,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
                 LifeTime -= Time.deltaTime;
             }
         }
-        
+
         private void OnCollisionEnterEvent(Collision collision)
         {
             if (BalloonInteractionManager.TryGetBalloonForCollider(collision.collider, out var balloon))

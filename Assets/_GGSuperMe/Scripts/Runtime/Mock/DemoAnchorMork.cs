@@ -1,14 +1,14 @@
 using System;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Decoration;
 using Unity.XR.PXR;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Mock;
-using PicoMRDemo.Runtime.Utils;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Mock;
+using GGSuperMe.Runtime.Utils;
 using UnityEngine.Rendering;
 public class DemoAnchorMork : MonoBehaviour
 {
@@ -42,7 +42,7 @@ public class DemoAnchorMork : MonoBehaviour
             pos.y = position.y;
 
             descriptionRoot.transform.position = pos;
-            descriptionRoot.transform.rotation = Quaternion.LookRotation (descriptionRoot.transform.position - position);
+            descriptionRoot.transform.rotation = Quaternion.LookRotation(descriptionRoot.transform.position - position);
         }
     }
 
@@ -60,7 +60,7 @@ public class DemoAnchorMork : MonoBehaviour
     {
         builder.Register<IEntityManager, MockEntityManager>(Lifetime.Singleton);
         builder.Register<IPersistentLoader, PersistentLoader>(Lifetime.Singleton);
-        
+
     }
     public void ShowRoomEntities()
     {
@@ -71,7 +71,7 @@ public class DemoAnchorMork : MonoBehaviour
             var label = roomEntity.GetRoomLabel();
             if (label == PxrSemanticLabel.Table || label == PxrSemanticLabel.Wall || label == PxrSemanticLabel.Ceiling
                 || label == PxrSemanticLabel.Floor || label == PxrSemanticLabel.Door || label == PxrSemanticLabel.Window
-                || label == PxrSemanticLabel.Sofa || label == PxrSemanticLabel.Opening || label == PxrSemanticLabel.Chair 
+                || label == PxrSemanticLabel.Sofa || label == PxrSemanticLabel.Opening || label == PxrSemanticLabel.Chair
                 || label == PxrSemanticLabel.VirtualWall || label == PxrSemanticLabel.Human)
             {
                 var meshRenderer = roomEntity.GameObject.GetComponentInChildren<MeshRenderer>();
@@ -89,8 +89,8 @@ public class DemoAnchorMork : MonoBehaviour
         var anchorObject = entity.GameObject;
         var anchorData = entity.AnchorData;
         var roomEntityMaterial = RoomEntityMaterial;
-        if (anchorData.SceneLabel == PxrSemanticLabel.Table 
-            || anchorData.SceneLabel == PxrSemanticLabel.Sofa 
+        if (anchorData.SceneLabel == PxrSemanticLabel.Table
+            || anchorData.SceneLabel == PxrSemanticLabel.Sofa
             || anchorData.SceneLabel == PxrSemanticLabel.Chair
             || anchorData.SceneLabel == PxrSemanticLabel.Human)
         {
@@ -103,15 +103,15 @@ public class DemoAnchorMork : MonoBehaviour
             roomObject.transform.localScale = box3DInfo.Extent;
 
             var meshRenderer = roomObject.GetComponent<MeshRenderer>();
-            
+
             meshRenderer.material = roomEntityMaterial;
             roomObject.layer = 11;
             GameObject meshAnchor = Instantiate(anchorPrefab, roomObject.transform, true);
             meshAnchor.transform.localPosition = roomObject.transform.localPosition;
             Anchor anchor = meshAnchor.GetComponent<Anchor>();
-            if(!anchor)
+            if (!anchor)
                 meshAnchor.AddComponent<Anchor>();
-            anchor.UpdateMeshLabel(anchorData.SceneLabel == PxrSemanticLabel.Table?"Table":"Sofa", roomObject.transform.position);
+            anchor.UpdateMeshLabel(anchorData.SceneLabel == PxrSemanticLabel.Table ? "Table" : "Sofa", roomObject.transform.position);
         }
 
         if (anchorData.SceneLabel == PxrSemanticLabel.Wall || anchorData.SceneLabel == PxrSemanticLabel.VirtualWall)
@@ -127,7 +127,7 @@ public class DemoAnchorMork : MonoBehaviour
             GameObject meshAnchor = Instantiate(anchorPrefab, wall.transform, true);
             meshAnchor.transform.localPosition = wall.transform.localPosition;
             Anchor anchor = meshAnchor.GetComponent<Anchor>();
-            if(!anchor)
+            if (!anchor)
                 meshAnchor.AddComponent<Anchor>();
             anchor.UpdateMeshLabel("Wall", wall.transform.position);
             wall.layer = 9;
@@ -152,9 +152,9 @@ public class DemoAnchorMork : MonoBehaviour
             GameObject meshAnchor = Instantiate(anchorPrefab, roomObject.transform, true);
             meshAnchor.transform.localPosition = roomObject.transform.localPosition;
             Anchor anchor = meshAnchor.GetComponent<Anchor>();
-            if(!anchor)
+            if (!anchor)
                 meshAnchor.AddComponent<Anchor>();
-            anchor.UpdateMeshLabel(anchorData.SceneLabel == PxrSemanticLabel.Ceiling?"Ceiling":"Floor", roomObject.transform.position);
+            anchor.UpdateMeshLabel(anchorData.SceneLabel == PxrSemanticLabel.Ceiling ? "Ceiling" : "Floor", roomObject.transform.position);
             var meshCollider = roomObject.AddComponent<MeshCollider>();
             meshCollider.convex = false;
             meshCollider.enabled = true;
@@ -187,7 +187,7 @@ public class DemoAnchorMork : MonoBehaviour
             }
         }
 
-        if (anchorData.SceneLabel == PxrSemanticLabel.Door 
+        if (anchorData.SceneLabel == PxrSemanticLabel.Door
             || anchorData.SceneLabel == PxrSemanticLabel.Window
             || anchorData.SceneLabel == PxrSemanticLabel.Opening)
         {
@@ -203,7 +203,7 @@ public class DemoAnchorMork : MonoBehaviour
             GameObject meshAnchor = Instantiate(anchorPrefab, doorOrWindow.transform, true);
             meshAnchor.transform.localPosition = doorOrWindow.transform.localPosition;
             Anchor anchor = meshAnchor.GetComponent<Anchor>();
-            if(!anchor)
+            if (!anchor)
                 meshAnchor.AddComponent<Anchor>();
             if (anchorData.SceneLabel == PxrSemanticLabel.Door)
             {

@@ -9,15 +9,15 @@ using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public class CatchableItem : Item
     {
-        [HideInInspector] 
+        [HideInInspector]
         private ICatchable Catchable;
 
         private XRGrabInteractable _grabInteractable;
-        
+
         public event Action<ICatchable> OnDropItem;
         protected override void Awake()
         {
@@ -25,7 +25,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
             Catchable = GetComponent<ICatchable>();
             InitController();
         }
-        
+
         private void OnDestroy()
         {
             ReleaseController();
@@ -39,7 +39,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 _grabInteractable.selectEntered.AddListener(OnSelectEnter);
                 _grabInteractable.selectExited.AddListener(OnSelectExited);
             }
-            
+
         }
 
         private void ReleaseController()
@@ -54,7 +54,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
         {
 
         }
-        
+
         private void OnSelectExited(SelectExitEventArgs arg)
         {
             DropItem();

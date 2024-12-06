@@ -8,42 +8,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using Honeti;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using VContainer;
-using PicoMRDemo.Runtime.Runtime.BallDrop;
+using GGSuperMe.Runtime.Runtime.BallDrop;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class BallDropPage : MonoBehaviour
     {
         public Toggle OpenToggle;
-        
+
         public Button ClearAllButton;
-        
+
         public Button DemoButton;
         [Inject]
         public IDecorationDataLoader _decorationDataLoader;
-        
+
         [Inject]
         private IBallDropGameManager _ballDropGameManager;
-        
+
         [Inject]
         private IItemFactory _itemFactory;
-        
+
         public void TogglePage()
         {
             if (OpenToggle.isOn) return;
-            
+
             OpenToggle.isOn = true;
         }
-        
+
         private void OnEnable()
         {
             RegisterEvent();
@@ -65,8 +65,8 @@ namespace PicoMRDemo.Runtime.UI
             {
                 if (decorationData is DecorationData data)
                 {
-                    if ((data.ItemType & ItemType.BallDropBall) > 0||
-                        (data.ItemType & ItemType.BallDropBlock) > 0||
+                    if ((data.ItemType & ItemType.BallDropBall) > 0 ||
+                        (data.ItemType & ItemType.BallDropBlock) > 0 ||
                         (data.ItemType & ItemType.BallDropRoad) > 0)
                     {
                         dropItemDatas.Add(data);
@@ -75,7 +75,7 @@ namespace PicoMRDemo.Runtime.UI
             }
             ClearPage();
             ShowPage(dropItemDatas);
-            
+
         }
 
         private void UnregisterEvent()
@@ -83,9 +83,9 @@ namespace PicoMRDemo.Runtime.UI
             DemoButton.onClick.RemoveListener(OnShowDemo);
             ClearAllButton.onClick.RemoveListener(OnClearAll);
         }
-        
+
         public delegate void Action<in T>(T obj);
-        
+
         private void OnShowDemo()
         {
             _ballDropGameManager.ShowDemoGameData();
@@ -115,7 +115,7 @@ namespace PicoMRDemo.Runtime.UI
         [Inject]
         private IResourceLoader _resourceLoader;
 
-       
+
         public IList<Button> ShowButtons => _showButtons;
 
         private Queue<Button> _buttonPool = new Queue<Button>();
@@ -142,7 +142,7 @@ namespace PicoMRDemo.Runtime.UI
                     texts[0].text = I18N.instance.getValue(decorationData.Title);
                     texts[1].text = I18N.instance.getValue(decorationData.Description);
                 }
-                
+
                 Image showImage = button.transform.GetComponentsInChildren<Image>()
                     .First(x => x.gameObject.name == "ShowImage");
                 if (showImage != null)
@@ -154,19 +154,19 @@ namespace PicoMRDemo.Runtime.UI
                 var itemType = ((DecorationData)decorationData).ItemType;
                 if (itemType == ItemType.BallDropBall)
                 {
-                   
+
                     clearAllBtn.onClick.RemoveAllListeners();
                     clearAllBtn.onClick.AddListener(OnClearBall);
                 }
                 else if (itemType == ItemType.BallDropBlock)
                 {
-                   
+
                     clearAllBtn.onClick.RemoveAllListeners();
                     clearAllBtn.onClick.AddListener(OnClearBlock);
                 }
                 else if (itemType == ItemType.BallDropRoad)
                 {
-                   
+
                     clearAllBtn.onClick.RemoveAllListeners();
                     clearAllBtn.onClick.AddListener(OnClearRoad);
                 }
@@ -174,25 +174,25 @@ namespace PicoMRDemo.Runtime.UI
                 {
                     showImage.sprite = decorationData.Sprite;
                 }
-                
+
                 button.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener((arg =>
                 {
                     bool isLeftController = ControllerManager.Instance.LeftControllerRoot == arg.interactor.gameObject;
                     if (ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
                     {
-                        
+
                     }
                     else
                     {
                         // binding delect event
-                        ControllerManager.Instance.BingingSecondaryHotKey(isLeftController,(args)=>
+                        ControllerManager.Instance.BingingSecondaryHotKey(isLeftController, (args) =>
                         {
                             _ballDropGameManager.DeleteObj(isLeftController);
-                        },null,null);
+                        }, null, null);
                         if (itemType == ItemType.BallDropBall)
                         {
-                            ControllerManager.Instance.ShowAnchorPreview( _resourceLoader.AssetSetting.ballPreview,isLeftController);
-                            ControllerManager.Instance.BingingTriggerHotKey(isLeftController,(args) =>
+                            ControllerManager.Instance.ShowAnchorPreview(_resourceLoader.AssetSetting.ballPreview, isLeftController);
+                            ControllerManager.Instance.BingingTriggerHotKey(isLeftController, (args) =>
                             {
                                 _ballDropGameManager.CreateBallObj(isLeftController);
                             });
@@ -202,13 +202,13 @@ namespace PicoMRDemo.Runtime.UI
                                     ControllerManager.Instance.HideAnchorPreview(isLeftController);
                                     ControllerManager.Instance.UnBingingGameHotKey(isLeftController);
                                     ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.Normal);
-                                },null,null);
+                                }, null, null);
                             ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.BallDrop);
                         }
                         else if (itemType == ItemType.BallDropBlock)
                         {
-                            ControllerManager.Instance.ShowAnchorPreview( _resourceLoader.AssetSetting.blockPreview,isLeftController);
-                            ControllerManager.Instance.BingingTriggerHotKey(isLeftController,(args) =>
+                            ControllerManager.Instance.ShowAnchorPreview(_resourceLoader.AssetSetting.blockPreview, isLeftController);
+                            ControllerManager.Instance.BingingTriggerHotKey(isLeftController, (args) =>
                             {
                                 _ballDropGameManager.CreateBlockObj(isLeftController);
                             });
@@ -218,13 +218,13 @@ namespace PicoMRDemo.Runtime.UI
                                     ControllerManager.Instance.HideAnchorPreview(isLeftController);
                                     ControllerManager.Instance.UnBingingGameHotKey(isLeftController);
                                     ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.Normal);
-                                },null,null);
+                                }, null, null);
                             ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.BallDrop);
                         }
                         else if (itemType == ItemType.BallDropRoad)
                         {
-                            ControllerManager.Instance.ShowAnchorPreview( _resourceLoader.AssetSetting.roadPreview,isLeftController);
-                            ControllerManager.Instance.BingingTriggerHotKey(isLeftController,(args) =>
+                            ControllerManager.Instance.ShowAnchorPreview(_resourceLoader.AssetSetting.roadPreview, isLeftController);
+                            ControllerManager.Instance.BingingTriggerHotKey(isLeftController, (args) =>
                             {
                                 _ballDropGameManager.CreateRoadObj(isLeftController);
                             });
@@ -234,11 +234,11 @@ namespace PicoMRDemo.Runtime.UI
                                     ControllerManager.Instance.HideAnchorPreview(isLeftController);
                                     ControllerManager.Instance.UnBingingGameHotKey(isLeftController);
                                     ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.Normal);
-                                },null,null);
+                                }, null, null);
                             ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.BallDrop);
                         }
                     }
-                } ));
+                }));
 
                 button.transform.SetParent(Root, false);
                 button.gameObject.SetActive(true);
@@ -257,7 +257,7 @@ namespace PicoMRDemo.Runtime.UI
                     _buttonPool.Enqueue(pressableButton);
                     pressableButton.transform.SetParent(Pool);
                 }
-                
+
             }
             _showButtons.Clear();
         }

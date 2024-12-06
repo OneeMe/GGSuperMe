@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using Unity.XR.PXR;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Data.Anchor
+namespace GGSuperMe.Runtime.Data.Anchor
 {
     public interface IAnchorData
     {
@@ -23,6 +23,6 @@ namespace PicoMRDemo.Runtime.Data.Anchor
         SceneBox3DData SceneBox3DData { get; }
         SceneBox2DData SceneBox2DData { get; }
         ScenePolygonData ScenePolygonData { get; }
-        
+
     }
 }

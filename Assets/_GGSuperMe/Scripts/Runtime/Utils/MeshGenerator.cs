@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Utils
+namespace GGSuperMe.Runtime.Utils
 {
     public static class MeshGenerator
     {
@@ -38,7 +38,7 @@ namespace PicoMRDemo.Runtime.Utils
             var node6 = new Vector3(leftX, bottomY, nearZ);
             var node7 = new Vector3(rightX, bottomY, nearZ);
             var node8 = new Vector3(rightX, topY, nearZ);
-            
+
             points.Add(node1);
             points.Add(node2);
             points.Add(node3);
@@ -47,7 +47,7 @@ namespace PicoMRDemo.Runtime.Utils
             points.Add(node6);
             points.Add(node7);
             points.Add(node8);
-            
+
             var pArray = points.ToArray();
 
             var w = extent.x / standardWidth;
@@ -61,7 +61,7 @@ namespace PicoMRDemo.Runtime.Utils
             uvs[5] = new Vector2(0, 0);
             uvs[6] = new Vector2(w, 0);
             uvs[7] = new Vector2(w, h);
-            
+
             var meshObject = new GameObject("SkirtingLine");
             var meshFilter = meshObject.AddComponent<MeshFilter>();
             var meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -76,7 +76,7 @@ namespace PicoMRDemo.Runtime.Utils
             mesh.triangles = triangles;
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
-            
+
             meshFilter.mesh = mesh;
             meshRenderer.material = material;
 
@@ -102,7 +102,7 @@ namespace PicoMRDemo.Runtime.Utils
             uvs[1] = new Vector2(w, 0);
             uvs[2] = new Vector2(w, h);
             uvs[3] = new Vector2(0, h);
-            
+
             var meshObject = new GameObject("QuadMesh");
             var meshFilter = meshObject.AddComponent<MeshFilter>();
             var meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -117,7 +117,7 @@ namespace PicoMRDemo.Runtime.Utils
             mesh.triangles = triangles;
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
-            
+
             meshFilter.mesh = mesh;
             meshRenderer.material = material;
 
@@ -151,7 +151,7 @@ namespace PicoMRDemo.Runtime.Utils
             Vector2[] uvs = new Vector2[pArray.Length];
             for (int i = 0; i < uvs.Length; i++)
             {
-                uvs[i] = new Vector2((pArray[i].x - minX)/ (maxX - minX) * u, (pArray[i].y - minY) / (maxY - minY) * v);
+                uvs[i] = new Vector2((pArray[i].x - minX) / (maxX - minX) * u, (pArray[i].y - minY) / (maxY - minY) * v);
             }
             mesh.vertices = pArray;
             mesh.uv = uvs;
@@ -160,10 +160,10 @@ namespace PicoMRDemo.Runtime.Utils
             int[] triangles = tr.Triangulate();
 
             mesh.triangles = triangles;
-            
+
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
-            
+
             meshFilter.mesh = mesh;
             meshRenderer.material = material;
 
@@ -188,7 +188,7 @@ namespace PicoMRDemo.Runtime.Utils
             uvs[1] = new Vector2(w, 0);
             uvs[2] = new Vector2(w, h);
             uvs[3] = new Vector2(0, h);
-            
+
             var meshObject = new GameObject("PlaneMesh");
             var meshFilter = meshObject.AddComponent<MeshFilter>();
             var meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -203,45 +203,50 @@ namespace PicoMRDemo.Runtime.Utils
             mesh.triangles = triangles;
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
-            
+
             meshFilter.mesh = mesh;
             meshRenderer.material = material;
 
             return meshObject;
         }
     }
-    
+
     internal class Triangulator
     {
         private List<Vector3> m_points = new List<Vector3>();
-     
-        public Triangulator (Vector3[] points) {
+
+        public Triangulator(Vector3[] points)
+        {
             m_points = new List<Vector3>(points);
         }
-     
-        public int[] Triangulate() {
+
+        public int[] Triangulate()
+        {
             List<int> indices = new List<int>();
-     
+
             int n = m_points.Count;
             if (n < 3)
                 return indices.ToArray();
-     
+
             int[] V = new int[n];
-            if (Area() > 0) {
+            if (Area() > 0)
+            {
                 for (int v = 0; v < n; v++)
                     V[v] = v;
             }
-            else {
+            else
+            {
                 for (int v = 0; v < n; v++)
                     V[v] = (n - 1) - v;
             }
-     
+
             int nv = n;
             int count = 2 * nv;
-            for (int m = 0, v = nv - 1; nv > 2; ) {
+            for (int m = 0, v = nv - 1; nv > 2;)
+            {
                 if ((count--) <= 0)
                     return indices.ToArray();
-     
+
                 int u = v;
                 if (nv <= u)
                     u = 0;
@@ -251,8 +256,9 @@ namespace PicoMRDemo.Runtime.Utils
                 int w = v + 1;
                 if (nv <= w)
                     w = 0;
-     
-                if (Snip(u, v, w, nv, V)) {
+
+                if (Snip(u, v, w, nv, V))
+                {
                     int a, b, c, s, t;
                     a = V[u];
                     b = V[v];
@@ -267,30 +273,34 @@ namespace PicoMRDemo.Runtime.Utils
                     count = 2 * nv;
                 }
             }
-     
+
             // indices.Reverse();
             return indices.ToArray();
         }
-     
-        private float Area () {
+
+        private float Area()
+        {
             int n = m_points.Count;
             float A = 0.0f;
-            for (int p = n - 1, q = 0; q < n; p = q++) {
+            for (int p = n - 1, q = 0; q < n; p = q++)
+            {
                 Vector2 pval = m_points[p];
                 Vector2 qval = m_points[q];
                 A += pval.x * qval.y - qval.x * pval.y;
             }
             return (A * 0.5f);
         }
-     
-        private bool Snip (int u, int v, int w, int n, int[] V) {
+
+        private bool Snip(int u, int v, int w, int n, int[] V)
+        {
             int p;
             Vector2 A = m_points[V[u]];
             Vector2 B = m_points[V[v]];
             Vector2 C = m_points[V[w]];
             if (Mathf.Epsilon > (((B.x - A.x) * (C.y - A.y)) - ((B.y - A.y) * (C.x - A.x))))
                 return false;
-            for (p = 0; p < n; p++) {
+            for (p = 0; p < n; p++)
+            {
                 if ((p == u) || (p == v) || (p == w))
                     continue;
                 Vector2 P = m_points[V[p]];
@@ -299,22 +309,23 @@ namespace PicoMRDemo.Runtime.Utils
             }
             return true;
         }
-     
-        private bool InsideTriangle (Vector2 A, Vector2 B, Vector2 C, Vector2 P) {
+
+        private bool InsideTriangle(Vector2 A, Vector2 B, Vector2 C, Vector2 P)
+        {
             float ax, ay, bx, by, cx, cy, apx, apy, bpx, bpy, cpx, cpy;
             float cCROSSap, bCROSScp, aCROSSbp;
-     
+
             ax = C.x - B.x; ay = C.y - B.y;
             bx = A.x - C.x; by = A.y - C.y;
             cx = B.x - A.x; cy = B.y - A.y;
             apx = P.x - A.x; apy = P.y - A.y;
             bpx = P.x - B.x; bpy = P.y - B.y;
             cpx = P.x - C.x; cpy = P.y - C.y;
-     
+
             aCROSSbp = ax * bpy - ay * bpx;
             cCROSSap = cx * apy - cy * apx;
             bCROSScp = bx * cpy - by * cpx;
-     
+
             return ((aCROSSbp >= 0.0f) && (bCROSScp >= 0.0f) && (cCROSSap >= 0.0f));
         }
     }

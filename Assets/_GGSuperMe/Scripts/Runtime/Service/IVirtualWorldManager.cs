@@ -10,23 +10,23 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Pathfinding;
-using PicoMRDemo.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Runtime.Item;
 
-namespace PicoMRDemo.Runtime.Service
+namespace GGSuperMe.Runtime.Service
 {
     public interface IVirtualWorldManager
     {
         event Func<List<GraphNode>, UniTask> OnOpenWorldFinished;
         event Func<UniTask> OnCloseWorldStart;
-        
+
         bool IsOpen { get; }
         bool IsOpeningOrClosing { get; }
-        
+
         void StartGame(MagicStick gun);
-        void EndGame(); 
+        void EndGame();
         bool IsStart { get; }
-        
-        UniTask OpenWorldAsync(CancellationToken cancellationToken,bool isLeftController);
+
+        UniTask OpenWorldAsync(CancellationToken cancellationToken, bool isLeftController);
         UniTask CloseWorldAsync(CancellationToken cancellationToken);
     }
 }

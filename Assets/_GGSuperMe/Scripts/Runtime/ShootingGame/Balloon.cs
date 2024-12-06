@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-namespace PicoMRDemo.Runtime.Runtime.ShootingGame
+namespace GGSuperMe.Runtime.Runtime.ShootingGame
 {
     public class Balloon : MonoBehaviour, IBalloon
     {

@@ -8,36 +8,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using Honeti;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Config;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Runtime.Theme;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Config;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Runtime.Theme;
+using GGSuperMe.Runtime.Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
-    
+
     public class DecorationPage : MonoBehaviour
     {
         public Transform Root;
         public GameObject Prefab;
         public Transform Pool;
 
-        [Inject] 
+        [Inject]
         private IItemFactory _itemFactory;
 
-        [Inject] 
+        [Inject]
         private IThemeLoader _themeLoader;
 
         [Inject]
         private IEntityManager _entityManager;
-        
+
         [Inject]
         private IResourceLoader _resourceLoader;
 
@@ -79,7 +79,7 @@ namespace PicoMRDemo.Runtime.UI
                 {
                     showImage.sprite = decorationData.Sprite;
                 }
-                
+
                 button.onClick.AddListener(async () =>
                 {
                     if (decorationData.Type == DecorationType.Item)
@@ -106,7 +106,7 @@ namespace PicoMRDemo.Runtime.UI
                         _roomService.SwitchTheme(decorationData);
                     }
                 });
-                
+
                 button.transform.SetParent(Root, false);
                 button.gameObject.SetActive(true);
                 _showButtons.Add(button);

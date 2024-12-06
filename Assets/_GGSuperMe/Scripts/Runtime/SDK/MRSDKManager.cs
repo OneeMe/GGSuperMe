@@ -9,28 +9,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Data.Anchor;
+using GGSuperMe.Runtime.Data.Anchor;
 using Unity.XR.PXR;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.SDK
+namespace GGSuperMe.Runtime.Runtime.SDK
 {
     public class MRSDKManager : IMRSDKManager
     {
         private readonly string TAG = nameof(MRSDKManager);
-        
+
         #region Task and flag
 
         // Load Room Anchor
         private bool _isLoadingRoomAnchors = false;
         private IList<IAnchorData> _roomAnchors = new List<IAnchorData>();
-        
+
         // Load Game Anchor
         private bool _isLoadingGameAnchors = false;
         private IList<IAnchorData> _gameAnchors = new List<IAnchorData>();
-        
+
         #endregion
-        
+
         public async UniTask<IList<IAnchorData>> LoadRoomAnchors()
         {
             _roomAnchors.Clear();
@@ -62,7 +62,7 @@ namespace PicoMRDemo.Runtime.Runtime.SDK
             {
                 if (result.anchorHandleList.Count > 0)
                 {
-                    
+
                     foreach (var anchor in result.anchorHandleList)
                     {
                         var result1 = PXR_MixedReality.GetAnchorUuid(anchor, out var uuid);
@@ -78,17 +78,17 @@ namespace PicoMRDemo.Runtime.Runtime.SDK
 
         public async UniTask SaveGameAnchorsToLocal(IList<IAnchorData> anchorDatas)
         {
-            Debug.unityLogger.Log(TAG, $"Start SaveGameAnchorsToLocal "+ anchorDatas.Count);
+            Debug.unityLogger.Log(TAG, $"Start SaveGameAnchorsToLocal " + anchorDatas.Count);
             if (anchorDatas.Count <= 0)
                 return;
             ulong[] handleList = anchorDatas.Select(x => x.Handle).ToArray();
             foreach (var anchor in handleList)
             {
-                Debug.unityLogger.Log(TAG, $"Start SaveGameAnchorsToLocal anchor "+ anchor);
+                Debug.unityLogger.Log(TAG, $"Start SaveGameAnchorsToLocal anchor " + anchor);
                 await PXR_MixedReality.PersistSpatialAnchorAsync(anchor);
             }
         }
-        
+
         public async UniTask ClearGameAnchorsToLocal(IList<IAnchorData> anchorDatas)
         {
             if (anchorDatas.Count <= 0)
@@ -96,12 +96,12 @@ namespace PicoMRDemo.Runtime.Runtime.SDK
             ulong[] handleList = anchorDatas.Select(x => x.Handle).ToArray();
             foreach (var anchor in handleList)
             {
-                Debug.unityLogger.Log(TAG, $"Start ClearGameAnchorsToLocal anchor "+ anchor);
+                Debug.unityLogger.Log(TAG, $"Start ClearGameAnchorsToLocal anchor " + anchor);
 
                 await PXR_MixedReality.UnPersistSpatialAnchorAsync(anchor);
             }
         }
-        
+
 
         public async UniTask<IAnchorData> CreateAnchor(Transform transform)
         {
@@ -130,7 +130,7 @@ namespace PicoMRDemo.Runtime.Runtime.SDK
             {
                 Debug.unityLogger.Log(TAG, "PXR_MRSample Destroy spatial anchor failed with result:" + result);
             }
-            Debug.unityLogger.Log(TAG, $"Start DeleteAnchor anchor "+ anchorData.Handle);
+            Debug.unityLogger.Log(TAG, $"Start DeleteAnchor anchor " + anchorData.Handle);
 
             await PXR_MixedReality.UnPersistSpatialAnchorAsync(anchorData.Handle);
             Debug.unityLogger.Log(TAG, $"Delete Anchor, uuid: {anchorData.Uuid}, handle: {anchorData.Handle}");
@@ -145,16 +145,16 @@ namespace PicoMRDemo.Runtime.Runtime.SDK
                 ulong[] handleList = result.anchorHandleList.ToArray();
                 foreach (var anchor in handleList)
                 {
-                    Debug.unityLogger.Log(TAG, $"Start DeleteAllAnchors anchor "+ anchor);
+                    Debug.unityLogger.Log(TAG, $"Start DeleteAllAnchors anchor " + anchor);
 
                     await PXR_MixedReality.UnPersistSpatialAnchorAsync(anchor);
                 }
             }
         }
-        
+
         public async UniTask<IList<IAnchorData>> DoSceneAnchorDataUpdated()
         {
-            
+
             Debug.unityLogger.Log($"Call DoSceneAnchorDataUpdated");
             if (_isLoadingRoomAnchors)
                 return null;
@@ -162,7 +162,7 @@ namespace PicoMRDemo.Runtime.Runtime.SDK
             _isLoadingRoomAnchors = true;
             var result = await PXR_MixedReality.QuerySceneAnchorAsync(default);
             Debug.unityLogger.Log($"DoSceneAnchorDataUpdated: {result.anchorDictionary.Count}");
-            
+
             if (result.result == PxrResult.SUCCESS)
             {
                 if (result.anchorDictionary.Count > 0)
@@ -180,10 +180,10 @@ namespace PicoMRDemo.Runtime.Runtime.SDK
             _isLoadingRoomAnchors = false;
             return _roomAnchors;
         }
-        
+
         public async UniTask<IList<IAnchorData>> DoSpatialAnchorDataUpdated()
         {
-            
+
             Debug.unityLogger.Log($"Call DoSpatialAnchorDataUpdated");
             if (_isLoadingGameAnchors)
                 return null;
@@ -191,7 +191,7 @@ namespace PicoMRDemo.Runtime.Runtime.SDK
             _isLoadingGameAnchors = true;
             var result = await PXR_MixedReality.QuerySpatialAnchorAsync();
             Debug.unityLogger.Log($"DoSpatialAnchorDataUpdated: {result.anchorHandleList.Count}");
-            
+
             if (result.result == PxrResult.SUCCESS)
             {
                 if (result.anchorHandleList.Count > 0)

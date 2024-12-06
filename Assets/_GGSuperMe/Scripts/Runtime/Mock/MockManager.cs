@@ -9,16 +9,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Anchor;
-using PicoMRDemo.Runtime.Entity;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Anchor;
+using GGSuperMe.Runtime.Entity;
 using Unity.XR.PXR;
 using UnityEngine;
-using PicoMRDemo.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Runtime.Item;
 using VContainer;
 using Object = UnityEngine.Object;
 
-namespace PicoMRDemo.Runtime.Mock
+namespace GGSuperMe.Runtime.Mock
 {
     public class MockEntityManager : IEntityManager
     {
@@ -27,7 +27,7 @@ namespace PicoMRDemo.Runtime.Mock
         private IList<IEntity> GameEntities = new List<IEntity>();
         private GameObject _roomEntityRoot;
         private GameObject _gameEntityRoot;
-        
+
         [Inject]
         private IPersistentLoader _persistentLoader;
         public async UniTask ClearRoomEntities()
@@ -103,7 +103,7 @@ namespace PicoMRDemo.Runtime.Mock
                 };
                 RoomEntities.Add(tableEntity);
             }
-            
+
             // wall
             {
                 ulong handle = 3333;
@@ -129,7 +129,7 @@ namespace PicoMRDemo.Runtime.Mock
                 };
                 RoomEntities.Add(tableEntity);
             }
-            
+
             {
                 ulong handle = 4444;
                 MockAnchorData anchorData = new MockAnchorData(handle, new Guid());
@@ -179,7 +179,7 @@ namespace PicoMRDemo.Runtime.Mock
                 };
                 RoomEntities.Add(tableEntity);
             }
-            
+
             {
                 ulong handle = 6666;
                 MockAnchorData anchorData = new MockAnchorData(handle, new Guid());
@@ -204,7 +204,7 @@ namespace PicoMRDemo.Runtime.Mock
                 };
                 RoomEntities.Add(tableEntity);
             }
-            
+
             {
                 ulong handle = 7777;
                 MockAnchorData anchorData = new MockAnchorData(handle, new Guid());
@@ -229,7 +229,7 @@ namespace PicoMRDemo.Runtime.Mock
                 };
                 RoomEntities.Add(tableEntity);
             }
-            
+
             // ceiling
             {
                 ulong handle = 8888;
@@ -287,7 +287,7 @@ namespace PicoMRDemo.Runtime.Mock
                 };
                 RoomEntities.Add(tableEntity);
             }
-            
+
             // Sofa
             {
                 ulong handle = 11111;
@@ -313,14 +313,14 @@ namespace PicoMRDemo.Runtime.Mock
                 };
                 RoomEntities.Add(tableEntity);
             }
-            
-            
+
+
             return UniTask.CompletedTask;
         }
 
         public UniTask LoadGameEntities()
         {
-            
+
             if (_gameEntityRoot == null)
             {
                 _gameEntityRoot = new GameObject("GoomEntities");
@@ -338,7 +338,7 @@ namespace PicoMRDemo.Runtime.Mock
                 {
                     Uuid = gameEntity.AnchorData.Uuid,
                     ItemId = item.Id,
-                    ItemState = (item.ItemState==null)?ItemState.Normal:item.ItemState
+                    ItemState = (item.ItemState == null) ? ItemState.Normal : item.ItemState
                 };
                 dataList.Add(data);
             }
@@ -365,8 +365,8 @@ namespace PicoMRDemo.Runtime.Mock
             GameEntities.Add(entity);
             return entity;
         }
-        
-        
+
+
         private async UniTask<IEntity> CreateEntity(GameObject gameObject)
         {
             var transform = gameObject.transform;
@@ -385,7 +385,7 @@ namespace PicoMRDemo.Runtime.Mock
             Debug.unityLogger.Log(TAG, $"Create Entity, uuid: {entity.AnchorData.Uuid}, handle: {entity.AnchorData.Handle}");
             return entity;
         }
-        
+
         public void DeleteEntity(IEntity entity)
         {
             GameEntities.Remove(entity);
@@ -406,17 +406,17 @@ namespace PicoMRDemo.Runtime.Mock
         {
             return _roomEntityRoot.transform;
         }
-        
+
         public Transform GetGameEntityRoot()
         {
             return _gameEntityRoot.transform;
         }
-        
+
         public void SetGameEntityRootVisiable(bool isVisible)
         {
             _gameEntityRoot.SetActive(isVisible);
         }
-        
+
         public void SetRoomEntityRootVisiable(bool isVisible)
         {
             _roomEntityRoot.SetActive(isVisible);
@@ -434,20 +434,20 @@ namespace PicoMRDemo.Runtime.Mock
             }
             return result;
         }
-        
+
         public async UniTask CheckSceneAnchorUpdate()
         {
-            
+
         }
         public async UniTask CheckSpatialAnchorUpdate()
         {
-            
+
         }
 
         public async UniTask UpdateSpatialAnchorPosition()
         {
-            
+
         }
-        
+
     }
 }

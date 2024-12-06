@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.Theme
+namespace GGSuperMe.Runtime.Runtime.Theme
 {
     public interface IThemeLoader
     {

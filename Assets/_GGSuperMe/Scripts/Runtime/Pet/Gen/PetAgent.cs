@@ -15,87 +15,87 @@
 using System.Threading;
 using behaviac;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Runtime.Pet;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Runtime.Pet;
+using GGSuperMe.Runtime.Service;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 using UnityEngine.XR.Interaction.Toolkit;
-using PicoMRDemo.Runtime.UI;
+using GGSuperMe.Runtime.UI;
 using UnityEngine;
 
 ///<<< END WRITING YOUR CODE
 
-namespace PicoMRDemo.Runtime.Pet
+namespace GGSuperMe.Runtime.Pet
 {
-///<<< BEGIN WRITING YOUR CODE NAMESPACE_INIT
+	///<<< BEGIN WRITING YOUR CODE NAMESPACE_INIT
 
-///<<< END WRITING YOUR CODE
+	///<<< END WRITING YOUR CODE
 
 	public class PetAgent : behaviac.Agent
-///<<< BEGIN WRITING YOUR CODE PetAgent
-///<<< END WRITING YOUR CODE
+	///<<< BEGIN WRITING YOUR CODE PetAgent
+	///<<< END WRITING YOUR CODE
 	{
 		public bool CheckCatchBall()
 		{
-///<<< BEGIN WRITING YOUR CODE CheckCatchBall
+			///<<< BEGIN WRITING YOUR CODE CheckCatchBall
 			return PetBehaviors.HasTempTarget;
-///<<< END WRITING YOUR CODE
+			///<<< END WRITING YOUR CODE
 		}
 
 		public float GetRandomValue()
 		{
-///<<< BEGIN WRITING YOUR CODE GetRandomValue
+			///<<< BEGIN WRITING YOUR CODE GetRandomValue
 			var value = Random.Range(0.0f, 1.0f);
 			return value;
-///<<< END WRITING YOUR CODE
+			///<<< END WRITING YOUR CODE
 		}
 
 		public bool HasInVirtualWorld()
 		{
-///<<< BEGIN WRITING YOUR CODE HasInVirtualWorld
+			///<<< BEGIN WRITING YOUR CODE HasInVirtualWorld
 			return PetBehaviors.HasInVirtualWorld;
-///<<< END WRITING YOUR CODE
+			///<<< END WRITING YOUR CODE
 		}
 
 		public bool IsCatchingBall()
 		{
-///<<< BEGIN WRITING YOUR CODE IsCatchingBall
+			///<<< BEGIN WRITING YOUR CODE IsCatchingBall
 			return _isCatchBall;
-///<<< END WRITING YOUR CODE
+			///<<< END WRITING YOUR CODE
 		}
 
 		public bool IsRua()
 		{
-///<<< BEGIN WRITING YOUR CODE IsRua
+			///<<< BEGIN WRITING YOUR CODE IsRua
 			return _isRua;
-///<<< END WRITING YOUR CODE
+			///<<< END WRITING YOUR CODE
 		}
 
 		public bool IsTouch()
 		{
-///<<< BEGIN WRITING YOUR CODE IsTouch
+			///<<< BEGIN WRITING YOUR CODE IsTouch
 			return _isTouch;
-///<<< END WRITING YOUR CODE
+			///<<< END WRITING YOUR CODE
 		}
 
 		public bool IsVirtualWorld()
 		{
-///<<< BEGIN WRITING YOUR CODE IsVirtualWorld
+			///<<< BEGIN WRITING YOUR CODE IsVirtualWorld
 			return PetBehaviors.IsVirtualWorld;
-///<<< END WRITING YOUR CODE
+			///<<< END WRITING YOUR CODE
 		}
 
 		public bool IsWalkFinish()
 		{
-///<<< BEGIN WRITING YOUR CODE IsWalkFinish
+			///<<< BEGIN WRITING YOUR CODE IsWalkFinish
 			return PetBehaviors.IsIdleFinished() && PetBehaviors.IsWalkFinished();
-///<<< END WRITING YOUR CODE
+			///<<< END WRITING YOUR CODE
 		}
 
 		public void Patrol()
 		{
-///<<< BEGIN WRITING YOUR CODE Patrol
+			///<<< BEGIN WRITING YOUR CODE Patrol
 			PetBehaviors.PlayAnimation(PetAnimationType.Move);
 			PetBehaviors.TrackPatrolTarget().Forget();
 			///<<< END WRITING YOUR CODE
@@ -103,7 +103,7 @@ namespace PicoMRDemo.Runtime.Pet
 
 		public void PlayCatchBall()
 		{
-///<<< BEGIN WRITING YOUR CODE PlayCatchBall
+			///<<< BEGIN WRITING YOUR CODE PlayCatchBall
 			_isCatchBall = true;
 			PetBehaviors.PlayAnimation(PetAnimationType.Move);
 			PetBehaviors.TrackTempTarget().Forget();
@@ -112,7 +112,7 @@ namespace PicoMRDemo.Runtime.Pet
 
 		public void PlayIdle()
 		{
-///<<< BEGIN WRITING YOUR CODE PlayIdle
+			///<<< BEGIN WRITING YOUR CODE PlayIdle
 			PetBehaviors.PlayAnimation(PetAnimationType.Idle);
 			PetBehaviors.StartIdle().Forget();
 			///<<< END WRITING YOUR CODE
@@ -120,7 +120,7 @@ namespace PicoMRDemo.Runtime.Pet
 
 		public void PlayRua()
 		{
-///<<< BEGIN WRITING YOUR CODE PlayRua
+			///<<< BEGIN WRITING YOUR CODE PlayRua
 			PetBehaviors.PlayAnimation(PetAnimationType.Shame);
 			_isRua = true;
 			///<<< END WRITING YOUR CODE
@@ -128,7 +128,7 @@ namespace PicoMRDemo.Runtime.Pet
 
 		public void PlayWalk()
 		{
-///<<< BEGIN WRITING YOUR CODE PlayWalk
+			///<<< BEGIN WRITING YOUR CODE PlayWalk
 			PetBehaviors.PlayAnimation(PetAnimationType.Move);
 			PetBehaviors.TrackMainTarget().Forget();
 			///<<< END WRITING YOUR CODE
@@ -136,21 +136,21 @@ namespace PicoMRDemo.Runtime.Pet
 
 		public void WalkToRealWorld()
 		{
-///<<< BEGIN WRITING YOUR CODE WalkToRealWorld
+			///<<< BEGIN WRITING YOUR CODE WalkToRealWorld
 			PetBehaviors.PlayAnimation(PetAnimationType.Move);
 			PetBehaviors.TrackRealWorld().Forget();
-///<<< END WRITING YOUR CODE
+			///<<< END WRITING YOUR CODE
 		}
 
 		public void WalkToVirtualWorld()
 		{
-///<<< BEGIN WRITING YOUR CODE WalkToVirtualWorld
+			///<<< BEGIN WRITING YOUR CODE WalkToVirtualWorld
 			PetBehaviors.PlayAnimation(PetAnimationType.Move);
 			PetBehaviors.TrackVirtualWorld().Forget();
 			///<<< END WRITING YOUR CODE
 		}
 
-///<<< BEGIN WRITING YOUR CODE CLASS_PART
+		///<<< BEGIN WRITING YOUR CODE CLASS_PART
 		public XRBaseInteractable Interactable;
 		public PetBehaviors PetBehaviors;
 		public Transform FollowTransform;
@@ -161,130 +161,130 @@ namespace PicoMRDemo.Runtime.Pet
 
 		private bool _isCatchBall = false;
 		//行为树的名称
-        private string _btName = "PetBehaviour";
+		private string _btName = "PetBehaviour";
 		private behaviac.EBTStatus _curStatus = behaviac.EBTStatus.BT_SUCCESS;
 
-        private readonly string TAG = nameof(PetAgent);
-        
-        private void Awake()
-        {
-            initBehaviac();
-            initAgent();
-        }
+		private readonly string TAG = nameof(PetAgent);
 
-        private void Start()
-        {
-	        LoopBehaviour().Forget();
-        }
+		private void Awake()
+		{
+			initBehaviac();
+			initAgent();
+		}
 
-        private void OnEnable()
-        {
-	        Interactable.hoverEntered.AddListener((args) =>
-            {
-	            _isTouch = true;
-	            /*bool isLeftController = ControllerManager.Instance.LeftControllerRoot == args.interactor;
-	            ControllerManager.Instance.BingingGripHotKey(isLeftController, (args) =>
-	            {
-		            _isRua = false;
-	            },null,(args)=>
-	            {
-		            _isRua = false;
-	            });*/
-            });
-            Interactable.hoverExited.AddListener((args) =>
-            {
-	            _isTouch = false;
-	            /*bool isLeftController = ControllerManager.Instance.LeftControllerRoot == args.interactor;
-	            if (isLeftController)
-	            {
-		            ControllerManager.Instance.UnBingingGripInputActionLeft();
+		private void Start()
+		{
+			LoopBehaviour().Forget();
+		}
 
-	            }
-	            else
-	            {
-		            ControllerManager.Instance.UnBingingGripInputActionRight();
-	            }*/
-            });
-            PetBehaviors.ReachedTempTarget += async (temp) =>
-            {
-	            // PetAnimation.Play("pickBall");
-	            await PetBehaviors.PlayAnimationAwait(PetAnimationType.PickBall, CancellationToken.None);
-	            PetBehaviors.CatchableManager.Catch(gameObject, temp.GetComponent<ICatchable>());
-	            PetBehaviors.PlayAnimation(PetAnimationType.MoveWithBall);
-	            await PetBehaviors.TrackMainTarget();
-	            PetBehaviors.CatchableManager.Uncatch(temp.GetComponent<ICatchable>());
-	            _isCatchBall = false;
-            };
-            PetBehaviors.ReachedTempTargetEnd += (temp) =>
-            {
-	            PetBehaviors.TempTarget = null;
-            };
-            PetBehaviors.ReachedVritualWorld += () =>
-            {
-	            PetBehaviors.HasInVirtualWorld = true;
-            };
-            PetBehaviors.ReachedRealWorld += () =>
-            {
-	            PetBehaviors.HasInVirtualWorld = false;
-            };
-        }
+		private void OnEnable()
+		{
+			Interactable.hoverEntered.AddListener((args) =>
+				{
+					_isTouch = true;
+					/*bool isLeftController = ControllerManager.Instance.LeftControllerRoot == args.interactor;
+					ControllerManager.Instance.BingingGripHotKey(isLeftController, (args) =>
+					{
+						_isRua = false;
+					},null,(args)=>
+					{
+						_isRua = false;
+					});*/
+				});
+			Interactable.hoverExited.AddListener((args) =>
+			{
+				_isTouch = false;
+				/*bool isLeftController = ControllerManager.Instance.LeftControllerRoot == args.interactor;
+				if (isLeftController)
+				{
+					ControllerManager.Instance.UnBingingGripInputActionLeft();
 
-        private void OnDisable()
-        {
-	        Interactable.hoverEntered.RemoveAllListeners();
-	        Interactable.hoverExited.RemoveAllListeners();
-        }
+				}
+				else
+				{
+					ControllerManager.Instance.UnBingingGripInputActionRight();
+				}*/
+			});
+			PetBehaviors.ReachedTempTarget += async (temp) =>
+			{
+				// PetAnimation.Play("pickBall");
+				await PetBehaviors.PlayAnimationAwait(PetAnimationType.PickBall, CancellationToken.None);
+				PetBehaviors.CatchableManager.Catch(gameObject, temp.GetComponent<ICatchable>());
+				PetBehaviors.PlayAnimation(PetAnimationType.MoveWithBall);
+				await PetBehaviors.TrackMainTarget();
+				PetBehaviors.CatchableManager.Uncatch(temp.GetComponent<ICatchable>());
+				_isCatchBall = false;
+			};
+			PetBehaviors.ReachedTempTargetEnd += (temp) =>
+			{
+				PetBehaviors.TempTarget = null;
+			};
+			PetBehaviors.ReachedVritualWorld += () =>
+			{
+				PetBehaviors.HasInVirtualWorld = true;
+			};
+			PetBehaviors.ReachedRealWorld += () =>
+			{
+				PetBehaviors.HasInVirtualWorld = false;
+			};
+		}
 
-        private void initBehaviac()
-        {
-            behaviac.Workspace.Instance.FileFormat = behaviac.Workspace.EFileFormat.EFF_xml;
-        }
-        
-        private bool initAgent()
-        {
-            bool bRet = this.btload(_btName);
-            if (!bRet)
-                Debug.unityLogger.LogError(TAG, "Behavior tree data load failed! " + _btName );
-            else
-                this.btsetcurrent(_btName);
-            return bRet;
-        }
+		private void OnDisable()
+		{
+			Interactable.hoverEntered.RemoveAllListeners();
+			Interactable.hoverExited.RemoveAllListeners();
+		}
 
-        public void SetCatchableManager(ICatchableManager catchableManager)
-        {
-	        PetBehaviors.CatchableManager = catchableManager;
-        }
+		private void initBehaviac()
+		{
+			behaviac.Workspace.Instance.FileFormat = behaviac.Workspace.EFileFormat.EFF_xml;
+		}
 
-        public void SetVirtualWorldManager(IVirtualWorldManager virtualWorldManager)
-        {
-	        PetBehaviors.VirtualWorldManager = virtualWorldManager;
-        }
-        
-        async UniTask LoopBehaviour()
-        {
-	        while (true)
-	        {
-		        if (_curStatus == EBTStatus.BT_SUCCESS)
-		        {
+		private bool initAgent()
+		{
+			bool bRet = this.btload(_btName);
+			if (!bRet)
+				Debug.unityLogger.LogError(TAG, "Behavior tree data load failed! " + _btName);
+			else
+				this.btsetcurrent(_btName);
+			return bRet;
+		}
+
+		public void SetCatchableManager(ICatchableManager catchableManager)
+		{
+			PetBehaviors.CatchableManager = catchableManager;
+		}
+
+		public void SetVirtualWorldManager(IVirtualWorldManager virtualWorldManager)
+		{
+			PetBehaviors.VirtualWorldManager = virtualWorldManager;
+		}
+
+		async UniTask LoopBehaviour()
+		{
+			while (true)
+			{
+				if (_curStatus == EBTStatus.BT_SUCCESS)
+				{
 					// behaviac.Workspace.Instance.DebugUpdate();
 					_curStatus = this.btexec();
 					await UniTask.Delay(1000);
-		        }
-	        }
-        }
-        
-        private void OnDestroy()
-        {
-            behaviac.Workspace.Instance.UnLoadAll();
-            behaviac.Workspace.Instance.Cleanup();
-        }
-///<<< END WRITING YOUR CODE
+				}
+			}
+		}
+
+		private void OnDestroy()
+		{
+			behaviac.Workspace.Instance.UnLoadAll();
+			behaviac.Workspace.Instance.Cleanup();
+		}
+		///<<< END WRITING YOUR CODE
 
 	}
 
-///<<< BEGIN WRITING YOUR CODE NAMESPACE_UNINIT
+	///<<< BEGIN WRITING YOUR CODE NAMESPACE_UNINIT
 
-///<<< END WRITING YOUR CODE
+	///<<< END WRITING YOUR CODE
 }
 
 ///<<< BEGIN WRITING YOUR CODE FILE_UNINIT

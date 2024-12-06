@@ -9,7 +9,7 @@ using UnityEngine;
 using Unity.Collections;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public interface IGraffitiable
     {
@@ -17,7 +17,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
         Texture2D Drawingboard { get; }
         void ClearAllGraffitiable();
     }
-   
+
     public class Whiteboard : XRBaseInteractable, IGraffitiable
     {
         public int TextureSize = 512;
@@ -35,7 +35,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
             rend.material.SetTexture(BaseMap, _texture);
             ClearAllGraffitiable();
         }
-        
+
         [ContextMenu("ClearAllGraffitiable")]
         public void ClearAllGraffitiable()
         {
@@ -48,7 +48,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
             _texture.Apply(true);
 
         }
-        
+
         protected override void OnDestroy()
         {
             Destroy(_texture);

@@ -10,16 +10,16 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public class DoodleInteractor : XRBaseInteractor
     {
         public Color32 drawingColor = new Color32(0, 0, 0, 255);
 
         public int BrushSize = 1;
-        
+
         private HashSet<IGraffitiable> graffitiables = new HashSet<IGraffitiable>();
-        
+
         private Dictionary<IGraffitiable, Vector2> lastPositions = new Dictionary<IGraffitiable, Vector2>();
 
         protected override void OnDisable()
@@ -40,7 +40,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 }
             }
         }
-        
+
         public void ChangeColor(Color32 color)
         {
             drawingColor = color;
@@ -48,43 +48,43 @@ namespace PicoMRDemo.Runtime.Runtime.Item
 
         public void Draw(IGraffitiable graffitiable)
         {
-            var board = graffitiable.Drawingboard;                     
-            var localTouchPosition = graffitiable.transform.InverseTransformPoint(attachTransform.position);                   
+            var board = graffitiable.Drawingboard;
+            var localTouchPosition = graffitiable.transform.InverseTransformPoint(attachTransform.position);
 
             NativeArray<Color32> data = board.GetRawTextureData<Color32>();
-            
+
             Vector2 uvTouchPosition = new Vector2(localTouchPosition.x + 0.5f, localTouchPosition.y + 0.5f);
-    
+
             Vector2 pixelCoordinate = Vector2.Scale(new Vector2(board.width, board.height), uvTouchPosition);
 
             if (!lastPositions.TryGetValue(graffitiable, out Vector2 lastPosition))
             {
                 lastPosition = pixelCoordinate;
             }
-                       
+
             for (int i = 0; i < Vector2.Distance(pixelCoordinate, lastPosition); i++)
             {
                 DrawSplat(Vector2.Lerp(lastPosition, pixelCoordinate, i / Vector2.Distance(pixelCoordinate, lastPosition)), data, board.width);
             }
-            
+
             lastPositions[graffitiable] = pixelCoordinate;
 
             board.Apply(false);
-           
+
         }
-        
+
         private void DrawSplat(Vector2 pixelCoordinate, NativeArray<Color32> data, int textureWidth)
         {
             var pixelIndexX = Mathf.RoundToInt(pixelCoordinate.x);
             var pixelIndexY = Mathf.RoundToInt(pixelCoordinate.y);
             int pixelIndex = pixelIndexX + textureWidth * pixelIndexY;
-        
+
             for (int y = -1 * BrushSize; y < BrushSize + 1; y++)
             {
                 for (int x = -1 * BrushSize; x < BrushSize + 1; x++)
                 {
                     var targetPixelIndexX = x;
-                    if (pixelIndexX+x >= textureWidth)
+                    if (pixelIndexX + x >= textureWidth)
                     {
                         targetPixelIndexX = textureWidth - 1 - pixelIndexX;
                     }
@@ -96,7 +96,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 }
             }
         }
-        
+
         void OnTriggerEnter(Collider other)
         {
             if (interactionManager.TryGetInteractableForCollider(other, out var associatedInteractable))
@@ -113,7 +113,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
         {
             if (interactionManager.TryGetInteractableForCollider(other, out var associatedInteractable))
             {
-                
+
                 if (associatedInteractable.transform.TryGetComponent<IGraffitiable>(out var graffitiable))
                 {
                     if (lastPositions.ContainsKey(graffitiable))

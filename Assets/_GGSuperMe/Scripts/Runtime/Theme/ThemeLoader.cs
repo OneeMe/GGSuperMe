@@ -5,20 +5,20 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using PicoMRDemo.Runtime.Data.Config;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data.Config;
+using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.Runtime.Theme
+namespace GGSuperMe.Runtime.Runtime.Theme
 {
     public class ThemeLoader : IThemeLoader
     {
         [Inject]
         public IMaterialLoader MaterialLoader;
-        
+
         private IAssetConfig _assetConfig;
-        
+
         public IAssetConfig AssetConfig
         {
             get
@@ -31,7 +31,7 @@ namespace PicoMRDemo.Runtime.Runtime.Theme
                 return _assetConfig;
             }
         }
-        
+
         public Material GetMaterial(ulong id)
         {
             var material = AssetConfig.GetAssetByID<Material>(id);

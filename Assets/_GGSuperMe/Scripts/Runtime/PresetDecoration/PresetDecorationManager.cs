@@ -7,12 +7,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
 using System.Linq;
-using PicoMRDemo.Runtime.Data.Config;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data.Config;
+using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.Runtime.PresetDecoration
+namespace GGSuperMe.Runtime.Runtime.PresetDecoration
 {
     public class PresetDecorationData
     {
@@ -23,13 +23,13 @@ namespace PicoMRDemo.Runtime.Runtime.PresetDecoration
     {
         [Inject]
         private IPresetDecorationLoader _presetDecorationLoader;
-        
+
         private IList<PresetRowConfig> _presetRowConfigs;
 
         private IAssetConfig _assetConfig;
 
         private Dictionary<PresetType, IList<GameObject>> _presetDecorationsDict = new Dictionary<PresetType, IList<GameObject>>();
-        
+
         public IList<PresetRowConfig> PresetRowConfigs
         {
             get

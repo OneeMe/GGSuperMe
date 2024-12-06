@@ -8,7 +8,7 @@
 using System;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public interface ICatchableManager
     {

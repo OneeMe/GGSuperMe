@@ -8,28 +8,28 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Entity;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Entity;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace PicoMRDemo.Runtime.Runtime.ShootingGame
+namespace GGSuperMe.Runtime.Runtime.ShootingGame
 {
     public class BalloonInteractionManager : ITickable, IBalloonInteractionManager
     {
         public HashSet<IBullet> Bullets { get; } = new HashSet<IBullet>();
         public HashSet<IBalloon> Balloons { get; } = new HashSet<IBalloon>();
-        
+
         readonly Dictionary<Collider, IBalloon> _colliderToBalloonMap = new Dictionary<Collider, IBalloon>();
-        
-        
+
+
         [Inject]
         private IResourceLoader _resourceLoader;
 
-        [Inject] 
+        [Inject]
         private IEntityManager _entityManager;
 
         private AstarPath _astarPath;
@@ -45,11 +45,11 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
                 return _astarPath;
             }
         }
-        
+
         public IBalloon AddBalloon(Vector3 position)
         {
             var balloonPrefab = _resourceLoader.AssetSetting.Balloon;
-            var obj = Object.Instantiate(balloonPrefab,_entityManager.GetGameEntityRoot());
+            var obj = Object.Instantiate(balloonPrefab, _entityManager.GetGameEntityRoot());
             obj.transform.position = position;
             var balloon = obj.GetComponent<IBalloon>();
             foreach (var balloonCollider in balloon.Colliders)
@@ -114,7 +114,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
         public IBullet AddBullet(Vector3 position, Vector3 direction, Vector3 velocity)
         {
             var bulletPrefab = _resourceLoader.AssetSetting.Bullet;
-            var obj = Object.Instantiate(bulletPrefab, position, Quaternion.LookRotation(direction),_entityManager.GetGameEntityRoot());
+            var obj = Object.Instantiate(bulletPrefab, position, Quaternion.LookRotation(direction), _entityManager.GetGameEntityRoot());
             // obj.transform.position = position;
             obj.GetComponent<Rigidbody>().velocity = velocity;
             var bullet = obj.GetComponent<IBullet>();
@@ -142,7 +142,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
             balloon = null;
             if (balloonCollider == null)
                 return false;
-            
+
             _colliderToBalloonMap.TryGetValue(balloonCollider, out balloon);
             return balloon != null && (!(balloon is Object unityObject) || unityObject != null);
         }
@@ -158,7 +158,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
                 if (balloons is { Length: > 0 })
                 {
                     foreach (var balloon in balloons)
-                    { 
+                    {
                         RemoveBalloon(balloon);
                         balloon.Boom();
                     }
@@ -176,7 +176,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
                 _removedBullet.Clear();
             }
         }
-        
+
         private IList<Vector3> GetWalkablePositions(int count)
         {
             var result = GetRandomItems(OriginalPositions, count);
@@ -219,6 +219,6 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
             return result;
         }
 
-        
+
     }
 }

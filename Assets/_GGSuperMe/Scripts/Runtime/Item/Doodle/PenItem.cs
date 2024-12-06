@@ -10,13 +10,13 @@ using System;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
-using PicoMRDemo.Runtime.Utils;
+using GGSuperMe.Runtime.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using PicoMRDemo.Runtime.UI;
+using GGSuperMe.Runtime.UI;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public enum PenType
     {
@@ -32,15 +32,15 @@ namespace PicoMRDemo.Runtime.Runtime.Item
         public Transform ColorRoot;
 
         public int BrushSize = 1;
-        
+
         [Tooltip("颜色列表单侧预显示个数")]
-        public int PredisplayCount = 1; 
+        public int PredisplayCount = 1;
         [Tooltip("颜色列表一次移动的距离")]
         public float ColorSlottStep = 150;
 
         public MeshRenderer PenMesh;
         public MeshRenderer DoodleMesh;
-        
+
         public GameObject curDoodleRoot;
         public GameObject[] Pens;
         public GameObject[] DoodleRoots;
@@ -108,7 +108,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
             ControllerManager.Instance.BingingSecondaryHotKey(_isLeftController, StartItemSpecialAction, null,
                 CancelItemSpecialAction);
         }
-        
+
         public void UnregisterControllerEvent()
         {
             ColorRoot.gameObject.SetActive(false);
@@ -146,16 +146,16 @@ namespace PicoMRDemo.Runtime.Runtime.Item
             var prefab = ColorRoot.GetChild(0);
             prefab.gameObject.SetActive(false);
 
-            for (int i = - PredisplayCount - 1; i <= length + PredisplayCount; i++)
+            for (int i = -PredisplayCount - 1; i <= length + PredisplayCount; i++)
             {
                 var go = Instantiate(prefab, ColorRoot);
                 var image = go.GetComponent<Image>();
                 image.color = ConstantProperty.BasicColors[(i + length) % length];
                 go.gameObject.SetActive(true);
             }
-            
+
             ColorRoot.gameObject.SetActive(false);
-            ScrollRect.content.anchoredPosition = new Vector2((-PredisplayCount-_colorIndex) * ColorSlottStep, ScrollRect.content.anchoredPosition.y);
+            ScrollRect.content.anchoredPosition = new Vector2((-PredisplayCount - _colorIndex) * ColorSlottStep, ScrollRect.content.anchoredPosition.y);
             doodleInteractor.ChangeColor(ConstantProperty.BasicColors[_colorIndex]);
             PenMesh.material.color = ConstantProperty.BasicColors[(_colorIndex + length) % length];
             doodleInteractor.BrushSize = BrushSize;
@@ -165,17 +165,17 @@ namespace PicoMRDemo.Runtime.Runtime.Item
         {
             ScrollRect.gameObject.SetActive(false);
         }
-        
+
         private void ChangeColor(InputAction.CallbackContext obj)
         {
             if (CurPen == PenType.Erase)
             {
                 return;
             }
-            
+
             var dir = obj.ReadValue<Vector2>();
-            if (dir.x == 0) return; 
-            
+            if (dir.x == 0) return;
+
             ChangeColorIndex(dir.x > 0 ? 1 : -1);
         }
 
@@ -196,7 +196,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 if (_colorIndex >= length || _colorIndex < 0)
                 {
                     _colorIndex = (_colorIndex + length) % length;
-                    content.anchoredPosition = new Vector2((-PredisplayCount-_colorIndex) * ColorSlottStep, content.anchoredPosition.y);
+                    content.anchoredPosition = new Vector2((-PredisplayCount - _colorIndex) * ColorSlottStep, content.anchoredPosition.y);
                 }
             });
 

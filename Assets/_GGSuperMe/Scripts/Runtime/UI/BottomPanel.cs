@@ -5,18 +5,18 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using VContainer;
 using UnityEngine.UI;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class BottomPanel : MonoBehaviour
     {
-        [Header("Button")] 
+        [Header("Button")]
         public Button QuitButton;
 
         [Inject]
@@ -43,14 +43,14 @@ namespace PicoMRDemo.Runtime.UI
         {
             DialogPool.SetTitle("^QUIT_APP");
             DialogPool.SetBody("^QUIT_TIP_INFO");
-            DialogPool.SetFirstButton("^OK", async() =>
+            DialogPool.SetFirstButton("^OK", async () =>
             {
                 await _entityManager.SaveGameEntities();
                 _persistentLoader.StageAllThemeData(_themeManager.GetCurrentThemes());
                 _persistentLoader.SaveAllData();
                 Application.Quit();
             });
-            DialogPool.SetSecondButton("^CANCEL",() =>
+            DialogPool.SetSecondButton("^CANCEL", () =>
             {
                 DialogPool.Dismiss();
             });

@@ -7,17 +7,17 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
 using System.Linq;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Config;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Runtime.PresetDecoration;
-using PicoMRDemo.Runtime.Runtime.Theme;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Config;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Runtime.PresetDecoration;
+using GGSuperMe.Runtime.Runtime.Theme;
 using Unity.XR.PXR;
 using UnityEngine;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.Service
+namespace GGSuperMe.Runtime.Service
 {
     public class ThemeManager : IThemeManager
     {
@@ -25,7 +25,7 @@ namespace PicoMRDemo.Runtime.Service
         private IThemeLoader _themeLoader;
         [Inject]
         private IEntityManager _entityManager;
-        [Inject] 
+        [Inject]
         private IResourceLoader _resourceLoader;
         [Inject]
         private IPresetDecorationManager _presetDecorationManager;
@@ -46,7 +46,7 @@ namespace PicoMRDemo.Runtime.Service
                 1000,2000,3000
             }
         };
-        
+
         public void SwitchTheme(IDecorationData data)
         {
             var decorationData = data as DecorationData;
@@ -64,8 +64,8 @@ namespace PicoMRDemo.Runtime.Service
                 _currentThemes.Add(decorationLabel, data);
             }
             foreach (var entity in entities)
-            {                
-                if (entity.GetRoomLabel() == decorationLabel||(decorationData.Type == DecorationType.Wall&&entity.GetRoomLabel() == PxrSemanticLabel.VirtualWall))
+            {
+                if (entity.GetRoomLabel() == decorationLabel || (decorationData.Type == DecorationType.Wall && entity.GetRoomLabel() == PxrSemanticLabel.VirtualWall))
                 {
                     Debug.unityLogger.Log(TAG, $"Change label{entity.AnchorData.SceneLabel}-{entity.AnchorData.Handle}");
                     var renderer = entity.GameObject.GetComponentInChildren<Renderer>();
@@ -89,7 +89,7 @@ namespace PicoMRDemo.Runtime.Service
                     }
                 }
             }
-            
+
             // process presetDecorations
             RemoveRoomPresetDecoration(decorationLabel);
             CreateRoomPresetDecoration(decorationLabel);
@@ -223,7 +223,7 @@ namespace PicoMRDemo.Runtime.Service
                             break;
                         }
                     }
-    
+
                     if (selectedWall != null)
                     {
                         var planeInfo = selectedWall.AnchorData.SceneBox2DData;
@@ -308,7 +308,7 @@ namespace PicoMRDemo.Runtime.Service
             {
                 var ceilings = _entityManager.GetRoomEntities(PxrSemanticLabel.Ceiling);
                 var ceiling = ceilings[0];
-                
+
                 var theme = GetCurrentTheme(PxrSemanticLabel.Ceiling);
                 var themeId = GetThemeId(theme);
                 var decoration = _presetDecorationManager.CreateDecoration(PresetType.DomeLight, themeId, ceiling.GameObject);
@@ -348,7 +348,7 @@ namespace PicoMRDemo.Runtime.Service
                 Vector3 doorPosInWall = wall.GameObject.transform.InverseTransformPoint(doorPos);
                 var planeBoundaryInfo = wall.AnchorData.SceneBox2DData;
                 var extent = planeBoundaryInfo.Extent;
-                
+
                 if (Mathf.Abs(doorPosInWall.z) <= 0.5f && Mathf.Abs(doorPosInWall.x) <= extent.x && Mathf.Abs(doorPosInWall.y) <= extent.y)
                 {
                     return true;

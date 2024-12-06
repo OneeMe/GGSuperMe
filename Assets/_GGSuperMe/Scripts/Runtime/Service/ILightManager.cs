@@ -7,12 +7,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Service
+namespace GGSuperMe.Runtime.Service
 {
     public interface ILightManager
     {
         void SetMainLightPositionByCeilingPosition(Vector3 ceilingPosition);
-        
+
         void SetMainLightIntensityByCeilingHeight(float ceilingHeight);
     }
 }

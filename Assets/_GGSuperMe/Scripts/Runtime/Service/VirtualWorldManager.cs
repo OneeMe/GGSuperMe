@@ -12,19 +12,19 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Pathfinding;
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Data.Config;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Runtime.PresetDecoration;
-using PicoMRDemo.Runtime.Utils;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Data.Config;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Runtime.PresetDecoration;
+using GGSuperMe.Runtime.Utils;
 using Unity.XR.PXR;
 using UnityEngine;
 using VContainer;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.UI;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.UI;
 using Object = UnityEngine.Object;
 
-namespace PicoMRDemo.Runtime.Service
+namespace GGSuperMe.Runtime.Service
 {
     public class VirtualWorldManager : IVirtualWorldManager
     {
@@ -33,7 +33,7 @@ namespace PicoMRDemo.Runtime.Service
         public bool IsOpen { get; private set; } = false;
         public bool IsOpeningOrClosing => _isInOpeningOrClosing;
         private bool _isInOpeningOrClosing = false;
-        
+
         private MagicStick _magicStick;
         private bool _isStart;
 
@@ -45,12 +45,12 @@ namespace PicoMRDemo.Runtime.Service
 
         [Inject]
         private IPresetDecorationManager _presetDecorationManager;
-        
+
         public bool IsStart => _isStart;
-        
+
         private readonly string TAG = nameof(VirtualWorldManager);
 
-        public async UniTask OpenWorldAsync(CancellationToken cancellationToken,bool isLeftController)
+        public async UniTask OpenWorldAsync(CancellationToken cancellationToken, bool isLeftController)
         {
             if (_isInOpeningOrClosing)
                 return;
@@ -67,7 +67,7 @@ namespace PicoMRDemo.Runtime.Service
                 if (Physics.Raycast(ray, out var hit, Mathf.Infinity, LayerMask.GetMask("Wall")))
                 {
                     Debug.Log(hit.collider.gameObject.name);
-                    wall = _entityManager.GetRoomEntities().FirstOrDefault(x => (x.GetRoomLabel() == PxrSemanticLabel.Wall||x.GetRoomLabel() == PxrSemanticLabel.VirtualWall)  && x.GameObject == hit.collider.transform.parent.gameObject);//&& !IsEntityHasWindow(x)
+                    wall = _entityManager.GetRoomEntities().FirstOrDefault(x => (x.GetRoomLabel() == PxrSemanticLabel.Wall || x.GetRoomLabel() == PxrSemanticLabel.VirtualWall) && x.GameObject == hit.collider.transform.parent.gameObject);//&& !IsEntityHasWindow(x)
                 }
                 wall ??= _entityManager.GetRoomEntities().First(x => (x.GetRoomLabel() == PxrSemanticLabel.Wall || x.GetRoomLabel() == PxrSemanticLabel.VirtualWall));// && !IsEntityHasWindow(x));
                 DrawPortal(wall);
@@ -76,7 +76,7 @@ namespace PicoMRDemo.Runtime.Service
             _skybox.SetActive(true);
             var changedNodes = AddPlane();
             await PlayOpen(cancellationToken);
-            
+
             _isInOpeningOrClosing = false;
             IsOpen = true;
             if (OnOpenWorldFinished != null)
@@ -96,7 +96,7 @@ namespace PicoMRDemo.Runtime.Service
             {
                 await OnCloseWorldStart.Invoke();
             }
-            
+
             // 关闭virtual world
             Debug.unityLogger.Log(TAG, $"关闭virtual world");
             RemovePlane();
@@ -108,7 +108,7 @@ namespace PicoMRDemo.Runtime.Service
                 Object.Destroy(_mirror);
                 _mirror = null;
             }
-            
+
             _skybox.SetActive(false);
             _isInOpeningOrClosing = false;
             IsOpen = false;
@@ -133,11 +133,11 @@ namespace PicoMRDemo.Runtime.Service
                 var extent = planeBoundaryInfo.Extent;
                 Debug.unityLogger.Log(TAG, $"Plane center: {planeBoundaryInfo.Center} extent: {planeBoundaryInfo.Extent}");
                 Debug.unityLogger.Log(TAG, $"Label: {anchorData.SceneLabel} end");
-                
+
                 var portalWall = MeshGenerator.GenerateQuadMesh(planeBoundaryInfo.Center, planeBoundaryInfo.Extent, mirrorMaterial);
                 portalWall.transform.parent = anchorObject.transform;
                 portalWall.transform.localRotation = Quaternion.identity;
-                
+
                 //portalWall.transform.localPosition = new Vector3(0f, 0f, 0.1f);
                 portalWall.transform.localScale = Vector3.zero;
                 portalWall.AddComponent<MeshCollider>();
@@ -206,7 +206,7 @@ namespace PicoMRDemo.Runtime.Service
             }
             return tempNodes;
         }
-        
+
         private void RemovePlane()
         {
             //_extentPlane.SetActive(false);
@@ -231,7 +231,7 @@ namespace PicoMRDemo.Runtime.Service
         }
 
         private async UniTask PlayClose(CancellationToken cancellationToken)
-        {            
+        {
             await UniTask.WhenAll(_mirror.transform.DOScale(Vector3.zero, 0.6f).SetEase(Ease.OutBack).WithCancellation(cancellationToken));
         }
 

@@ -5,10 +5,10 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using PicoMRDemo.Runtime.Data.Config;
+using GGSuperMe.Runtime.Data.Config;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Data
+namespace GGSuperMe.Runtime.Data
 {
     public class ResourceLoader : MonoBehaviour, IResourceLoader
     {
@@ -19,7 +19,7 @@ namespace PicoMRDemo.Runtime.Data
         private ItemTable _itemTable;
         [SerializeField]
         private WallThemeTable _wallThemeTable;
-        [SerializeField] 
+        [SerializeField]
         private FloorThemeTable _floorThemeTable;
         [SerializeField]
         private CeilingThemeTable _ceilingThemeTable;

@@ -7,9 +7,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -17,7 +17,7 @@ using VContainer;
 using Cysharp.Threading.Tasks;
 using UnityEngine.Serialization;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class VirtualWorldPage : MonoBehaviour
     {
@@ -27,20 +27,20 @@ namespace PicoMRDemo.Runtime.UI
 
         [Inject]
         private IDecorationDataLoader _decorationDataLoader;
-        
+
         [Inject]
         private IVirtualWorldManager _virtualWorldManager;
-        
-        [Inject] 
+
+        [Inject]
         private IItemFactory _itemFactory;
-        
+
         public void TogglePage()
         {
             if (openToggle.isOn) return;
-            
+
             openToggle.isOn = true;
         }
-        
+
         private void OnEnable()
         {
             RegisterEvent();
@@ -61,7 +61,7 @@ namespace PicoMRDemo.Runtime.UI
         {
             playButton.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener(OnVirtualWorld);
         }
-        
+
         private void OnVirtualWorld(SelectExitEventArgs selectExitEventArgs)
         {
             var decorationDatas = _decorationDataLoader.LoadData(DecorationType.Item);
@@ -74,19 +74,19 @@ namespace PicoMRDemo.Runtime.UI
                     {
                         virtualWorld.Add(data);
                     }
-                    
+
                 }
             }
             if (virtualWorld.Count > 0)
             {
                 bool isLeftController = selectExitEventArgs != null && ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactor.gameObject;
-                if (_virtualWorldManager.IsStart||ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
+                if (_virtualWorldManager.IsStart || ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
                 {
-                    
+
                 }
                 else
                 {
-                    
+
                     var resourceID = ((DecorationData)virtualWorld[0]).ID;
                     var item = _itemFactory.CreateItem(resourceID, Vector3.zero, Quaternion.identity, ItemState.Normal);
                     var stick = item as MagicStick;
@@ -113,7 +113,7 @@ namespace PicoMRDemo.Runtime.UI
                                     }
                                     else
                                     {
-                                        _virtualWorldManager.OpenWorldAsync(this.GetCancellationTokenOnDestroy(),isLeftController);
+                                        _virtualWorldManager.OpenWorldAsync(this.GetCancellationTokenOnDestroy(), isLeftController);
                                         stick.SwitchState(MagicStick.StickState.Open);
                                     }
                                 }
@@ -124,13 +124,13 @@ namespace PicoMRDemo.Runtime.UI
                                 ControllerManager.Instance.UnBingingGameHotKey(isLeftController);
                                 ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.Normal);
                             }, null, null);
-                            ControllerManager.Instance.SetControllerShow(isLeftController, false,false);
+                            ControllerManager.Instance.SetControllerShow(isLeftController, false, false);
                             ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.VirtualWorld);
                         }
                     }
                 }
             }
         }
-       
+
     }
 }

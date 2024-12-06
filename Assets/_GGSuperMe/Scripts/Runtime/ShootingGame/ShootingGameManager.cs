@@ -7,20 +7,20 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Runtime.Item;
 using UnityEngine;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.Runtime.ShootingGame
+namespace GGSuperMe.Runtime.Runtime.ShootingGame
 {
     public class ShootingGameManager : IShootingGameManager
     {
-        
+
         private Gun _gun;
         private bool _isStart;
         [Inject]
         private IBalloonInteractionManager _balloonManager;
-        
+
         public bool IsStart => _isStart;
         public void StartGame(Gun gun)
         {
@@ -64,9 +64,9 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
         {
             _balloonManager.AddBalloons(MaxBalloonCount);
         }
-        
+
         private CancellationTokenSource _cancellationTokenSource;
-        
+
         private async UniTask StartBalloonChecker()
         {
             _cancellationTokenSource = new CancellationTokenSource();

@@ -8,8 +8,8 @@
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using PicoMRDemo.Runtime.Game;
-namespace PicoMRDemo.Runtime.UI
+using GGSuperMe.Runtime.Game;
+namespace GGSuperMe.Runtime.UI
 {
     public class UIContext : MonoBehaviour
     {
@@ -77,7 +77,7 @@ namespace PicoMRDemo.Runtime.UI
             builder.RegisterComponent(DoodlePage);
             builder.RegisterComponent(DebugPage);
         }
-        
+
         private void RegisterEvent()
         {
             MainMenu.LogWindowButton.onClick.AddListener(ToggleConsoleMenu);
@@ -119,16 +119,16 @@ namespace PicoMRDemo.Runtime.UI
                 MainMenu.Close();
             }
         }
-        
+
         private void ToggleConsoleMenu()
         {
             var active = !ConsoleVirtualizeList.gameObject.activeSelf;
             if (active)
             {
                 var localPos = new Vector3(0.7960f, 0.0f, 0.0f);
-                
+
                 var mainMenuTransform = MainMenu.gameObject.transform;
-                var deltaV = new Vector3(Mathf.Cos(Mathf.PI/9.0f), 0, -Mathf.Sin(Mathf.PI/9.0f)) * 0.245f - new Vector3(0.245f, 0f, 0f);
+                var deltaV = new Vector3(Mathf.Cos(Mathf.PI / 9.0f), 0, -Mathf.Sin(Mathf.PI / 9.0f)) * 0.245f - new Vector3(0.245f, 0f, 0f);
                 localPos += deltaV;
                 var pos = mainMenuTransform.TransformPoint(localPos);
                 ConsoleVirtualizeList.gameObject.transform.position = pos;
@@ -152,7 +152,7 @@ namespace PicoMRDemo.Runtime.UI
                 ToastComponent.HideToast();
                 return;
             }
-            
+
             ToastComponent.ShowToast(context);
         }
     }

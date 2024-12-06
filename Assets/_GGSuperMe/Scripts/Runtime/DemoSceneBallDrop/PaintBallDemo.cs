@@ -8,7 +8,7 @@
 
 using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
-using PicoMRDemo.Runtime.Utils;
+using GGSuperMe.Runtime.Utils;
 using UnityEngine.Serialization;
 public class PaintBallDemo : MonoBehaviour
 {
@@ -35,7 +35,7 @@ public class PaintBallDemo : MonoBehaviour
         get => lifeTime;
         set => lifeTime = value;
     }
-    
+
     private PhysicalCollisionDelegate _physicalCollisionDelegate;
 
     private PhysicalCollisionDelegate PhysicalCollisionDelegate
@@ -49,10 +49,11 @@ public class PaintBallDemo : MonoBehaviour
             return _physicalCollisionDelegate;
         }
     }
-    
+
     private Rigidbody _rigidBody;
 
-    [FormerlySerializedAs("_lifeTime")] [SerializeField]
+    [FormerlySerializedAs("_lifeTime")]
+    [SerializeField]
     private float lifeTime = 10;
 
     private void OnEnable()
@@ -68,7 +69,7 @@ public class PaintBallDemo : MonoBehaviour
     private void PlayHit(Collision collision)
     {
         ContactPoint contact = collision.contacts[0];
-        var hitEffectPrefab = UnityEngine.Object.Instantiate(hitEffect,contact.point,collision.transform.rotation);
+        var hitEffectPrefab = UnityEngine.Object.Instantiate(hitEffect, contact.point, collision.transform.rotation);
         hitEffectPrefab.transform.LookAt(GameObject.transform.position - contact.normal);
         hitEffectPrefab.transform.Translate(Vector3.back * 0.001f);
         hitEffectPrefab.Play();
@@ -91,7 +92,7 @@ public class PaintBallDemo : MonoBehaviour
             LifeTime -= Time.deltaTime;
         }
     }
-    
+
     private void OnCollisionEnterEvent(Collision collision)
     {
         PlayHit(collision);
@@ -103,7 +104,7 @@ public class PaintBallDemo : MonoBehaviour
 
     private void OnCollisionExitEvent(Collision collision)
     {
-        
+
     }
 }
 

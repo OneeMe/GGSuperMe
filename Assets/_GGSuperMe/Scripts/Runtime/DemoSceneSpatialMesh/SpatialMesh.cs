@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
-using PicoMRDemo.Runtime.UI;
+using GGSuperMe.Runtime.UI;
 using UnityEngine;
 using System.Linq;
 
@@ -49,7 +49,7 @@ public class SpatialMesh : MonoBehaviour
         PaintBalls.Add(paintball);
         shootEffect.Play();
     }
-    
+
     private PaintBallDemo AddBall(Vector3 position, Vector3 direction, Vector3 velocity)
     {
         var obj = Instantiate(ballPrefab, position, Quaternion.LookRotation(direction));
@@ -57,13 +57,13 @@ public class SpatialMesh : MonoBehaviour
         obj.SetActive(true);
         obj.GetComponent<Rigidbody>().velocity = velocity;
         var ballMaterial = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
-        ballMaterial.color = new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+        ballMaterial.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         obj.GetComponent<Renderer>().material = ballMaterial;
         var paintball = obj.GetComponent<PaintBallDemo>();
         paintball.ballColor = ballMaterial.color;
         return paintball;
     }
-    
+
     public void AddPaintEffect(ParticleSystem ps)
     {
         PaintEffects.Add(ps);
@@ -86,7 +86,7 @@ public class SpatialMesh : MonoBehaviour
         PaintBalls.Remove(paintBall);
         if (paintBall.gameObject)
         {
-            DestroyImmediate(paintBall.gameObject,true);
+            DestroyImmediate(paintBall.gameObject, true);
         }
     }
 

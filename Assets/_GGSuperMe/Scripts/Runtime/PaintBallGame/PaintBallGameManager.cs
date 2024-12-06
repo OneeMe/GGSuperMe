@@ -7,14 +7,14 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
 using System.Linq;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Data;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Data;
 using UnityEngine;
 using VContainer.Unity;
 using VContainer;
-namespace PicoMRDemo.Runtime.Runtime.ShootingGame
+namespace GGSuperMe.Runtime.Runtime.ShootingGame
 {
-    public class PaintBallGameManager :ITickable, IPaintBallGameManager
+    public class PaintBallGameManager : ITickable, IPaintBallGameManager
     {
 
         private Gun _gun;
@@ -37,7 +37,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
         {
             if (_gun != null)
             {
-                
+
                 Object.Destroy(_gun.GameObject);
                 _gun = null;
                 RemoveAllPaintBalls();
@@ -65,7 +65,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
             var obj = Object.Instantiate(ballPrefab, position, Quaternion.LookRotation(direction));
             // obj.transform.position = position;
             var ballMaterial = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
-            ballMaterial.color = new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+            ballMaterial.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
             obj.GetComponent<Renderer>().material = ballMaterial;
             obj.GetComponent<Rigidbody>().velocity = velocity;
             var paintball = obj.GetComponent<PaintBall>();
@@ -95,7 +95,7 @@ namespace PicoMRDemo.Runtime.Runtime.ShootingGame
             PaintBalls.Remove(paintBall);
             if (paintBall.gameObject)
             {
-                Object.DestroyImmediate(paintBall.gameObject,true);
+                Object.DestroyImmediate(paintBall.gameObject, true);
             }
         }
 

@@ -6,19 +6,19 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Game;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Service;
-using PicoMRDemo.Runtime.Runtime.ShootingGame;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Game;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Service;
+using GGSuperMe.Runtime.Runtime.ShootingGame;
 using Unity.XR.PXR;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class PaintShootPage : MonoBehaviour
     {
@@ -29,28 +29,28 @@ namespace PicoMRDemo.Runtime.UI
         public GameObject spatialMeshPanel;
 
         public Toggle spatialMeshToggle;
-        
+
         public GameObject spatialMeshTips;
 
         [Inject]
         public IDecorationDataLoader _decorationDataLoader;
-        
+
         [Inject]
         private IPaintBallGameManager _paintBallGameManager;
-        
+
         [Inject]
         private IEntityManager _entityManager;
-        
+
         [Inject]
         private IItemFactory _itemFactory;
-        
+
         public void TogglePage()
         {
             if (OpenToggle.isOn) return;
-            
+
             OpenToggle.isOn = true;
         }
-        
+
         private void OnEnable()
         {
 #if UNITY_EDITOR
@@ -69,7 +69,7 @@ namespace PicoMRDemo.Runtime.UI
                 spatialMeshPanel.SetActive(false);
             }
 #endif
-            
+
             RegisterEvent();
         }
 
@@ -81,8 +81,8 @@ namespace PicoMRDemo.Runtime.UI
             }
             UnregisterEvent();
         }
-        
-        
+
+
         private void RegisterEvent()
         {
             PlayButton.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener(OnPaint);
@@ -94,7 +94,7 @@ namespace PicoMRDemo.Runtime.UI
             PlayButton.GetComponent<XRSimpleInteractable>().lastSelectExited.RemoveListener(OnPaint);
 
         }
-        
+
         private void OnSpatialMeshToggleChanged(bool isOn)
         {
             App.Instance.spatialMeshManager.SetActive(isOn);
@@ -103,7 +103,7 @@ namespace PicoMRDemo.Runtime.UI
             _entityManager.SetGameEntityRootVisiable(!isOn);
             _entityManager.SetRoomEntityRootVisiable(!isOn);
         }
-        
+
         private void OnPaint(SelectExitEventArgs selectExitEventArgs)
         {
             Debug.Log("OnShoot");
@@ -117,16 +117,16 @@ namespace PicoMRDemo.Runtime.UI
                     {
                         paintGame.Add(data);
                     }
-                    
+
                 }
             }
 
             if (paintGame.Count > 0)
             {
                 bool isLeftController = ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactor.gameObject;
-                if (_paintBallGameManager.IsStart||ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
+                if (_paintBallGameManager.IsStart || ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
                 {
-                    
+
                 }
                 else
                 {
@@ -144,19 +144,19 @@ namespace PicoMRDemo.Runtime.UI
                         {
                             _paintBallGameManager.Shoot(gun);
                         });
-                        ControllerManager.Instance.BingingGripHotKey(isLeftController,(args) =>
+                        ControllerManager.Instance.BingingGripHotKey(isLeftController, (args) =>
                         {
                             _paintBallGameManager.EndGame();
                             ControllerManager.Instance.UnBingingGameHotKey(isLeftController);
                             ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.Normal);
 
-                        },null,null);
-                        ControllerManager.Instance.SetControllerShow(isLeftController, false,false);
+                        }, null, null);
+                        ControllerManager.Instance.SetControllerShow(isLeftController, false, false);
                         ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.ShootGame);
                     }
                 }
             }
-            
+
         }
     }
 }

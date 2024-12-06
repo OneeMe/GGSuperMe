@@ -7,16 +7,16 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public class Gun : Item
     {
         public ParticleSystem ShootEffect;
         public Transform FirePoint;
-        
+
         public void Shoot()
         {
-           ShootEffect.Play();
+            ShootEffect.Play();
         }
     }
 }

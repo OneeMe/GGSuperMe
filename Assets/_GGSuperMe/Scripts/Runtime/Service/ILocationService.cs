@@ -6,12 +6,12 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Linq;
-using PicoMRDemo.Runtime.Entity;
+using GGSuperMe.Runtime.Entity;
 using Unity.XR.PXR;
 using UnityEngine;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.Service
+namespace GGSuperMe.Runtime.Service
 {
     public interface ILocationService
     {
@@ -29,7 +29,7 @@ namespace PicoMRDemo.Runtime.Service
         {
             // todo 每次都要遍历，优化下
             var roomEntities = _entityManager.GetRoomEntities();
-            
+
             IEntity ceilingEntity = null;
             IEntity floorEntity = null;
             foreach (var roomEntity in roomEntities)
@@ -59,7 +59,7 @@ namespace PicoMRDemo.Runtime.Service
             var point2D = new Vector2(local.x, local.y);
             var polyPoints = floorEntity.AnchorData.ScenePolygonData.Vertices;
 
-            return point.y < ceilingEntity.GameObject.transform.position.y 
+            return point.y < ceilingEntity.GameObject.transform.position.y
                    && point.y > floorEntity.GameObject.transform.position.y
                    && CheckPointInPolygon(point2D, polyPoints.ToArray());
         }
@@ -73,7 +73,7 @@ namespace PicoMRDemo.Runtime.Service
                 var pi = polyPoints[i];
                 var pj = polyPoints[j];
                 var isLeft = (pi.y <= point.y && point.y < pj.y) || (pj.y <= point.y && point.y < pi.y);
-                var isIntersect = (point.x < (pj.x - pi.x)  / (pj.y - pi.y) * (point.y - pi.y) + pi.x);
+                var isIntersect = (point.x < (pj.x - pi.x) / (pj.y - pi.y) * (point.y - pi.y) + pi.x);
                 if (isLeft && isIntersect)
                 {
                     inside = !inside;
@@ -81,7 +81,7 @@ namespace PicoMRDemo.Runtime.Service
             }
             return inside;
         }
-        
+
         public bool TryGetTablePosition(out Vector3 position, Vector3 offset = default(Vector3))
         {
             IEntity tableEntity = null;
@@ -98,7 +98,7 @@ namespace PicoMRDemo.Runtime.Service
 
             return tableEntity != null;
         }
-        
+
         public bool TryGetFloorPosition(out Vector3 position, Vector3 offset = default(Vector3))
         {
             IEntity floorEntity = null;

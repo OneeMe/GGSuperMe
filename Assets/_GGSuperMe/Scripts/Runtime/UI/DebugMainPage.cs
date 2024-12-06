@@ -8,13 +8,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class DebugMainPage : MonoBehaviour
     {
         public DebugPage Page;
         public Toggle OpenToggle;
-        
+
         public void Open()
         {
             if (OpenToggle.isOn) return;
@@ -22,7 +22,7 @@ namespace PicoMRDemo.Runtime.UI
             Page.Close();
             OpenToggle.isOn = true;
         }
-        
+
         private void OnEnable()
         {
             Page.Show();

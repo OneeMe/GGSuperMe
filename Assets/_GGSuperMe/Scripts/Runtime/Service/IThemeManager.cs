@@ -6,10 +6,10 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
-using PicoMRDemo.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Data.Decoration;
 using Unity.XR.PXR;
 
-namespace PicoMRDemo.Runtime.Service
+namespace GGSuperMe.Runtime.Service
 {
     public interface IThemeManager
     {
@@ -20,7 +20,7 @@ namespace PicoMRDemo.Runtime.Service
         void SwitchToDefaultTheme();
 
         IList<DecorationData> GetCurrentThemes();
-        
+
         IDecorationData GetCurrentTheme(PxrSemanticLabel label);
 
         ulong GetThemeId(IDecorationData data);

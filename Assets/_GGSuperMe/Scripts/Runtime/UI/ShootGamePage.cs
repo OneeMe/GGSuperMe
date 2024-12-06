@@ -6,17 +6,17 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Service;
-using PicoMRDemo.Runtime.Runtime.ShootingGame;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Service;
+using GGSuperMe.Runtime.Runtime.ShootingGame;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class ShootGamePage : MonoBehaviour
     {
@@ -26,20 +26,20 @@ namespace PicoMRDemo.Runtime.UI
 
         [Inject]
         public IDecorationDataLoader DecorationDataLoader;
-        
+
         [Inject]
         private IShootingGameManager _shootingGameManager;
-        
+
         [Inject]
         private IItemFactory _itemFactory;
-        
+
         public void TogglePage()
         {
             if (openToggle.isOn) return;
-            
+
             openToggle.isOn = true;
         }
-        
+
         private void OnEnable()
         {
             RegisterEvent();
@@ -60,8 +60,8 @@ namespace PicoMRDemo.Runtime.UI
         {
             playButton.GetComponent<XRSimpleInteractable>().lastSelectExited.RemoveListener(OnShoot);
         }
-        
-        public delegate void Action<in T>(T obj); 
+
+        public delegate void Action<in T>(T obj);
         private void OnShoot(SelectExitEventArgs selectExitEventArgs)
         {
             Debug.Log("OnShoot");
@@ -75,16 +75,16 @@ namespace PicoMRDemo.Runtime.UI
                     {
                         shootingGame.Add(data);
                     }
-                    
+
                 }
             }
 
             if (shootingGame.Count > 0)
             {
                 bool isLeftController = ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactor.gameObject;
-                if (_shootingGameManager.IsStart||ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
+                if (_shootingGameManager.IsStart || ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
                 {
-                    
+
                 }
                 else
                 {
@@ -102,19 +102,19 @@ namespace PicoMRDemo.Runtime.UI
                         {
                             _shootingGameManager.Shoot(gun);
                         });
-                        ControllerManager.Instance.BingingGripHotKey(isLeftController,(args) =>
+                        ControllerManager.Instance.BingingGripHotKey(isLeftController, (args) =>
                         {
                             _shootingGameManager.EndGame();
                             ControllerManager.Instance.UnBingingGameHotKey(isLeftController);
                             ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.Normal);
 
-                        },null,null);
-                        ControllerManager.Instance.SetControllerShow(isLeftController, false,false);
+                        }, null, null);
+                        ControllerManager.Instance.SetControllerShow(isLeftController, false, false);
                         ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.ShootGame);
                     }
                 }
             }
         }
-       
+
     }
 }

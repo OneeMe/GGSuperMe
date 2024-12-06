@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Data.Config
+namespace GGSuperMe.Runtime.Data.Config
 {
     public interface IAssetRowConfig<out T>
     {
@@ -32,7 +32,7 @@ namespace PicoMRDemo.Runtime.Data.Config
         public ulong ID { get; set; }
         public GameObject Asset { get; set; }
         public PresetType Type { get; set; }
-        
+
         public ulong ThemeId { get; set; }
     }
 
@@ -41,7 +41,7 @@ namespace PicoMRDemo.Runtime.Data.Config
         public ulong ID { get; set; }
         public Material Asset { get; set; }
     }
-    
+
     public class AssetConfig<T> : IAssetConfig
     {
         private Dictionary<ulong, IAssetRowConfig<T>> _assets;
@@ -64,7 +64,7 @@ namespace PicoMRDemo.Runtime.Data.Config
                 }
             }
         }
-        
+
         public TAsset GetAssetByID<TAsset>(ulong id)
         {
             TAsset result = default(TAsset);
@@ -72,7 +72,7 @@ namespace PicoMRDemo.Runtime.Data.Config
             if (_assets.TryGetValue(id, out var assetConfig))
             {
                 var asset = assetConfig.Asset;
-    
+
                 if (asset is TAsset tAsset)
                 {
                     result = tAsset;
@@ -86,7 +86,7 @@ namespace PicoMRDemo.Runtime.Data.Config
             {
                 Debug.unityLogger.LogError(TAG, $"Can't find asset, ID: {id}");
             }
-            
+
             return result;
         }
 

@@ -6,41 +6,41 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using PicoMRDemo.Runtime.Data;
-using PicoMRDemo.Runtime.Entity;
-using PicoMRDemo.Runtime.Runtime.Item;
-using PicoMRDemo.Runtime.Service;
-using PicoMRDemo.Runtime.Runtime.ShootingGame;
+using GGSuperMe.Runtime.Data;
+using GGSuperMe.Runtime.Entity;
+using GGSuperMe.Runtime.Runtime.Item;
+using GGSuperMe.Runtime.Service;
+using GGSuperMe.Runtime.Runtime.ShootingGame;
 using Unity.XR.PXR;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class HomePage : MonoBehaviour
     {
         public Toggle OpenToggle;
 
         public Button SaveThemeDataButton;
-        
+
         public Button ClearThemeDataButton;
-        
+
         public Button ReCaptureRoomButton;
-        
+
         public Button SpatialAnchorButton;
         [Inject]
         private IResourceLoader _resourceLoader;
         [Inject]
         public IDecorationDataLoader _decorationDataLoader;
-        
+
         [Inject]
         private IShootingGameManager _shootingGameManager;
-        
+
         [Inject]
         private IItemFactory _itemFactory;
-        
+
         [Inject]
         private IEntityManager _entityManager;
         [Inject]
@@ -49,14 +49,14 @@ namespace PicoMRDemo.Runtime.UI
         private IThemeManager _themeManager;
         [Inject]
         private IRoomService _roomService;
-        
+
         public void TogglePage()
         {
             if (OpenToggle.isOn) return;
-            
+
             OpenToggle.isOn = true;
         }
-        
+
         private void OnEnable()
         {
             RegisterEvent();
@@ -66,8 +66,8 @@ namespace PicoMRDemo.Runtime.UI
         {
             UnregisterEvent();
         }
-        
-        
+
+
         private void RegisterEvent()
         {
             SaveThemeDataButton.onClick.AddListener(OnSaveThemeDataButton);
@@ -89,7 +89,7 @@ namespace PicoMRDemo.Runtime.UI
             _persistentLoader.StageAllThemeData(_themeManager.GetCurrentThemes());
             await _persistentLoader.SaveAllData();
         }
-        
+
         private async void OnClearThemeDataButton()
         {
             await _entityManager.ClearGameEntities();
@@ -106,24 +106,24 @@ namespace PicoMRDemo.Runtime.UI
             _roomService.EnterRoom();
             _entityManager.LoadGameEntities();
         }
-        
+
         private void OnCreateAnchor(SelectExitEventArgs selectExitEventArgs)
         {
             Debug.Log("OnCreateAnchor");
 
             bool isLeftController = ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactor.gameObject;
-            if (_roomService.IsAnchorCreate()||ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
+            if (_roomService.IsAnchorCreate() || ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
             {
-                
+
             }
             else
             {
                 _roomService.SetAnchorCreate(true);
-                ControllerManager.Instance.ShowAnchorPreview(_resourceLoader.AssetSetting.AnchorPreviewPrefab,isLeftController);
-                ControllerManager.Instance.SetControllerState(isLeftController,ControllerState.AnchorCreate);
-                ControllerManager.Instance.BingingTriggerHotKey(isLeftController, async(args) =>
+                ControllerManager.Instance.ShowAnchorPreview(_resourceLoader.AssetSetting.AnchorPreviewPrefab, isLeftController);
+                ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.AnchorCreate);
+                ControllerManager.Instance.BingingTriggerHotKey(isLeftController, async (args) =>
                 {
-                    var item = _itemFactory.CreateItem(8, (isLeftController?ControllerManager.Instance.LeftControllerPreviewPoint:ControllerManager.Instance.RightControllerPreviewPoint).transform.position,(isLeftController? ControllerManager.Instance.LeftControllerPreviewPoint: ControllerManager.Instance.RightControllerPreviewPoint).transform.rotation,ItemState.Normal);
+                    var item = _itemFactory.CreateItem(8, (isLeftController ? ControllerManager.Instance.LeftControllerPreviewPoint : ControllerManager.Instance.RightControllerPreviewPoint).transform.position, (isLeftController ? ControllerManager.Instance.LeftControllerPreviewPoint : ControllerManager.Instance.RightControllerPreviewPoint).transform.rotation, ItemState.Normal);
                     if (item != null)
                     {
                         var entity = await _entityManager.CreateAndAddEntity(item.GameObject);
@@ -134,12 +134,12 @@ namespace PicoMRDemo.Runtime.UI
                 });
                 ControllerManager.Instance.BingingSecondaryHotKey(isLeftController, (args) =>
                 {
-                    if ((isLeftController?ControllerManager.Instance.LeftControllerRoot:ControllerManager.Instance.RightControllerRoot).GetComponent<XRRayInteractor>()
+                    if ((isLeftController ? ControllerManager.Instance.LeftControllerRoot : ControllerManager.Instance.RightControllerRoot).GetComponent<XRRayInteractor>()
                         .TryGetCurrent3DRaycastHit(out var hit))
                     {
                         if (hit.collider.CompareTag("SpaceAnchor"))
                         {
-                            
+
                             foreach (var entity in _entityManager.GetGameEntities())
                             {
                                 if (hit.collider.gameObject.transform.parent.gameObject == entity.GameObject)
@@ -150,7 +150,7 @@ namespace PicoMRDemo.Runtime.UI
                             }
                         }
                     }
-                },null,null);
+                }, null, null);
                 ControllerManager.Instance.BingingGripHotKey(isLeftController,
                     (args) =>
                     {
@@ -158,9 +158,9 @@ namespace PicoMRDemo.Runtime.UI
                         ControllerManager.Instance.HideAnchorPreview(isLeftController);
                         ControllerManager.Instance.UnBingingGameHotKey(isLeftController);
                         ControllerManager.Instance.SetControllerState(isLeftController, ControllerState.Normal);
-                    },null,null);
+                    }, null, null);
             }
         }
-       
+
     }
 }

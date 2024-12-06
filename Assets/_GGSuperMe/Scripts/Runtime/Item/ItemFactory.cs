@@ -7,22 +7,22 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
 using System.Linq;
-using PicoMRDemo.Runtime.Data.Config;
-using PicoMRDemo.Runtime.Service;
-using PicoMRDemo.Runtime.Utils;
+using GGSuperMe.Runtime.Data.Config;
+using GGSuperMe.Runtime.Service;
+using GGSuperMe.Runtime.Utils;
 using UnityEngine;
 using VContainer;
 using Vector3 = UnityEngine.Vector3;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public class ItemFactory : IItemFactory
     {
         [Inject]
         public IItemDataLoader ItemDataLoader;
-        [Inject] 
+        [Inject]
         public ICatchableManager CatchableManager;
-        
+
         private IAssetConfig _assetConfig;
 
         public IAssetConfig AssetConfig
@@ -47,7 +47,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
         public List<IItem> CreateFloatItems(ulong[] ids, Vector3 beginPos)
         {
             if (ids.Length <= 0) return null;
-            
+
             int size = Mathf.CeilToInt(Mathf.Sqrt(ids.Length));
             List<IItem> items = new List<IItem>();
             for (int i = 0; i < size && items.Count < ids.Length; i++)
@@ -56,7 +56,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 for (int j = 0; j < size && items.Count < ids.Length; j++)
                 {
                     temp += Vector3.right * ConstantProperty.SlotSize;
-                    
+
                     if (!CanCreate(temp))
                     {
                         continue;
@@ -68,7 +68,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
 
             return items;
         }
-        
+
         public IItem CreateFloatItem(ulong id, Vector3 offset = default, Vector2Int limitNum = default)
         {
             if (limitNum == default || limitNum.x <= 0 || limitNum.y <= 0)
@@ -82,18 +82,18 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 var cameraPos = mainCameraTransform.position;
                 var targetPos = cameraPos + offset;
                 var success = false;
-            
+
                 for (int i = 0; i < limitNum.x && !success; i++)
                 {
                     var temp = targetPos + Vector3.forward * ConstantProperty.SlotSize * i;
                     for (int j = 0; j < limitNum.y; j++)
                     {
                         temp += Vector3.right * ConstantProperty.SlotSize;
-                    
+
                         if (!CanCreate(temp))
                         {
                             continue;
-                        }                
+                        }
 
                         targetPos = temp;
                         success = true;
@@ -105,7 +105,7 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 {
                     return null;
                 }
-            
+
                 return CreateItemGameobject(id, targetPos, Quaternion.identity, ItemState.Float);
             }
             return null;
@@ -125,10 +125,10 @@ namespace PicoMRDemo.Runtime.Runtime.Item
                 Debug.unityLogger.Log($"pos:{pos} has other item.not create.");
                 return false;
             }
-            
+
             return true;
         }
-        
+
         private IItem CreateItemGameobject(ulong id, Vector3 pos, Quaternion rotation, ItemState itemState)
         {
             var prefab = AssetConfig.GetAssetByID<GameObject>(id);

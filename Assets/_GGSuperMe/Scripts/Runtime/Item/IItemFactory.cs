@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.Item
+namespace GGSuperMe.Runtime.Runtime.Item
 {
     public interface IItemFactory
     {
@@ -18,5 +18,5 @@ namespace PicoMRDemo.Runtime.Runtime.Item
     }
 
 
-    
+
 }

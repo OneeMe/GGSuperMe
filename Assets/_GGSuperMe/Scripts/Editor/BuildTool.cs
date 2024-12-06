@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace PicoMRDemo.Editor
+namespace GGSuperMe.Editor
 {
     public static class BuildTool
     {
@@ -21,7 +21,7 @@ namespace PicoMRDemo.Editor
         public const string TAG = "BuildTool";
         public const string LOGTAG = TAG + ": ";
 
-        public static string BaseOutputFilename = "PicoMRDemo";
+        public static string BaseOutputFilename = "GGSuperMe";
 
         private static BuilderContext CurrentBuilderContext = new BuilderContext();
 
@@ -37,24 +37,28 @@ namespace PicoMRDemo.Editor
             BuildPlayer(BuildTarget.iOS);
         }
 
-        private static void EditBuildSetting_Development_UpdateMenuItem() {
+        private static void EditBuildSetting_Development_UpdateMenuItem()
+        {
             var enabled = EditorUserBuildSettings.development;
             Menu.SetChecked(MENU + "Set Development Build/Development: [On]", enabled);
             Menu.SetChecked(MENU + "Set Development Build/Development: [Off]", !enabled);
         }
         [MenuItem(MENU + "Set Development Build/Development: [On]", true)]
         [MenuItem(MENU + "Set Development Build/Development: [Off]", true)]
-        private static bool EditBuildSetting_Development_Validate() {
+        private static bool EditBuildSetting_Development_Validate()
+        {
             EditBuildSetting_Development_UpdateMenuItem();
             return true;
         }
         [MenuItem(MENU + "Set Development Build/Development: [On]", false, PRIO_BASE + 50)]
-        private static void EditBuildSetting_Development_On() {
+        private static void EditBuildSetting_Development_On()
+        {
             EditorUserBuildSettings.development = true;
             EditBuildSetting_Development_UpdateMenuItem();
         }
         [MenuItem(MENU + "Set Development Build/Development: [Off]", false, PRIO_BASE + 50)]
-        private static void EditBuildSetting_Development_Off() {
+        private static void EditBuildSetting_Development_Off()
+        {
             EditorUserBuildSettings.development = false;
             EditBuildSetting_Development_UpdateMenuItem();
         }

@@ -7,10 +7,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using PicoMRDemo.Runtime.Data.Anchor;
+using GGSuperMe.Runtime.Data.Anchor;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Runtime.SDK
+namespace GGSuperMe.Runtime.Runtime.SDK
 {
     public interface IMRSDKManager
     {

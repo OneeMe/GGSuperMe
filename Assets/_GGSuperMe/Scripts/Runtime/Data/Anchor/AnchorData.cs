@@ -11,13 +11,13 @@ using System.Linq;
 using Unity.XR.PXR;
 using UnityEngine;
 
-namespace PicoMRDemo.Runtime.Data.Anchor
+namespace GGSuperMe.Runtime.Data.Anchor
 {
     public class AnchorData : IAnchorData
     {
         private readonly ulong _handle;
         private IList<PxrSceneComponentType> _componentTypeFlags;
-        
+
         public AnchorData(ulong handle, Guid uuid)
         {
             _handle = handle;
@@ -69,7 +69,7 @@ namespace PicoMRDemo.Runtime.Data.Anchor
                 return _componentTypeFlags;
             }
         }
-        
+
         public SceneBox2DData SceneBox2DData
         {
             get
@@ -82,12 +82,12 @@ namespace PicoMRDemo.Runtime.Data.Anchor
                 };
             }
         }
-        
+
         public SceneBox3DData SceneBox3DData
         {
             get
             {
-                PXR_MixedReality.GetSceneBox3DData(_handle, out var center,out var rotation,out var extent);
+                PXR_MixedReality.GetSceneBox3DData(_handle, out var center, out var rotation, out var extent);
                 return new SceneBox3DData()
                 {
                     Center = center,
@@ -96,7 +96,7 @@ namespace PicoMRDemo.Runtime.Data.Anchor
                 };
             }
         }
-        
+
         public ScenePolygonData ScenePolygonData
         {
             get

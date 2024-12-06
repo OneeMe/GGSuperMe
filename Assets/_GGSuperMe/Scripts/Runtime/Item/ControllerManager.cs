@@ -7,12 +7,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 using VContainer;
-using PicoMRDemo.Runtime.Runtime.ShootingGame;
+using GGSuperMe.Runtime.Runtime.ShootingGame;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using System;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public enum ControllerState
     {
@@ -96,7 +96,7 @@ namespace PicoMRDemo.Runtime.UI
             {
                 Destroy(gameObject);
             }
-            
+
         }
 
         private void OnEnable()
@@ -108,15 +108,15 @@ namespace PicoMRDemo.Runtime.UI
         {
             UnregisterEvent();
         }
-        
+
         private void RegisterEvent()
         {
-           
+
         }
 
         private void UnregisterEvent()
         {
-            
+
         }
         public void BindingMainMenuHotKey()
         {
@@ -146,7 +146,7 @@ namespace PicoMRDemo.Runtime.UI
                 rightControllerState = state;
             }
         }
-        
+
         public ControllerState GetControllerState(bool isLeftController)
         {
             if (isLeftController)
@@ -169,7 +169,7 @@ namespace PicoMRDemo.Runtime.UI
                 return RightControllerRoot;
             }
         }
-        public void BingingTriggerHotKey(bool isLeftController,Action<InputAction.CallbackContext>  downAction)
+        public void BingingTriggerHotKey(bool isLeftController, Action<InputAction.CallbackContext> downAction)
         {
             if (isLeftController)
             {
@@ -178,7 +178,7 @@ namespace PicoMRDemo.Runtime.UI
                     UnBingingTriggerInputActionLeft();
                 }
                 triggerInputLeft = downAction;
-                if(triggerBtnLeft != null && triggerInputLeft != null)
+                if (triggerBtnLeft != null && triggerInputLeft != null)
                 {
                     triggerBtnLeft.action.Enable();
                     triggerBtnLeft.action.performed += triggerInputLeft;
@@ -191,19 +191,19 @@ namespace PicoMRDemo.Runtime.UI
                     UnBingingTriggerInputActionRight();
                 }
                 triggerInputRight = downAction;
-                if(triggerBtnRight != null && triggerInputRight != null)
+                if (triggerBtnRight != null && triggerInputRight != null)
                 {
                     triggerBtnRight.action.Enable();
                     triggerBtnRight.action.performed += triggerInputRight;
                 }
             }
         }
-        public void BingingGripHotKey(bool isLeftController,Action<InputAction.CallbackContext>  downAction,Action<InputAction.CallbackContext>  pressedAction,Action<InputAction.CallbackContext>  upAction)
+        public void BingingGripHotKey(bool isLeftController, Action<InputAction.CallbackContext> downAction, Action<InputAction.CallbackContext> pressedAction, Action<InputAction.CallbackContext> upAction)
         {
             if (isLeftController)
             {
-                if (gripInputLeft != null||
-                    gripInputPressedLeft != null||
+                if (gripInputLeft != null ||
+                    gripInputPressedLeft != null ||
                     gripInputUpLeft != null)
                 {
                     UnBingingGripInputActionLeft();
@@ -211,17 +211,17 @@ namespace PicoMRDemo.Runtime.UI
                 gripInputLeft = downAction;
                 gripInputPressedLeft = pressedAction;
                 gripInputUpLeft = upAction;
-                if(gripBtnLeft != null && gripInputLeft != null)
+                if (gripBtnLeft != null && gripInputLeft != null)
                 {
                     gripBtnLeft.action.Enable();
                     gripBtnLeft.action.performed += gripInputLeft;
                 }
-                if (gripBtnPressedLeft != null && gripInputPressedLeft!= null)
+                if (gripBtnPressedLeft != null && gripInputPressedLeft != null)
                 {
                     gripBtnPressedLeft.action.Enable();
                     gripBtnPressedLeft.action.performed += gripInputPressedLeft;
                 }
-                if (gripBtnUpLeft != null && gripInputUpLeft!= null)
+                if (gripBtnUpLeft != null && gripInputUpLeft != null)
                 {
                     gripBtnUpLeft.action.Enable();
                     gripBtnUpLeft.action.performed += gripInputUpLeft;
@@ -229,8 +229,8 @@ namespace PicoMRDemo.Runtime.UI
             }
             else
             {
-                if (gripInputRight != null||
-                    gripInputPressedRight != null||
+                if (gripInputRight != null ||
+                    gripInputPressedRight != null ||
                     gripInputUpRight != null)
                 {
                     UnBingingGripInputActionRight();
@@ -238,47 +238,47 @@ namespace PicoMRDemo.Runtime.UI
                 gripInputRight = downAction;
                 gripInputPressedRight = pressedAction;
                 gripInputUpRight = upAction;
-                if(gripBtnRight != null && gripInputRight != null)
+                if (gripBtnRight != null && gripInputRight != null)
                 {
                     gripBtnRight.action.Enable();
                     gripBtnRight.action.performed += gripInputRight;
                 }
-                if (gripBtnPressedRight != null && gripInputPressedRight!= null)
+                if (gripBtnPressedRight != null && gripInputPressedRight != null)
                 {
                     gripBtnPressedRight.action.Enable();
                     gripBtnPressedRight.action.performed += gripInputPressedRight;
                 }
-                if (gripBtnUpRight != null && gripInputUpRight!= null)
+                if (gripBtnUpRight != null && gripInputUpRight != null)
                 {
                     gripBtnUpRight.action.Enable();
                     gripBtnUpRight.action.performed += gripInputUpRight;
                 }
             }
         }
-        public void BingingPrimaryHotKey(bool isLeftController,Action<InputAction.CallbackContext>  downAction,Action<InputAction.CallbackContext>  pressedAction,Action<InputAction.CallbackContext>  upAction)
+        public void BingingPrimaryHotKey(bool isLeftController, Action<InputAction.CallbackContext> downAction, Action<InputAction.CallbackContext> pressedAction, Action<InputAction.CallbackContext> upAction)
         {
             if (isLeftController)
             {
-                if (primaryInputLeft != null||
-                    primaryInputPressedLeft!= null||
-                    primaryInputUpLeft!= null)
+                if (primaryInputLeft != null ||
+                    primaryInputPressedLeft != null ||
+                    primaryInputUpLeft != null)
                 {
                     UnBingingPrimaryInputActionLeft();
                 }
                 primaryInputLeft = downAction;
                 primaryInputPressedLeft = pressedAction;
                 primaryInputUpLeft = upAction;
-                if (primaryBtnLeft != null && primaryInputLeft!= null)
+                if (primaryBtnLeft != null && primaryInputLeft != null)
                 {
                     primaryBtnLeft.action.Enable();
                     primaryBtnLeft.action.performed += primaryInputLeft;
                 }
-                if (primaryBtnPressedLeft != null && primaryInputPressedLeft!= null)
+                if (primaryBtnPressedLeft != null && primaryInputPressedLeft != null)
                 {
                     primaryBtnPressedLeft.action.Enable();
                     primaryBtnPressedLeft.action.performed += primaryInputPressedLeft;
                 }
-                if (primaryBtnUpLeft != null && primaryInputUpLeft!= null)
+                if (primaryBtnUpLeft != null && primaryInputUpLeft != null)
                 {
                     primaryBtnUpLeft.action.Enable();
                     primaryBtnUpLeft.action.performed += primaryInputUpLeft;
@@ -286,9 +286,9 @@ namespace PicoMRDemo.Runtime.UI
             }
             else
             {
-                if (primaryInputRight != null||
-                    primaryInputPressedRight!= null||
-                    primaryInputUpRight!= null)
+                if (primaryInputRight != null ||
+                    primaryInputPressedRight != null ||
+                    primaryInputUpRight != null)
                 {
                     UnBingingPrimaryInputActionRight();
                 }
@@ -300,42 +300,42 @@ namespace PicoMRDemo.Runtime.UI
                     primaryBtnRight.action.Enable();
                     primaryBtnRight.action.performed += primaryInputRight;
                 }
-                if (primaryBtnPressedRight != null && primaryInputPressedRight!= null)
+                if (primaryBtnPressedRight != null && primaryInputPressedRight != null)
                 {
                     primaryBtnPressedRight.action.Enable();
                     primaryBtnPressedRight.action.performed += primaryInputPressedRight;
                 }
-                if (primaryBtnUpRight != null && primaryInputUpRight!= null)
+                if (primaryBtnUpRight != null && primaryInputUpRight != null)
                 {
                     primaryBtnUpRight.action.Enable();
                     primaryBtnUpRight.action.performed += primaryInputUpRight;
                 }
             }
         }
-        public void BingingSecondaryHotKey(bool isLeftController,Action<InputAction.CallbackContext>  downAction,Action<InputAction.CallbackContext>  pressedAction,Action<InputAction.CallbackContext>  upAction)
+        public void BingingSecondaryHotKey(bool isLeftController, Action<InputAction.CallbackContext> downAction, Action<InputAction.CallbackContext> pressedAction, Action<InputAction.CallbackContext> upAction)
         {
             if (isLeftController)
             {
-                if (secondaryInputLeft != null||
-                    secondaryInputPressedLeft!= null||
-                    secondaryInputUpLeft!= null)
+                if (secondaryInputLeft != null ||
+                    secondaryInputPressedLeft != null ||
+                    secondaryInputUpLeft != null)
                 {
                     UnBingingSecondaryInputActionLeft();
                 }
                 secondaryInputLeft = downAction;
                 secondaryInputPressedLeft = pressedAction;
                 secondaryInputUpLeft = upAction;
-                if (secondaryBtnLeft != null && secondaryInputLeft!= null)
+                if (secondaryBtnLeft != null && secondaryInputLeft != null)
                 {
                     secondaryBtnLeft.action.Enable();
                     secondaryBtnLeft.action.performed += secondaryInputLeft;
                 }
-                if (secondaryBtnPressedLeft != null && secondaryInputPressedLeft!= null)
+                if (secondaryBtnPressedLeft != null && secondaryInputPressedLeft != null)
                 {
                     secondaryBtnPressedLeft.action.Enable();
                     secondaryBtnPressedLeft.action.performed += secondaryInputPressedLeft;
                 }
-                if (secondaryBtnUpLeft != null && secondaryInputUpLeft!= null)
+                if (secondaryBtnUpLeft != null && secondaryInputUpLeft != null)
                 {
                     secondaryBtnUpLeft.action.Enable();
                     secondaryBtnUpLeft.action.performed += secondaryInputUpLeft;
@@ -343,9 +343,9 @@ namespace PicoMRDemo.Runtime.UI
             }
             else
             {
-                if (secondaryInputRight != null||
-                    secondaryInputPressedRight!= null||
-                    secondaryInputUpRight!= null)
+                if (secondaryInputRight != null ||
+                    secondaryInputPressedRight != null ||
+                    secondaryInputUpRight != null)
                 {
                     UnBingingSecondaryInputActionRight();
                 }
@@ -357,20 +357,20 @@ namespace PicoMRDemo.Runtime.UI
                     secondaryBtnRight.action.Enable();
                     secondaryBtnRight.action.performed += secondaryInputRight;
                 }
-                if (secondaryBtnPressedRight != null && secondaryInputPressedRight!= null)
+                if (secondaryBtnPressedRight != null && secondaryInputPressedRight != null)
                 {
                     secondaryBtnPressedRight.action.Enable();
                     secondaryBtnPressedRight.action.performed += secondaryInputPressedRight;
                 }
-                if (secondaryBtnUpRight != null && secondaryInputUpRight!= null)
+                if (secondaryBtnUpRight != null && secondaryInputUpRight != null)
                 {
                     secondaryBtnUpRight.action.Enable();
                     secondaryBtnUpRight.action.performed += secondaryInputUpRight;
                 }
             }
         }
-        
-        public void BingingRotateAnchorHorizontalActionHotKey(bool isLeftController,Action<InputAction.CallbackContext>  rotateAnchorHorizontalAction)
+
+        public void BingingRotateAnchorHorizontalActionHotKey(bool isLeftController, Action<InputAction.CallbackContext> rotateAnchorHorizontalAction)
         {
             if (isLeftController)
             {
@@ -379,7 +379,7 @@ namespace PicoMRDemo.Runtime.UI
                     UnBingingRotateAnchorHorizontalInputActionLeft();
                 }
                 rotateAnchorHorizontalInputActionLeft = rotateAnchorHorizontalAction;
-                if(rotateAnchorHorizontalActionLeft != null && rotateAnchorHorizontalInputActionLeft != null)
+                if (rotateAnchorHorizontalActionLeft != null && rotateAnchorHorizontalInputActionLeft != null)
                 {
                     rotateAnchorHorizontalActionLeft.action.Enable();
                     rotateAnchorHorizontalActionLeft.action.performed += rotateAnchorHorizontalInputActionLeft;
@@ -392,15 +392,15 @@ namespace PicoMRDemo.Runtime.UI
                     UnBingingRotateAnchorHorizontalInputActionRight();
                 }
                 rotateAnchorHorizontalInputActionRight = rotateAnchorHorizontalAction;
-                if(rotateAnchorHorizontalActionRight != null && rotateAnchorHorizontalInputActionRight != null) 
+                if (rotateAnchorHorizontalActionRight != null && rotateAnchorHorizontalInputActionRight != null)
                 {
                     rotateAnchorHorizontalActionRight.action.Enable();
                     rotateAnchorHorizontalActionRight.action.performed += rotateAnchorHorizontalInputActionRight;
                 }
             }
         }
-        
-        public void BingingRotateAnchorVerticalActionHotKey(bool isLeftController,Action<InputAction.CallbackContext>  rotateAnchorVerticalAction)
+
+        public void BingingRotateAnchorVerticalActionHotKey(bool isLeftController, Action<InputAction.CallbackContext> rotateAnchorVerticalAction)
         {
             if (isLeftController)
             {
@@ -409,7 +409,7 @@ namespace PicoMRDemo.Runtime.UI
                     UnBingingRotateAnchorVerticalInputActionLeft();
                 }
                 rotateAnchorVerticalInputActionLeft = rotateAnchorVerticalAction;
-                if(rotateAnchorVerticalActionLeft != null && rotateAnchorVerticalInputActionLeft != null)
+                if (rotateAnchorVerticalActionLeft != null && rotateAnchorVerticalInputActionLeft != null)
                 {
                     rotateAnchorVerticalActionLeft.action.Enable();
                     rotateAnchorVerticalActionLeft.action.performed += rotateAnchorVerticalInputActionLeft;
@@ -422,7 +422,7 @@ namespace PicoMRDemo.Runtime.UI
                     UnBingingRotateAnchorVerticalInputActionRight();
                 }
                 rotateAnchorVerticalInputActionRight = rotateAnchorVerticalAction;
-                if(rotateAnchorVerticalActionRight != null && rotateAnchorVerticalInputActionRight != null) 
+                if (rotateAnchorVerticalActionRight != null && rotateAnchorVerticalInputActionRight != null)
                 {
                     rotateAnchorVerticalActionRight.action.Enable();
                     rotateAnchorVerticalActionRight.action.performed += rotateAnchorVerticalInputActionRight;
@@ -444,17 +444,17 @@ namespace PicoMRDemo.Runtime.UI
 
         private void SetLeftControllerStatus(bool isShowModel, bool isShowLine)
         {
-            if(LeftControllerRoot.GetComponent<ActionBasedController>().model != null)
+            if (LeftControllerRoot.GetComponent<ActionBasedController>().model != null)
                 LeftControllerRoot.GetComponent<ActionBasedController>().model.gameObject.SetActive(isShowModel);
-            if(LeftControllerRoot.GetComponent<XRRayInteractor>() != null)
+            if (LeftControllerRoot.GetComponent<XRRayInteractor>() != null)
                 LeftControllerRoot.GetComponent<XRRayInteractor>().enabled = isShowLine;
         }
 
         private void SetRightControllerStatus(bool isShowModel, bool isShowLine)
         {
-            if(RightControllerRoot.GetComponent<ActionBasedController>().model != null)
+            if (RightControllerRoot.GetComponent<ActionBasedController>().model != null)
                 RightControllerRoot.GetComponent<ActionBasedController>().model.gameObject.SetActive(isShowModel);
-            if(RightControllerRoot.GetComponent<XRRayInteractor>() != null)
+            if (RightControllerRoot.GetComponent<XRRayInteractor>() != null)
                 RightControllerRoot.GetComponent<XRRayInteractor>().enabled = isShowLine;
         }
         public void UnBingingGameHotKey(bool isLeftController)
@@ -466,7 +466,7 @@ namespace PicoMRDemo.Runtime.UI
                 UnBingingRotateAnchorHorizontalInputActionLeft();
                 UnBingingRotateAnchorVerticalInputActionLeft();
                 UnBingingSecondaryInputActionLeft();
-                SetLeftControllerStatus(true,true);
+                SetLeftControllerStatus(true, true);
             }
             else
             {
@@ -475,7 +475,7 @@ namespace PicoMRDemo.Runtime.UI
                 UnBingingRotateAnchorHorizontalInputActionLeft();
                 UnBingingRotateAnchorVerticalInputActionRight();
                 UnBingingSecondaryInputActionRight();
-                SetRightControllerStatus(true,true);
+                SetRightControllerStatus(true, true);
             }
         }
 
@@ -507,13 +507,13 @@ namespace PicoMRDemo.Runtime.UI
                 gripBtnLeft.action.performed -= gripInputLeft;
                 gripInputLeft = null;
             }
-            if (gripBtnPressedLeft != null && gripInputPressedLeft!= null)
+            if (gripBtnPressedLeft != null && gripInputPressedLeft != null)
             {
                 gripBtnPressedLeft.action.Disable();
                 gripBtnPressedLeft.action.performed -= gripInputPressedLeft;
                 gripInputPressedLeft = null;
             }
-            if (gripBtnUpLeft != null && gripInputUpLeft!= null)
+            if (gripBtnUpLeft != null && gripInputUpLeft != null)
             {
                 gripBtnUpLeft.action.Disable();
                 gripBtnUpLeft.action.performed -= gripInputUpLeft;
@@ -529,13 +529,13 @@ namespace PicoMRDemo.Runtime.UI
                 gripBtnRight.action.performed -= gripInputRight;
                 gripInputRight = null;
             }
-            if (gripBtnPressedRight != null && gripInputPressedRight!= null)
+            if (gripBtnPressedRight != null && gripInputPressedRight != null)
             {
                 gripBtnPressedRight.action.Disable();
                 gripBtnPressedRight.action.performed -= gripInputPressedRight;
                 gripInputPressedRight = null;
             }
-            if (gripBtnUpRight != null && gripInputUpRight!= null)
+            if (gripBtnUpRight != null && gripInputUpRight != null)
             {
                 gripBtnUpRight.action.Disable();
                 gripBtnUpRight.action.performed -= gripInputUpRight;
@@ -545,19 +545,19 @@ namespace PicoMRDemo.Runtime.UI
 
         private void UnBingingPrimaryInputActionLeft()
         {
-            if (primaryBtnLeft != null && primaryInputLeft!= null)
+            if (primaryBtnLeft != null && primaryInputLeft != null)
             {
                 primaryBtnLeft.action.Disable();
                 primaryBtnLeft.action.performed -= primaryInputLeft;
                 primaryInputLeft = null;
             }
-            if (primaryBtnPressedLeft != null && primaryInputPressedLeft!= null)
+            if (primaryBtnPressedLeft != null && primaryInputPressedLeft != null)
             {
                 primaryBtnPressedLeft.action.Disable();
                 primaryBtnPressedLeft.action.performed -= primaryInputPressedLeft;
                 primaryInputPressedLeft = null;
             }
-            if (primaryBtnUpLeft != null && primaryInputUpLeft!= null)
+            if (primaryBtnUpLeft != null && primaryInputUpLeft != null)
             {
                 primaryBtnUpLeft.action.Disable();
                 primaryBtnUpLeft.action.performed -= primaryInputUpLeft;
@@ -566,19 +566,19 @@ namespace PicoMRDemo.Runtime.UI
         }
         public void UnBingingPrimaryInputActionRight()
         {
-            if (primaryBtnRight != null && primaryInputRight!= null)
+            if (primaryBtnRight != null && primaryInputRight != null)
             {
                 primaryBtnRight.action.Disable();
                 primaryBtnRight.action.performed -= primaryInputRight;
                 primaryInputRight = null;
             }
-            if (primaryBtnPressedRight != null && primaryInputPressedRight!= null)
+            if (primaryBtnPressedRight != null && primaryInputPressedRight != null)
             {
                 primaryBtnPressedRight.action.Disable();
                 primaryBtnPressedRight.action.performed -= primaryInputPressedRight;
                 primaryInputPressedRight = null;
             }
-            if (primaryBtnUpRight != null && primaryInputUpRight!= null)
+            if (primaryBtnUpRight != null && primaryInputUpRight != null)
             {
                 primaryBtnUpRight.action.Disable();
                 primaryBtnUpRight.action.performed -= primaryInputUpRight;
@@ -587,19 +587,19 @@ namespace PicoMRDemo.Runtime.UI
         }
         public void UnBingingSecondaryInputActionLeft()
         {
-            if (secondaryBtnLeft != null && secondaryInputLeft!= null)
+            if (secondaryBtnLeft != null && secondaryInputLeft != null)
             {
                 secondaryBtnLeft.action.Disable();
                 secondaryBtnLeft.action.performed -= secondaryInputLeft;
                 secondaryInputLeft = null;
             }
-            if (secondaryBtnPressedLeft != null && secondaryInputPressedLeft!= null)
+            if (secondaryBtnPressedLeft != null && secondaryInputPressedLeft != null)
             {
                 secondaryBtnPressedLeft.action.Disable();
                 secondaryBtnPressedLeft.action.performed -= secondaryInputPressedLeft;
                 secondaryInputPressedLeft = null;
             }
-            if (secondaryBtnUpLeft != null && secondaryInputUpLeft!= null)
+            if (secondaryBtnUpLeft != null && secondaryInputUpLeft != null)
             {
                 secondaryBtnUpLeft.action.Disable();
                 secondaryBtnUpLeft.action.performed -= secondaryInputUpLeft;
@@ -608,19 +608,19 @@ namespace PicoMRDemo.Runtime.UI
         }
         public void UnBingingSecondaryInputActionRight()
         {
-            if (secondaryBtnRight != null && secondaryInputRight!= null)
+            if (secondaryBtnRight != null && secondaryInputRight != null)
             {
                 secondaryBtnRight.action.Disable();
                 secondaryBtnRight.action.performed -= secondaryInputRight;
                 secondaryInputRight = null;
             }
-            if (secondaryBtnPressedRight != null && secondaryInputPressedRight!= null)
+            if (secondaryBtnPressedRight != null && secondaryInputPressedRight != null)
             {
                 secondaryBtnPressedRight.action.Disable();
                 secondaryBtnPressedRight.action.performed -= secondaryInputPressedRight;
                 secondaryInputPressedRight = null;
             }
-            if (secondaryBtnUpRight != null && secondaryInputUpRight!= null)
+            if (secondaryBtnUpRight != null && secondaryInputUpRight != null)
             {
                 secondaryBtnUpRight.action.Disable();
                 secondaryBtnUpRight.action.performed -= secondaryInputUpRight;
@@ -673,40 +673,40 @@ namespace PicoMRDemo.Runtime.UI
             UnBingingRotateAnchorVerticalInputActionLeft();
             UnBingingRotateAnchorVerticalInputActionRight();
         }
-        
+
         public void UnBingingRotateAnchorHorizontalInputAction()
         {
             UnBingingRotateAnchorHorizontalInputActionLeft();
             UnBingingRotateAnchorHorizontalInputActionRight();
         }
-        
+
         private void OpenMenu(InputAction.CallbackContext content)
-        { 
+        {
             UIContext.Instance.ToggleMainMenu();
         }
-        
+
         /// <summary>
         /// Display a preview object in a virtual reality scene
         /// </summary>
         /// <param name="previewObj">The game object of the preview object to be displayed</param>
         /// <param name="isLeft">A Boolean value indicating whether the object is displayed on the left (true) or right (false)</param>
-        public void ShowAnchorPreview(GameObject previewObj,bool isLeft)
+        public void ShowAnchorPreview(GameObject previewObj, bool isLeft)
         {
-            GameObject newObj = Instantiate(previewObj, (isLeft?LeftControllerPreviewPoint:RightControllerPreviewPoint).transform.position, (isLeft?LeftControllerPreviewPoint:RightControllerPreviewPoint).rotation);
-            newObj.transform.SetParent(isLeft?LeftControllerPreviewPoint:RightControllerPreviewPoint);
+            GameObject newObj = Instantiate(previewObj, (isLeft ? LeftControllerPreviewPoint : RightControllerPreviewPoint).transform.position, (isLeft ? LeftControllerPreviewPoint : RightControllerPreviewPoint).rotation);
+            newObj.transform.SetParent(isLeft ? LeftControllerPreviewPoint : RightControllerPreviewPoint);
             newObj.SetActive(true);
         }
 
         public void HideAnchorPreview(bool isLeft)
         {
-            foreach (Transform child in (isLeft?LeftControllerPreviewPoint:RightControllerPreviewPoint).transform)
+            foreach (Transform child in (isLeft ? LeftControllerPreviewPoint : RightControllerPreviewPoint).transform)
             {
-                Destroy(child.gameObject);  
+                Destroy(child.gameObject);
             }
         }
     }
 
-    
+
     public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T> //注意此约束为T必须为其本身或子类
     {
         private static T _instance; //创建私有对象记录取值，可只赋值一次避免多次赋值

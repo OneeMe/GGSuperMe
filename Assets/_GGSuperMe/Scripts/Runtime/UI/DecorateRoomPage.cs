@@ -6,18 +6,18 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
-using PicoMRDemo.Runtime.Data.Decoration;
-using PicoMRDemo.Runtime.Service;
+using GGSuperMe.Runtime.Data.Decoration;
+using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace PicoMRDemo.Runtime.UI
+namespace GGSuperMe.Runtime.UI
 {
     public class DecorateRoomPage : MonoBehaviour
     {
         public DecorationPage Page;
-        
+
         public Toggle ThemeButton;
         public Toggle CeilingButton;
         public Toggle WallButton;
@@ -25,7 +25,7 @@ namespace PicoMRDemo.Runtime.UI
         public Toggle DecorationButton;
 
         public Toggle OpenToggle;
-        
+
         [Inject]
         public IDecorationDataLoader DecorationDataLoader;
 
@@ -75,7 +75,7 @@ namespace PicoMRDemo.Runtime.UI
                 Page.Close();
                 Page.Show(data);
             }
-            
+
         }
 
         private void OnWallButton(bool isOn)
@@ -86,7 +86,7 @@ namespace PicoMRDemo.Runtime.UI
                 Page.Close();
                 Page.Show(data);
             }
-            
+
         }
 
         private void OnFloorButton(bool isOn)
@@ -97,7 +97,7 @@ namespace PicoMRDemo.Runtime.UI
                 Page.Close();
                 Page.Show(data);
             }
-            
+
         }
 
         private void OnCeilingButton(bool isOn)
@@ -118,7 +118,7 @@ namespace PicoMRDemo.Runtime.UI
                 Page.Close();
                 Page.Show(data);
             }
-            
+
         }
 
     }

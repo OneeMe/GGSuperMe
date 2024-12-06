@@ -14,14 +14,14 @@ using Newtonsoft.Json;
 using UnityEngine;
 using Application = UnityEngine.Device.Application;
 
-namespace PicoMRDemo.Runtime.Data.Decoration
+namespace GGSuperMe.Runtime.Data.Decoration
 {
     [Serializable]
     public class PersistentData
     {
         [JsonProperty("anchorData")]
         public UUID2ItemId[] AnchorData;
-        [JsonProperty("themeData")] 
+        [JsonProperty("themeData")]
         public ThemeData[] ThemeDatas;
     }
     public class PersistentLoader : IPersistentLoader
@@ -33,7 +33,7 @@ namespace PicoMRDemo.Runtime.Data.Decoration
 
         private readonly string TAG = nameof(PersistentLoader);
         private readonly string DataPath = Path.Combine(Application.persistentDataPath, "uuid.json");
-        
+
         public bool TryGetItemInfo(Guid uuid, out UUID2ItemId itemInfo)
         {
             return _uuid2ItemId.TryGetValue(uuid, out itemInfo);
@@ -53,7 +53,7 @@ namespace PicoMRDemo.Runtime.Data.Decoration
                 _uuid2ItemId.Clear();
                 _decorationDatas.Clear();
                 var uuidDataJson = await File.ReadAllTextAsync(DataPath);
-                Debug.unityLogger.Log(TAG, "Read json "+uuidDataJson);
+                Debug.unityLogger.Log(TAG, "Read json " + uuidDataJson);
                 var persistentData = JsonConvert.DeserializeObject<PersistentData>(uuidDataJson);
                 if (persistentData != null)
                 {
@@ -94,7 +94,7 @@ namespace PicoMRDemo.Runtime.Data.Decoration
             }
         }
 
-        
+
         public void StageAllItemData(IList<UUID2ItemId> data)
         {
             _uuid2ItemId.Clear();
@@ -116,16 +116,16 @@ namespace PicoMRDemo.Runtime.Data.Decoration
         {
             var persistentData = new PersistentData()
             {
-                AnchorData = _uuid2ItemId.Select(x=>x.Value).ToArray(),
+                AnchorData = _uuid2ItemId.Select(x => x.Value).ToArray(),
                 ThemeDatas = _decorationDatas.Select(x => new ThemeData()
                 {
                     Type = x.Value.Type,
                     Id = x.Value.ID
                 }).ToArray()
             };
-            
+
             Debug.unityLogger.Log(TAG, $"PersistentData: AnchorData.Length: {persistentData.AnchorData.Length}");
-            
+
             string json = JsonConvert.SerializeObject(persistentData);
 
             Debug.unityLogger.Log(TAG, $"Start Write PersistentData, DataPath: {DataPath}");

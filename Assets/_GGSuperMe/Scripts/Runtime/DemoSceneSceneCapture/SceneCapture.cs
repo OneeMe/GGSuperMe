@@ -11,7 +11,7 @@ using Unity.XR.PXR;
 using System;
 using System.IO;
 using System.Linq;
-using PicoMRDemo.Runtime.Utils;
+using GGSuperMe.Runtime.Utils;
 using UnityEngine.Rendering;
 
 
@@ -52,7 +52,7 @@ public class SceneCapture : MonoBehaviour
 
     private async void Update()
     {
-        if (_needUpdateRoomEntities&&!_isLoadingRoomAnchors)
+        if (_needUpdateRoomEntities && !_isLoadingRoomAnchors)
         {
             _isLoadingRoomAnchors = true;
             var result = await PXR_MixedReality.QuerySceneAnchorAsync(flags, default);
@@ -93,81 +93,81 @@ public class SceneCapture : MonoBehaviour
                                     case PxrSemanticLabel.Table:
                                     case PxrSemanticLabel.Chair:
                                     case PxrSemanticLabel.Human:
-                                    {
-                                        PXR_MixedReality.GetSceneBox3DData(key, out position, out rotation,
-                                            out var extent);
-                                        //extent: x-width, y-height, z-depth from center
-                                        var newSofa = Instantiate(sofaPrefab, anchorObject.transform, true);
-                                        //All info is relative to the anchor position
-                                        newSofa.transform.localPosition = position;
-                                        newSofa.transform.localRotation = rotation;
-                                        newSofa.transform.localScale = extent;
-                                    }
+                                        {
+                                            PXR_MixedReality.GetSceneBox3DData(key, out position, out rotation,
+                                                out var extent);
+                                            //extent: x-width, y-height, z-depth from center
+                                            var newSofa = Instantiate(sofaPrefab, anchorObject.transform, true);
+                                            //All info is relative to the anchor position
+                                            newSofa.transform.localPosition = position;
+                                            newSofa.transform.localRotation = rotation;
+                                            newSofa.transform.localScale = extent;
+                                        }
                                         break;
                                     //Wall/Window/Door
                                     //Plane: Anchor is located in the center of the plane
                                     //x-axis - width, yaxis - height, zaxis - normal vector
                                     case PxrSemanticLabel.Wall:
                                     case PxrSemanticLabel.VirtualWall:
-                                    {
-                                        PXR_MixedReality.GetSceneBox2DData(key, out var center, out var extent);
-                                        var wall = Instantiate(wallPrefab, anchorObject.transform, true);
-                                        wall.transform.localPosition = Vector3.zero; //we are already at center
-                                        wall.transform.localRotation = Quaternion.identity;
-                                        wall.transform.Rotate(90, 0, 0);
-                                        //extent - Vector2: x-width, y-depth
-                                        //0.001f because I want a thin wall
-                                        //increase wall height to cover any gaps
-                                        wall.transform.localScale = new Vector3(extent.x, 0.001f, extent.y * 1.1f);
-                                        wallAnchors.Add(wall.transform);
-                                    }
+                                        {
+                                            PXR_MixedReality.GetSceneBox2DData(key, out var center, out var extent);
+                                            var wall = Instantiate(wallPrefab, anchorObject.transform, true);
+                                            wall.transform.localPosition = Vector3.zero; //we are already at center
+                                            wall.transform.localRotation = Quaternion.identity;
+                                            wall.transform.Rotate(90, 0, 0);
+                                            //extent - Vector2: x-width, y-depth
+                                            //0.001f because I want a thin wall
+                                            //increase wall height to cover any gaps
+                                            wall.transform.localScale = new Vector3(extent.x, 0.001f, extent.y * 1.1f);
+                                            wallAnchors.Add(wall.transform);
+                                        }
                                         break;
                                     //Windows are labeled as Doors
                                     case PxrSemanticLabel.Window:
                                     case PxrSemanticLabel.Door:
                                     case PxrSemanticLabel.Opening:
-                                    {
-                                        PXR_MixedReality.GetSceneBox2DData(key, out var center, out var extent);
-                                        var windowDoor = Instantiate(windowDoorPrefab, anchorObject.transform, true);
-                                        windowDoor.transform.localPosition = Vector3.zero; //we are already at center
-                                        windowDoor.transform.localRotation = Quaternion.identity;
-                                        windowDoor.transform.Rotate(90, 0, 0);
-                                        //extent - Vector2: x-width, y-depth
-                                        //0.001f because I want a thin wall
-                                        //increase wall height to cover any gaps
-                                        windowDoor.transform.localScale = new Vector3(extent.x, 0.002f, extent.y);
-                                    }
+                                        {
+                                            PXR_MixedReality.GetSceneBox2DData(key, out var center, out var extent);
+                                            var windowDoor = Instantiate(windowDoorPrefab, anchorObject.transform, true);
+                                            windowDoor.transform.localPosition = Vector3.zero; //we are already at center
+                                            windowDoor.transform.localRotation = Quaternion.identity;
+                                            windowDoor.transform.Rotate(90, 0, 0);
+                                            //extent - Vector2: x-width, y-depth
+                                            //0.001f because I want a thin wall
+                                            //increase wall height to cover any gaps
+                                            windowDoor.transform.localScale = new Vector3(extent.x, 0.002f, extent.y);
+                                        }
                                         break;
                                     //Not currently supported in the current SDK Version
                                     //!PXR_MixedReality.GetAnchorPlanePolygonInfo(ulong anchorHandle, out Vector3[] vertices)
                                     //but! we know the anchor object as at the center
                                     case PxrSemanticLabel.Ceiling:
                                     case PxrSemanticLabel.Floor:
-                                    {
-                                        PXR_MixedReality.GetScenePolygonData(key, out var vertices);
-                                        var verVector3S = Array.ConvertAll(vertices, v2 => new Vector3(v2.x, v2.y, 0f));
-                                        var roomObject = MeshGenerator.GeneratePolygonMesh(verVector3S, roomEntityMaterial);
-                                        roomObject.transform.parent = anchorObject.transform;
-                                        roomObject.transform.localRotation = Quaternion.identity;
-                                        roomObject.transform.localPosition = Vector3.zero;
-                                        roomObject.transform.localScale = Vector3.one;
-                                        var meshCollider = roomObject.AddComponent<MeshCollider>();
-                                        meshCollider.convex = false;
-                                        meshCollider.enabled = true;
-                                        
-                                    }
+                                        {
+                                            PXR_MixedReality.GetScenePolygonData(key, out var vertices);
+                                            var verVector3S = Array.ConvertAll(vertices, v2 => new Vector3(v2.x, v2.y, 0f));
+                                            var roomObject = MeshGenerator.GeneratePolygonMesh(verVector3S, roomEntityMaterial);
+                                            roomObject.transform.parent = anchorObject.transform;
+                                            roomObject.transform.localRotation = Quaternion.identity;
+                                            roomObject.transform.localPosition = Vector3.zero;
+                                            roomObject.transform.localScale = Vector3.one;
+                                            var meshCollider = roomObject.AddComponent<MeshCollider>();
+                                            meshCollider.convex = false;
+                                            meshCollider.enabled = true;
+
+                                        }
                                         break;
                                     case PxrSemanticLabel.Unknown:
-                                    {
-                                        PXR_MixedReality.GetSceneBox3DData(key, out position, out rotation,
-                                            out var extent);
-                                        //extent: x-width, y-height, z-depth from center
-                                        var newSofa = Instantiate(sofaPrefab, anchorObject.transform, true);
-                                        //All info is relative to the anchor position
-                                        newSofa.transform.localPosition = position;
-                                        newSofa.transform.localRotation = rotation;
-                                        newSofa.transform.localScale = extent;
-                                    }
+                                        {
+                                            PXR_MixedReality.GetSceneBox3DData(key, out position, out rotation,
+                                                out var extent);
+                                            //extent: x-width, y-height, z-depth from center
+                                            var newSofa = Instantiate(sofaPrefab, anchorObject.transform, true);
+                                            //All info is relative to the anchor position
+                                            newSofa.transform.localPosition = position;
+                                            newSofa.transform.localRotation = rotation;
+                                            newSofa.transform.localScale = extent;
+                                        }
                                         break;
                                 }
                             }
@@ -178,13 +178,13 @@ public class SceneCapture : MonoBehaviour
             }
         }
     }
-        
-    
+
+
     // Start is called before the first frame update
     async void Start()
     {
         StartSceneCaptureProvider();
-        
+
     }
     private async void StartSceneCaptureProvider()
     {
@@ -207,22 +207,22 @@ public class SceneCapture : MonoBehaviour
             return;
 
         currDriftDelay += Time.deltaTime;
-        if(currDriftDelay >= maxDriftDelay)
+        if (currDriftDelay >= maxDriftDelay)
         {
             currDriftDelay = 0f;
-            foreach(var handlePair in anchorMap)
+            foreach (var handlePair in anchorMap)
             {
                 var handle = handlePair.Key;
                 var anchorTransform = handlePair.Value;
 
-                if(handle == UInt64.MinValue)
+                if (handle == UInt64.MinValue)
                 {
                     continue;
                 }
 
                 PXR_MixedReality.LocateAnchor(handle, out var position, out var rotation);
-                anchorTransform.position= position;
-                anchorTransform.rotation= rotation;
+                anchorTransform.position = position;
+                anchorTransform.rotation = rotation;
             }
         }
     }
@@ -246,12 +246,12 @@ public class SceneCapture : MonoBehaviour
     };
     private async void LoadSpaceData()
     {
-        
+
         Debug.Log($"Start LoadSpaceData");
         //This will trigger AnchorEntityLoaded Event
         PXR_Manager.SceneAnchorDataUpdated += DoSceneAnchorDataUpdated;
         _isLoadingRoomAnchors = true;
-        var result = await PXR_MixedReality.QuerySceneAnchorAsync(flags,default);
+        var result = await PXR_MixedReality.QuerySceneAnchorAsync(flags, default);
         _isLoadingRoomAnchors = false;
         Debug.Log($"Start LoadSpaceData result " + result.result);
         if (result.result == PxrResult.SUCCESS)
@@ -265,7 +265,7 @@ public class SceneCapture : MonoBehaviour
                     //Load an anchor at position 
                     GameObject anchorObject = Instantiate(anchorPrefab);
 
-                    PXR_MixedReality.LocateAnchor(key, out var position,out var rotation);
+                    PXR_MixedReality.LocateAnchor(key, out var position, out var rotation);
                     anchorObject.transform.position = position;
                     anchorObject.transform.rotation = rotation;
                     //Now anchor is at correct position in our space
@@ -277,9 +277,9 @@ public class SceneCapture : MonoBehaviour
                     anchorMap.Add(key, anchorObject.transform);
 
                     PxrResult labelResult = PXR_MixedReality.GetSceneSemanticLabel(key, out var label);
-                    if(labelResult == PxrResult.SUCCESS)
+                    if (labelResult == PxrResult.SUCCESS)
                     {
-                        
+
                         anchor.UpdateLabel(label.ToString());
                         switch (label)
                         {
@@ -290,7 +290,7 @@ public class SceneCapture : MonoBehaviour
                             case PxrSemanticLabel.Chair:
                             case PxrSemanticLabel.Human:
                                 {
-                                    PXR_MixedReality.GetSceneBox3DData(key, out position,out rotation, out var extent);
+                                    PXR_MixedReality.GetSceneBox3DData(key, out position, out rotation, out var extent);
                                     //extent: x-width, y-height, z-depth from center
                                     var newSofa = Instantiate(sofaPrefab, anchorObject.transform, true);
                                     //All info is relative to the anchor position
@@ -349,12 +349,12 @@ public class SceneCapture : MonoBehaviour
                                     var meshCollider = roomObject.AddComponent<MeshCollider>();
                                     meshCollider.convex = false;
                                     meshCollider.enabled = true;
-                                    
+
                                 }
                                 break;
                             case PxrSemanticLabel.Unknown:
                                 {
-                                    PXR_MixedReality.GetSceneBox3DData(key, out position,out rotation, out var extent);
+                                    PXR_MixedReality.GetSceneBox3DData(key, out position, out rotation, out var extent);
                                     //extent: x-width, y-height, z-depth from center
                                     var newSofa = Instantiate(sofaPrefab, anchorObject.transform, true);
                                     //All info is relative to the anchor position
@@ -363,7 +363,7 @@ public class SceneCapture : MonoBehaviour
                                     newSofa.transform.localScale = extent;
                                 }
                                 break;
-                                
+
                         }
                     }
                 }
