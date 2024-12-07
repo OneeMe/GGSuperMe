@@ -45,7 +45,7 @@ namespace GGSuperMe.Runtime.Game
         public ControllerManager ControllerManager;
         public GameObject spatialMeshManager;
         public GameObject deviceSimulator;
-        public bool isShowEnterGuide = true;
+        public bool isShowEnterGuide = false;
         private void Awake()
         {
             if (Instance == null)
