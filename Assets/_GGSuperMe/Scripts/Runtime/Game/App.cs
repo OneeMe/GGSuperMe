@@ -151,27 +151,34 @@ namespace GGSuperMe.Runtime.Game
             // Turn on MR mode
             PXR_Manager.EnableVideoSeeThrough = true;
             Debug.unityLogger.Log(_tag, "Turn on MR mode");
+
+            // 仍然需要初始化这些Provider
             await StartSceneCaptureProvider();
             await StartSpatialAnchorProvider();
             Debug.unityLogger.Log(_tag, $"Init Provider Success");
-            var result = await PXR_MixedReality.StartSceneCaptureAsync();
-            Debug.unityLogger.Log($"StartSceneCaptureAsync: {result}");
-            Debug.unityLogger.Log(_tag, $"StartSceneCaptureAsync Success");
+
+            // 移除自动场景捕获
+            // var result = await PXR_MixedReality.StartSceneCaptureAsync();
+            // Debug.unityLogger.Log($"StartSceneCaptureAsync: {result}");
+            // Debug.unityLogger.Log(_tag, $"StartSceneCaptureAsync Success");
+
             var spatialState = await CheckSpatialTrackingStateAsync();
             if (spatialState)
             {
                 Debug.unityLogger.Log(_tag, $"Init Spatial Tracking State Success");
-                var entityManager = Container.Resolve<IEntityManager>();
-                Debug.unityLogger.Log(_tag, "Start Load Room Entities");
-                await entityManager.LoadRoomEntities();
-                Debug.unityLogger.Log(_tag, "Load Room Entities Finished");
+                // 移除自动加载房间实体
+                // var entityManager = Container.Resolve<IEntityManager>();
+                // Debug.unityLogger.Log(_tag, "Start Load Room Entities");
+                // await entityManager.LoadRoomEntities();
+                // Debug.unityLogger.Log(_tag, "Load Room Entities Finished");
 
 #if !UNITY_EDITOR
                 var persistentLoader = Container.Resolve<IPersistentLoader>();
                 await persistentLoader.LoadAllData();
 #endif
-                var roomService = Container.Resolve<IRoomService>();
-                roomService.EnterRoom();
+                // 移除自动进入房间
+                // var roomService = Container.Resolve<IRoomService>();
+                // roomService.EnterRoom();
             }
             else
             {
