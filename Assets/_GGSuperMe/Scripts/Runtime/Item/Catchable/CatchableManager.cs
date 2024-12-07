@@ -8,7 +8,7 @@
 using System;
 using GGSuperMe.Runtime.Pet;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace GGSuperMe.Runtime.Runtime.Item
 {
@@ -24,7 +24,7 @@ namespace GGSuperMe.Runtime.Runtime.Item
             catchable.CatchObject = owner;
             catchable.PetAgent = owner.GetComponent<PetAgent>();
             var rig = catchable.GameObject.GetComponent<Rigidbody>();
-            var collider = catchable.GameObject.GetComponent<XRGrabInteractable>().colliders[0];
+            var collider = catchable.GameObject.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>().colliders[0];
             collider.enabled = false;
             rig.isKinematic = true;
         }
@@ -33,7 +33,7 @@ namespace GGSuperMe.Runtime.Runtime.Item
         public void Uncatch(ICatchable catchable)
         {
             var rig = catchable.GameObject.GetComponent<Rigidbody>();
-            var collider = catchable.GameObject.GetComponent<XRGrabInteractable>().colliders[0];
+            var collider = catchable.GameObject.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>().colliders[0];
             var owner = catchable.CatchObject;
             rig.isKinematic = false;
             catchable.CatchObject = null;

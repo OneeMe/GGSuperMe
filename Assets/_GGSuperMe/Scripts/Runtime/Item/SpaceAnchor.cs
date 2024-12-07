@@ -13,7 +13,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpaceAnchor : MonoBehaviour
 {
-    private XRBaseInteractable interactable;
+    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable interactable;
     [SerializeField]
     public TextMeshProUGUI labelText;
 
@@ -22,7 +22,7 @@ public class SpaceAnchor : MonoBehaviour
     // Start is called before the first frame update
     protected void OnEnable()
     {
-        interactable = GetComponent<XRBaseInteractable>();
+        interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable>();
         interactable.firstHoverEntered.AddListener(OnFirstHoverEntered);
         interactable.lastHoverExited.AddListener(OnLastHoverExited);
     }

@@ -15,7 +15,7 @@ using GGSuperMe.Runtime.Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.XR.Interaction.Toolkit;
+
 using VContainer;
 
 namespace GGSuperMe.Runtime.UI
@@ -126,9 +126,9 @@ namespace GGSuperMe.Runtime.UI
                     showImage.sprite = decorationData.Sprite;
                 }
 
-                button.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener((arg =>
+                button.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.AddListener((arg =>
                 {
-                    bool isLeftController = ControllerManager.Instance.LeftControllerRoot == arg.interactor.gameObject;
+                    bool isLeftController = ControllerManager.Instance.LeftControllerRoot == arg.interactableObject.transform;
                     if (ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
                     {
 
@@ -172,7 +172,7 @@ namespace GGSuperMe.Runtime.UI
             var buttons = Root.GetComponentsInChildren<Button>();
             foreach (var pressableButton in buttons)
             {
-                pressableButton.GetComponent<XRSimpleInteractable>().lastSelectExited.RemoveAllListeners();
+                pressableButton.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.RemoveAllListeners();
                 _buttonPool.Enqueue(pressableButton);
                 pressableButton.transform.SetParent(Pool);
             }

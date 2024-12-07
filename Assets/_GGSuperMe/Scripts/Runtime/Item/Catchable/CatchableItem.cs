@@ -16,7 +16,7 @@ namespace GGSuperMe.Runtime.Runtime.Item
         [HideInInspector]
         private ICatchable Catchable;
 
-        private XRGrabInteractable _grabInteractable;
+        private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable _grabInteractable;
 
         public event Action<ICatchable> OnDropItem;
         protected override void Awake()
@@ -33,7 +33,7 @@ namespace GGSuperMe.Runtime.Runtime.Item
 
         private void InitController()
         {
-            _grabInteractable = gameObject.GetComponent<XRGrabInteractable>();
+            _grabInteractable = gameObject.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
             if (_grabInteractable != null)
             {
                 _grabInteractable.selectEntered.AddListener(OnSelectEnter);

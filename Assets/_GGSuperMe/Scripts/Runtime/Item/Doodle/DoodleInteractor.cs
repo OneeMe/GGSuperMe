@@ -12,7 +12,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace GGSuperMe.Runtime.Runtime.Item
 {
-    public class DoodleInteractor : XRBaseInteractor
+    public class DoodleInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor
     {
         public Color32 drawingColor = new Color32(0, 0, 0, 255);
 

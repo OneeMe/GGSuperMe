@@ -15,10 +15,10 @@ using Unity.XR.PXR;
 using UnityEngine.PlayerLoop;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(XRSimpleInteractable))]
+[RequireComponent(typeof(UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable))]
 public class SharedAnchor : MonoBehaviour
 {
-    private XRBaseInteractable interactable;
+    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable interactable;
 
     [HideInInspector]
     public ulong anchorHandle;
@@ -77,7 +77,7 @@ public class SharedAnchor : MonoBehaviour
 
     protected void OnEnable()
     {
-        interactable = GetComponent<XRBaseInteractable>();
+        interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable>();
         interactable.firstHoverEntered.AddListener(OnFirstHoverEntered);
         interactable.lastHoverExited.AddListener(OnLastHoverExited);
     }

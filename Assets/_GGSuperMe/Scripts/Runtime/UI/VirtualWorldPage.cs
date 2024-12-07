@@ -54,12 +54,12 @@ namespace GGSuperMe.Runtime.UI
 
         private void RegisterEvent()
         {
-            playButton.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener(OnVirtualWorld);
+            playButton.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.AddListener(OnVirtualWorld);
         }
 
         private void UnregisterEvent()
         {
-            playButton.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener(OnVirtualWorld);
+            playButton.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.AddListener(OnVirtualWorld);
         }
 
         private void OnVirtualWorld(SelectExitEventArgs selectExitEventArgs)
@@ -79,7 +79,7 @@ namespace GGSuperMe.Runtime.UI
             }
             if (virtualWorld.Count > 0)
             {
-                bool isLeftController = selectExitEventArgs != null && ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactor.gameObject;
+                bool isLeftController = selectExitEventArgs != null && ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactableObject.transform;
                 if (_virtualWorldManager.IsStart || ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
                 {
 

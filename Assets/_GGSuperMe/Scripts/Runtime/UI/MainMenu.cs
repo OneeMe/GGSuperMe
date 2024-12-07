@@ -19,6 +19,9 @@ namespace GGSuperMe.Runtime.UI
         public Toggle PaintShootButton;
         public Toggle DebugMainPageButton;
 
+        [Header("Buttons")]
+        public Button LogWindowButton;
+
         private Vector3 _cameraPosition;
 
         public event Action OnClose;

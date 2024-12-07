@@ -18,6 +18,8 @@
     "com.unity.timeline": "1.7.6",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.4",
+    "com.unity.xr.hands": "1.5.0",
+    "com.unity.xr.interaction.toolkit": "3.0.7",
     "com.unity.xr.management": "4.4.0",
     "com.unity.xr.openxr": "1.12.0",
     "com.unity.xr.picoxr": "https://github.com/Pico-Developer/PICO-Unity-Integration-SDK.git",

@@ -53,12 +53,12 @@ namespace GGSuperMe.Runtime.UI
 
         private void RegisterEvent()
         {
-            playButton.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener(OnShoot);
+            playButton.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.AddListener(OnShoot);
         }
 
         private void UnregisterEvent()
         {
-            playButton.GetComponent<XRSimpleInteractable>().lastSelectExited.RemoveListener(OnShoot);
+            playButton.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.RemoveListener(OnShoot);
         }
 
         public delegate void Action<in T>(T obj);
@@ -81,7 +81,7 @@ namespace GGSuperMe.Runtime.UI
 
             if (shootingGame.Count > 0)
             {
-                bool isLeftController = ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactor.gameObject;
+                bool isLeftController = ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactableObject.transform;
                 if (_shootingGameManager.IsStart || ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
                 {
 

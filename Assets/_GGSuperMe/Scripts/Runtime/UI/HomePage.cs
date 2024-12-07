@@ -73,7 +73,7 @@ namespace GGSuperMe.Runtime.UI
             SaveThemeDataButton.onClick.AddListener(OnSaveThemeDataButton);
             ClearThemeDataButton.onClick.AddListener(OnClearThemeDataButton);
             ReCaptureRoomButton.onClick.AddListener(OnReCaptureRoomButton);
-            SpatialAnchorButton.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener(OnCreateAnchor);
+            SpatialAnchorButton.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.AddListener(OnCreateAnchor);
         }
 
         private void UnregisterEvent()
@@ -81,7 +81,7 @@ namespace GGSuperMe.Runtime.UI
             SaveThemeDataButton.onClick.RemoveListener(OnSaveThemeDataButton);
             ClearThemeDataButton.onClick.RemoveListener(OnClearThemeDataButton);
             ReCaptureRoomButton.onClick.RemoveListener(OnReCaptureRoomButton);
-            SpatialAnchorButton.GetComponent<XRSimpleInteractable>().lastSelectExited.RemoveListener(OnCreateAnchor);
+            SpatialAnchorButton.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.RemoveListener(OnCreateAnchor);
         }
         private async void OnSaveThemeDataButton()
         {
@@ -111,7 +111,7 @@ namespace GGSuperMe.Runtime.UI
         {
             Debug.Log("OnCreateAnchor");
 
-            bool isLeftController = ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactor.gameObject;
+            bool isLeftController = ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactableObject.transform;
             if (_roomService.IsAnchorCreate() || ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
             {
 
@@ -134,7 +134,7 @@ namespace GGSuperMe.Runtime.UI
                 });
                 ControllerManager.Instance.BingingSecondaryHotKey(isLeftController, (args) =>
                 {
-                    if ((isLeftController ? ControllerManager.Instance.LeftControllerRoot : ControllerManager.Instance.RightControllerRoot).GetComponent<XRRayInteractor>()
+                    if ((isLeftController ? ControllerManager.Instance.LeftControllerRoot : ControllerManager.Instance.RightControllerRoot).GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor>()
                         .TryGetCurrent3DRaycastHit(out var hit))
                     {
                         if (hit.collider.CompareTag("SpaceAnchor"))

@@ -22,8 +22,8 @@ namespace GGSuperMe.Runtime.Runtime.Item
         public ItemState ItemState => StateMachine.ActiveState.name;
         public ulong Id { get; set; }
 
-        protected XRSimpleInteractable simpleInteractable;
-        protected XRGrabInteractable grabInteractable;
+        protected UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable simpleInteractable;
+        protected UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
         protected StateMachine<ItemState> StateMachine;
 
         private bool _useGravity;
@@ -31,9 +31,9 @@ namespace GGSuperMe.Runtime.Runtime.Item
 
         protected virtual void Awake()
         {
-            simpleInteractable = GetComponentInChildren<XRSimpleInteractable>();
+            simpleInteractable = GetComponentInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>();
             if (simpleInteractable == null)
-                grabInteractable = GetComponentInChildren<XRGrabInteractable>();
+                grabInteractable = GetComponentInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
             StateMachine = new StateMachine<ItemState>();
             if (this.GetComponent<Rigidbody>())
             {

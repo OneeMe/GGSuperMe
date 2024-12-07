@@ -15,7 +15,7 @@ using GGSuperMe.Runtime.Service;
 using UnityEngine;
 using VContainer;
 using GGSuperMe.Runtime.UI;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace GGSuperMe.Runtime.Runtime.BallDrop
 {
@@ -47,7 +47,7 @@ namespace GGSuperMe.Runtime.Runtime.BallDrop
         /// <param name="isLeftController">Boolean value, indicating whether to use a left-hand controller or a right-hand controller</param>
         public void DeleteObj(bool isLeftController)
         {
-            if ((isLeftController ? ControllerManager.Instance.LeftControllerRoot : ControllerManager.Instance.RightControllerRoot).GetComponent<XRRayInteractor>()
+            if ((isLeftController ? ControllerManager.Instance.LeftControllerRoot : ControllerManager.Instance.RightControllerRoot).GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor>()
                 .TryGetCurrent3DRaycastHit(out var hit))
             {
                 if (hit.collider.CompareTag("BallDropBall"))

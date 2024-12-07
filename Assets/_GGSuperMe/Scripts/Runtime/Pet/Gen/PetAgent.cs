@@ -20,7 +20,7 @@ using GGSuperMe.Runtime.Runtime.Pet;
 using GGSuperMe.Runtime.Service;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
-using UnityEngine.XR.Interaction.Toolkit;
+
 using GGSuperMe.Runtime.UI;
 using UnityEngine;
 
@@ -151,7 +151,7 @@ namespace GGSuperMe.Runtime.Pet
 		}
 
 		///<<< BEGIN WRITING YOUR CODE CLASS_PART
-		public XRBaseInteractable Interactable;
+		public UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable Interactable;
 		public PetBehaviors PetBehaviors;
 		public Transform FollowTransform;
 

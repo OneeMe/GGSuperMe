@@ -446,16 +446,16 @@ namespace GGSuperMe.Runtime.UI
         {
             if (LeftControllerRoot.GetComponent<ActionBasedController>().model != null)
                 LeftControllerRoot.GetComponent<ActionBasedController>().model.gameObject.SetActive(isShowModel);
-            if (LeftControllerRoot.GetComponent<XRRayInteractor>() != null)
-                LeftControllerRoot.GetComponent<XRRayInteractor>().enabled = isShowLine;
+            if (LeftControllerRoot.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor>() != null)
+                LeftControllerRoot.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor>().enabled = isShowLine;
         }
 
         private void SetRightControllerStatus(bool isShowModel, bool isShowLine)
         {
             if (RightControllerRoot.GetComponent<ActionBasedController>().model != null)
                 RightControllerRoot.GetComponent<ActionBasedController>().model.gameObject.SetActive(isShowModel);
-            if (RightControllerRoot.GetComponent<XRRayInteractor>() != null)
-                RightControllerRoot.GetComponent<XRRayInteractor>().enabled = isShowLine;
+            if (RightControllerRoot.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor>() != null)
+                RightControllerRoot.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor>().enabled = isShowLine;
         }
         public void UnBingingGameHotKey(bool isLeftController)
         {

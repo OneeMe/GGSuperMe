@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 using Unity.Collections;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace GGSuperMe.Runtime.Runtime.Item
 {
@@ -18,7 +18,7 @@ namespace GGSuperMe.Runtime.Runtime.Item
         void ClearAllGraffitiable();
     }
 
-    public class Whiteboard : XRBaseInteractable, IGraffitiable
+    public class Whiteboard : UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable, IGraffitiable
     {
         public int TextureSize = 512;
 

@@ -85,13 +85,13 @@ namespace GGSuperMe.Runtime.UI
 
         private void RegisterEvent()
         {
-            PlayButton.GetComponent<XRSimpleInteractable>().lastSelectExited.AddListener(OnPaint);
+            PlayButton.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.AddListener(OnPaint);
 
         }
 
         private void UnregisterEvent()
         {
-            PlayButton.GetComponent<XRSimpleInteractable>().lastSelectExited.RemoveListener(OnPaint);
+            PlayButton.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().lastSelectExited.RemoveListener(OnPaint);
 
         }
 
@@ -123,7 +123,7 @@ namespace GGSuperMe.Runtime.UI
 
             if (paintGame.Count > 0)
             {
-                bool isLeftController = ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactor.gameObject;
+                bool isLeftController = ControllerManager.Instance.LeftControllerRoot == selectExitEventArgs.interactableObject.transform;
                 if (_paintBallGameManager.IsStart || ControllerManager.Instance.GetControllerState(isLeftController) != ControllerState.Normal)
                 {
 
